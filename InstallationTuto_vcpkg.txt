@@ -1,0 +1,42 @@
+nugget, conan, chocolatey, jfrog, azure, custom cd/ci, vcpkg, git submodules
+
+cmake
+
+_________________________________
+
+VCPKG:
+
+cd C:\Users\franciscofp4\Desktop\GameEngineTest
+git submodule add https://github.com/microsoft/vcpkg.git
+git submodule update --init --recursive
+
+.\vcpkg\bootstrap-vcpkg.bat
+
+.\vcpkg\vcpkg.exe search opengl
+.\vcpkg\vcpkg.exe search glew
+.\vcpkg\vcpkg.exe search sdl2
+.\vcpkg\vcpkg.exe search imgui
+
+.\vcpkg\vcpkg.exe install opengl:x64-windows
+.\vcpkg\vcpkg.exe install glm
+.\vcpkg\vcpkg.exe install glew:x64-windows
+.\vcpkg\vcpkg.exe install sdl2:x64-windows
+.\vcpkg\vcpkg.exe install imgui[opengl3-binding,sdl2-binding]:x64-windows
+
+?????docking experimental del imgui?????
+
+
+
+___________________________________
+
+/bin -> dll to run the project (ned to be in working directory //OutputDir)
+/include -> all the includes
+/lib -> libs
+
+/license -> licenses
+
+
+añadir todas las librerias en linker->input->aditional dependences
+
+
+https://learn.microsoft.com/en-us/cpp/build/walkthrough-creating-and-using-a-static-library-cpp?view=msvc-170
