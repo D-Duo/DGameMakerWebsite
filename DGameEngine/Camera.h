@@ -1,6 +1,6 @@
 #pragma once
 
-#include "types.h"
+#include "EngineGlobals.h"
 
 struct Camera
 {

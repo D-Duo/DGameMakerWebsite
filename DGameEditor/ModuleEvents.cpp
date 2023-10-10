@@ -1,5 +1,5 @@
-#include "Globals.h"
-
+#include "EditorGlobals.h"
+#include "ModuleEvents.h"
 
 ModuleEvents::ModuleEvents()
 {

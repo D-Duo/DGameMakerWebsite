@@ -1,4 +1,5 @@
-#include "Globals.h"
+#include "EditorGlobals.h"
+#include "ModuleWindow.h"
 
 ModuleWindow::ModuleWindow()
 {

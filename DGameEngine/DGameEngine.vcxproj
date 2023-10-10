@@ -25,7 +25,7 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="DGameEngine.h" />
-    <ClInclude Include="types.h" />
+    <ClInclude Include="EngineGlobals.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -127,7 +127,8 @@
     </Lib>
     <PreBuildEvent>
       <Command>call $(SolutionDir)vcpkg\bootstrap-vcpkg.bat
-$(SolutionDir)vcpkg\vcpkg.exe install opengl glew glm --recurse --triplet x64-windows</Command>
+$(SolutionDir)vcpkg\vcpkg.exe install opengl glew glm assimp --recurse --triplet x64-windows
+</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

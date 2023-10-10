@@ -35,7 +35,7 @@
     <ClInclude Include="ModuleWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Globals.h">
+    <ClInclude Include="EditorGlobals.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ModuleGL.h">

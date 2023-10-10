@@ -1,8 +1,6 @@
 #pragma once
 
-#include <chrono>
-
-#include "types.h"
+#include "EngineGlobals.h"
 #include "Camera.h"
 
 class GameEngine

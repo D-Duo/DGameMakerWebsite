@@ -40,3 +40,14 @@ añadir todas las librerias en linker->input->aditional dependences
 
 
 https://learn.microsoft.com/en-us/cpp/build/walkthrough-creating-and-using-a-static-library-cpp?view=msvc-170
+
+___________________________________
+
+Software patterns
+
+- Component based architecture
+- Singleton
+- DDD: domain driven development
+- DI: dependency injection
+- TDD: test driven development
+- IoC: inversion of control

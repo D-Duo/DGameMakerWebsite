@@ -1,4 +1,6 @@
-#include "Globals.h"
+#include "EditorGlobals.h"
+#include "ModuleGL.h"
+#include "ModuleWindow.h"
 
 ModuleGL::ModuleGL()
 {

@@ -1,6 +1,5 @@
+#include "EngineGlobals.h"
 #include "DGameEngine.h"
-#include <GL\glew.h>
-#include <glm/ext/matrix_transform.hpp>
 
 static double angle = 0.0;
 

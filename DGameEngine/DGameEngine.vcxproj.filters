@@ -29,7 +29,7 @@
     <ClInclude Include="DGameEngine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="types.h">
+    <ClInclude Include="EngineGlobals.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

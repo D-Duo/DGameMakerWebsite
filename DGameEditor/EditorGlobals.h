@@ -1,12 +1,5 @@
 #pragma once
 
-#pragma comment(lib, "shell32.lib")
-
-using namespace std;
-
-//GLOBAL VAR
-
-
 //INCLIUDES
 #include "..\DGameEngine\DGameEngine.h"
 
@@ -24,9 +17,10 @@ using namespace std;
 #include "imgui_impl_sdl2.h"
 #include "imgui_impl_opengl3.h"
 
-//    Project Files
-//        Headers
-#include "ModuleWindow.h"
-#include "ModuleGL.h"
-#include "ModuleEvents.h"
-#include "ModuleGUI.h"
+//GLOBAL VAR
+
+
+
+#pragma comment(lib, "shell32.lib")
+
+using namespace std;
