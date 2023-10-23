@@ -32,6 +32,6 @@ typedef glm::dmat4 mat4;
 
 
 #pragma comment(lib, "shell32.lib")
-#pragma comment(lib, "assimp.lib")
+#pragma comment(lib, "assimp-vc143-mt.lib")
 
 using namespace std;

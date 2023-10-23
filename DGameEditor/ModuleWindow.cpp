@@ -14,11 +14,11 @@ SDL_Window* ModuleWindow::SDLWindowInit() {
 
     SDL_version compiled;
     SDL_VERSION(&compiled);
-    cout << "SDL Compiled with " << to_string(compiled.major) << '.' << to_string(compiled.minor) << '.' << to_string(compiled.patch);
+    cout << "SDL Compiled with " << to_string(compiled.major) << '.' << to_string(compiled.minor) << '.' << to_string(compiled.patch) << endl;
 
     SDL_version linked;
     SDL_GetVersion(&linked);
-    cout << "SDL Linked with " << to_string(linked.major) << '.' << to_string(linked.minor) << '.' << to_string(linked.patch);
+    cout << "SDL Linked with " << to_string(linked.major) << '.' << to_string(linked.minor) << '.' << to_string(linked.patch) << endl;
 
     // setup SDL window
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
