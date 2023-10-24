@@ -25,13 +25,13 @@ public:
 	virtual void Start() {}
 
 	// Called each loop iteration (first in execution)
-	virtual void PreUpdate() {}
+	virtual bool PreUpdate() {}
 
 	// Called each loop iteration (second in execution)
-	virtual void Update() {}
+	virtual bool Update(double dt) {}
 
 	// Called each loop iteration (third in execution)
-	virtual void PostUpdate() {}
+	virtual bool PostUpdate() {}
 
 	// Called to clean the module before quiting or when it gets disabled
 	virtual void CleanUp() {}

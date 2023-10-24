@@ -12,9 +12,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ModuleGL.cpp">
-      <Filter>Sources\Modules</Filter>
-    </ClCompile>
     <ClCompile Include="ModuleGUI.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
@@ -24,20 +21,17 @@
     <ClCompile Include="ModuleWindow.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="DGameEditor.cpp">
-      <Filter>Sources\Core</Filter>
-    </ClCompile>
     <ClCompile Include="App.cpp">
       <Filter>Sources\Core</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>Sources\Core</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleRenderer.cpp">
+      <Filter>Sources\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ModuleGL.h">
-      <Filter>Sources\Modules</Filter>
-    </ClInclude>
     <ClInclude Include="ModuleEvents.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
@@ -55,6 +49,9 @@
     </ClInclude>
     <ClInclude Include="App.h">
       <Filter>Sources\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleRenderer.h">
+      <Filter>Sources\Modules</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

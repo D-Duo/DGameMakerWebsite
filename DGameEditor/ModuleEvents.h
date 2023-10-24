@@ -1,6 +1,7 @@
 #pragma once
+#include "Module.h"
 
-class ModuleEvents
+class ModuleEvents : public Module
 {
 public:
 	ModuleEvents();

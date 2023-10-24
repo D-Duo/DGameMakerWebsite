@@ -45,14 +45,16 @@ bool App::DoUpdate() {
 	auto frameStartTime = std::chrono::high_resolution_clock::now();
 
     // Update the delta time for this frame execution
+    bool ret = true;
+
     this->UpdateDeltaTime();
 
 	// Update the active modules
-	this->PreUpdate();
+    if (ret) { ret = this->PreUpdate(); }
 
-	this->Update();
+    if (ret) { ret = this->Update(this->dt); }    
 
-	this->PostUpdate();
+    if (ret) { ret = this->PostUpdate(); }
 
     // Calculate the elapsed time for the frame
     auto frameEndTime = std::chrono::high_resolution_clock::now();
@@ -64,42 +66,65 @@ bool App::DoUpdate() {
     if (sleepTime > 0) {
         std::this_thread::sleep_for(std::chrono::duration<double>(sleepTime));
     }
+
+    return ret;
 }
 
 bool App::PreUpdate() {
-
+    bool ret;
     for (const auto& item : modules)
     {
         if (item->GetState() == States::DISABLED)
             continue;
 
-        item->PreUpdate();
+        ret = item->PreUpdate();
         cout << "Performed PreUpdate of Module " << item->name << endl;
+
+        if (!ret) {
+            break;
+            cout << "Stopped execution on the PreUpdate of Module " << item->name << endl;
+        }
     }
+
+    return ret;
 }
 
-bool App::Update() {
-
+bool App::Update(double dt) {
+    bool ret;
     for (const auto& item : modules)
     {
         if (item->GetState() == States::DISABLED)
             continue;
 
-        item->Update();
+        ret = item->Update(this->dt);
         cout << "Performed Update of Module " << item->name << endl;
+
+        if (!ret) {
+            break;
+            cout << "Stopped execution on the Update of Module " << item->name << endl;
+        }
     }
+
+    return ret;
 }
 
 bool App::PostUpdate() {
-
+    bool ret;
     for (const auto& item : modules)
     {
         if (item->GetState() == States::DISABLED)
             continue;
 
-        item->PostUpdate();
+        ret = item->PostUpdate();
         cout << "Performed PostUpdate of Module " << item->name << endl;
+
+        if (!ret) {
+            break;
+            cout << "Stopped execution on the PostUpdate of Module " << item->name << endl;
+        }
     }
+
+    return ret;
 }
 
 void App::CleanUp() {

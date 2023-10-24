@@ -3,6 +3,8 @@
 #include "EditorGlobals.h"
 #include "Module.h"
 
+#include"ModuleWindow.h"
+
 using namespace chrono;
 
 // Modules Classes
@@ -20,7 +22,8 @@ private:
 	list<Module*> modules;
 
 	// FPS control
-	double dt, previousTime, targetFrameTime;
+	duration<double> dt;
+	double previousTime, targetFrameTime;
 	double frameRate = 60.0; // 60 frames per second
 
 public:
@@ -51,7 +54,7 @@ public:
 		this->targetFrameTime = 1.0 / newFrameRate;
 	}
 
-	double GetDeltaTime() {
+	duration<double> GetDeltaTime() {
 		return dt;
 	}
 
@@ -69,7 +72,7 @@ private:
 	bool PreUpdate();
 
 	// Call active modules to perform Update
-	bool Update();
+	bool Update(double dt);
 
 	// Call active modules to perform PostUpdate
 	bool PostUpdate();
@@ -85,7 +88,7 @@ private:
 
 	void UpdateDeltaTime() {
 		double currentTime = GetCurrentTime();
-		this->dt = currentTime - this->previousTime;
+		this->dt = duration<double>(currentTime - this->previousTime);
 
 		this->previousTime = currentTime;
 	}
