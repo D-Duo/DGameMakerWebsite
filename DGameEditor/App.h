@@ -3,17 +3,27 @@
 #include "EditorGlobals.h"
 #include "Module.h"
 
-#include"ModuleWindow.h"
+#include "ModuleWindow.h"
+#include "ModuleEvents.h"
+#include "ModuleRenderer.h"
+#include "ModuleGUI.h"
 
 using namespace chrono;
 
 // Modules Classes
+class ModuleWindow;
+class ModuleEvents;
+class ModuleRenderer;
+class ModuleGUI;
 
 class App
 {
 public:
 	// Modules
-
+	ModuleWindow* window;
+	ModuleEvents* events;
+	ModuleRenderer* renderer;
+	ModuleGUI* gui;
 
 private:
 	int argc;
@@ -72,7 +82,7 @@ private:
 	bool PreUpdate();
 
 	// Call active modules to perform Update
-	bool Update(double dt);
+	bool Update();
 
 	// Call active modules to perform PostUpdate
 	bool PostUpdate();

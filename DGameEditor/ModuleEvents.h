@@ -4,11 +4,13 @@
 class ModuleEvents : public Module
 {
 public:
-	ModuleEvents();
+	ModuleEvents(bool startEnabled);
 	~ModuleEvents();
 
-	static bool SDLEventsProcess();
+	void Awake();
+
+	bool PreUpdate();
 
 private:
-
+	static bool SDLEventsProcess();
 };

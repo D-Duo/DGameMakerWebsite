@@ -22,6 +22,7 @@ public:
 	void CleanUp();
 
 	SDL_Window* GetWindow() { return window; }
+	SDL_GLContext GetContext() { return gl_context; }
 
 private:
 	static SDL_Window* SDLWindowInit();

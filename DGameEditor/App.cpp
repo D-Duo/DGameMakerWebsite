@@ -3,9 +3,17 @@
 App::App(int argc, char* args[]) : argc(argc), args(args) {
     
     // Create the modules here (module = new Module(true);)
+    window = new ModuleWindow(true);
+    events = new ModuleEvents(true);
+    renderer = new ModuleRenderer(true);
+    gui = new ModuleGUI(true);
 
     // Add the modules to the modules list in the proper order (AddModule(module);)
+    AddModule(window);
+    AddModule(events);
 
+    AddModule(renderer);
+    AddModule(gui);
 }
 
 App::~App()
@@ -52,9 +60,11 @@ bool App::DoUpdate() {
 	// Update the active modules
     if (ret) { ret = this->PreUpdate(); }
 
-    if (ret) { ret = this->Update(this->dt); }    
+    if (ret) { ret = this->Update(); }    
 
     if (ret) { ret = this->PostUpdate(); }
+
+    cout << "==============================================================" << endl;
 
     // Calculate the elapsed time for the frame
     auto frameEndTime = std::chrono::high_resolution_clock::now();
@@ -85,11 +95,12 @@ bool App::PreUpdate() {
             cout << "Stopped execution on the PreUpdate of Module " << item->name << endl;
         }
     }
+    cout << endl;
 
     return ret;
 }
 
-bool App::Update(double dt) {
+bool App::Update() {
     bool ret;
     for (const auto& item : modules)
     {
@@ -104,6 +115,7 @@ bool App::Update(double dt) {
             cout << "Stopped execution on the Update of Module " << item->name << endl;
         }
     }
+    cout << endl;
 
     return ret;
 }
@@ -123,6 +135,7 @@ bool App::PostUpdate() {
             cout << "Stopped execution on the PostUpdate of Module " << item->name << endl;
         }
     }
+    cout << endl;
 
     return ret;
 }

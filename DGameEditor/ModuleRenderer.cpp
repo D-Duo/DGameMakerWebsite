@@ -1,15 +1,14 @@
 #include "ModuleRenderer.h"
 #include "App.h"
 
-ModuleRenderer::ModuleRenderer(bool startEnabled) : Module(startEnabled) {}
+ModuleRenderer::ModuleRenderer(bool startEnabled) : Module(startEnabled)
+{
+    name = "renderer";
+}
 
 ModuleRenderer::~ModuleRenderer() {}
 
 void ModuleRenderer::Awake() {
-
-}
-
-void ModuleRenderer::Start() {
     engine.camera.fov = 60;
     engine.camera.aspect = static_cast<double>(WIN_WIDTH) / WIN_HEIGHT;
     engine.camera.zNear = 0.1;
@@ -19,13 +18,17 @@ void ModuleRenderer::Start() {
     engine.camera.up = vec3(0, 1, 0);
 }
 
+void ModuleRenderer::Start() {
+    
+}
+
 bool ModuleRenderer::PreUpdate() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
     return true;
 }
 
-bool ModuleRenderer::Update(double dt) {
+bool ModuleRenderer::Update(duration<double> dt) {
     engine.step(app->GetDeltaTime());    
 
     return true;
@@ -36,9 +39,13 @@ bool ModuleRenderer::PostUpdate() {
 
     engine.render(GameEngine::RenderModes::DEBUG); //engine render
 
-    SDL_GL_SwapWindow(window);
+    SDL_GL_SwapWindow(app->window->GetWindow());
 
     //render of modules
 
     return true;
+}
+
+void ModuleRenderer::CleanUp() {
+
 }

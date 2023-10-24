@@ -14,7 +14,7 @@ public:
     void Start();
 
     bool PreUpdate();
-    bool Update(double dt);
+    bool Update(std::chrono::duration<double> dt);
     bool PostUpdate();
 
     void CleanUp();

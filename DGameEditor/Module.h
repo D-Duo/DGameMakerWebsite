@@ -25,13 +25,13 @@ public:
 	virtual void Start() {}
 
 	// Called each loop iteration (first in execution)
-	virtual bool PreUpdate() {}
+	virtual bool PreUpdate() { return true; }
 
 	// Called each loop iteration (second in execution)
-	virtual bool Update(double dt) {}
+	virtual bool Update(std::chrono::duration<double> dt) { return true; }
 
 	// Called each loop iteration (third in execution)
-	virtual bool PostUpdate() {}
+	virtual bool PostUpdate() { return true; }
 
 	// Called to clean the module before quiting or when it gets disabled
 	virtual void CleanUp() {}

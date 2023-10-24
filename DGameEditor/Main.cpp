@@ -1,6 +1,8 @@
 #include "EditorGlobals.h"
 #include "App.h"
 
+App* app = nullptr;
+
 int main(int argc, char* args[])
 {
     cout << "Starting " << TITLE << endl;
