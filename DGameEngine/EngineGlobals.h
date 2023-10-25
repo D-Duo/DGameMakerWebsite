@@ -23,15 +23,19 @@
 #include <glm/vec4.hpp>
 #include <glm/mat4x4.hpp>
 
+#include <chrono>
+
 //TYPES
 typedef glm::dvec3 vec3;
 typedef glm::dvec4 vec4;
 typedef glm::dmat4 mat4;
 
-//GLOBAL VAR
-
-
 #pragma comment(lib, "shell32.lib")
 #pragma comment(lib, "assimp-vc143-mt.lib")
 
 using namespace std;
+using namespace chrono;
+
+//GLOBAL VAR
+static const unsigned int FPS = 60;
+static const auto FDT = 1.0s / FPS;

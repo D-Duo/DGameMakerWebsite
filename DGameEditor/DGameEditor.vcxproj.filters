@@ -30,6 +30,9 @@
     <ClCompile Include="ModuleRenderer.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleEngineManager.cpp">
+      <Filter>Sources\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ModuleEvents.h">
@@ -51,6 +54,9 @@
       <Filter>Sources\Core</Filter>
     </ClInclude>
     <ClInclude Include="ModuleRenderer.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleEngineManager.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
   </ItemGroup>

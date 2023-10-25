@@ -2,11 +2,13 @@
 
 #include "Module.h"
 
-class ModuleRenderer : public Module
+#include "..\DGameEngine\DGameEngine.h"
+
+class ModuleEngineManager : public Module
 {
 public:
-	ModuleRenderer(bool startEnabled);
-	~ModuleRenderer();
+    ModuleEngineManager(bool startEnabled);
+    ~ModuleEngineManager();
 
     void Awake();
     void Start();
@@ -18,6 +20,6 @@ public:
     void CleanUp();
 
 private:
-
+    GameEngine engine;
 };
 

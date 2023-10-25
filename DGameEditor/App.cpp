@@ -5,15 +5,17 @@ App::App(int argc, char* args[]) : argc(argc), args(args) {
     // Create the modules here (module = new Module(true);)
     window = new ModuleWindow(true);
     events = new ModuleEvents(true);
-    renderer = new ModuleRenderer(true);
+    engineManager = new ModuleEngineManager(true);
     gui = new ModuleGUI(true);
+    renderer = new ModuleRenderer(true);
 
     // Add the modules to the modules list in the proper order (AddModule(module);)
     AddModule(window);
     AddModule(events);
+    AddModule(engineManager);
 
-    AddModule(renderer);
     AddModule(gui);
+    AddModule(renderer);
 }
 
 App::~App()
@@ -91,8 +93,8 @@ bool App::PreUpdate() {
         cout << "Performed PreUpdate of Module " << item->name << endl;
 
         if (!ret) {
-            break;
             cout << "Stopped execution on the PreUpdate of Module " << item->name << endl;
+            break;
         }
     }
     cout << endl;
@@ -111,8 +113,8 @@ bool App::Update() {
         cout << "Performed Update of Module " << item->name << endl;
 
         if (!ret) {
-            break;
             cout << "Stopped execution on the Update of Module " << item->name << endl;
+            break;
         }
     }
     cout << endl;
@@ -131,8 +133,8 @@ bool App::PostUpdate() {
         cout << "Performed PostUpdate of Module " << item->name << endl;
 
         if (!ret) {
-            break;
             cout << "Stopped execution on the PostUpdate of Module " << item->name << endl;
+            break;
         }
     }
     cout << endl;

@@ -5,16 +5,18 @@
 
 #include "ModuleWindow.h"
 #include "ModuleEvents.h"
-#include "ModuleRenderer.h"
+#include "ModuleEngineManager.h"
 #include "ModuleGUI.h"
+#include "ModuleRenderer.h"
 
 using namespace chrono;
 
 // Modules Classes
 class ModuleWindow;
 class ModuleEvents;
-class ModuleRenderer;
+class ModuleEngineManager;
 class ModuleGUI;
+class ModuleRenderer;
 
 class App
 {
@@ -22,8 +24,9 @@ public:
 	// Modules
 	ModuleWindow* window;
 	ModuleEvents* events;
-	ModuleRenderer* renderer;
+	ModuleEngineManager* engineManager;
 	ModuleGUI* gui;
+	ModuleRenderer* renderer;
 
 private:
 	int argc;
