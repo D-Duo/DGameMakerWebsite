@@ -1,17 +1,45 @@
-#include <iostream>
-#include <sstream>
-#include "imgui.h"
-#include "imgui_impl_sdl2.h"
-#include "imgui_impl_opengl3.h"
-#include "SDL2/SDL.h"
-#include "SDL2/SDL_opengl.h"
-
 #include "ModuleGUI.h"
+#include "App.h"
 
-ModuleGUI::ModuleGUI()
+ModuleGUI::ModuleGUI(bool startEnabled) : Module(startEnabled)
 {
 	show_demo_window = true;
 	show_another_window = false;
+	name = "GUI";
+}
+
+ModuleGUI::~ModuleGUI() {}
+
+void ModuleGUI::Awake() {
+	this->ImguiInit(app->window->GetWindow(), app->window->GetContext());
+}
+
+void ModuleGUI::Start() {
+
+}
+
+bool ModuleGUI::PreUpdate() {
+
+
+	return true;
+}
+
+bool ModuleGUI::Update(std::chrono::duration<double> dt) {
+	ImGui_ImplOpenGL3_NewFrame();
+	ImGui_ImplSDL2_NewFrame();
+	ImGui::NewFrame();
+	ImGui::ShowDemoWindow(); // Show demo window! :)
+	this->ImguiExample();
+	glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
+
+	return true;
+}
+
+bool ModuleGUI::PostUpdate() {
+	ImGui::Render();
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+	return true;
 }
 
 void ModuleGUI::ImguiInit(SDL_Window *window, SDL_GLContext gl_context){
@@ -68,7 +96,7 @@ void ModuleGUI::ImguiExample() {
 	}
 }
 
-void ModuleGUI::ImguiCleanUp() {
+void ModuleGUI::CleanUp() {
 	// Cleanup ImGui
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplSDL2_Shutdown();
