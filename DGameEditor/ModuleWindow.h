@@ -3,7 +3,7 @@
 #include "Module.h"
 
 // Window Configuration -----------
-#define WIN_WIDTH (720*4/3)
+#define WIN_WIDTH (720*16/9)
 #define WIN_HEIGHT 720
 
 #define WIN_FULLSCREEN 0
@@ -19,10 +19,16 @@ public:
 	~ModuleWindow();
 
 	void Awake();
+	bool PreUpdate();
 	void CleanUp();
 
 	SDL_Window* GetWindow() { return window; }
 	SDL_GLContext GetContext() { return gl_context; }
+	void UpdateWindowContext(SDL_Window* window, SDL_GLContext gl_context);
+
+	I_Point GetWindowSize() {
+		return windowSize;
+	}
 
 private:
 	static SDL_Window* SDLWindowInit();
@@ -31,6 +37,7 @@ private:
 	static void OpenGLInit();
 
 private:
+	I_Point windowSize; // x = width  ||  y = height
 	SDL_Window* window;
 	SDL_GLContext gl_context;
 };

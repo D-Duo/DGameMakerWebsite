@@ -79,6 +79,11 @@ public:
 		frameRate = newFrameRate;
 	}
 
+	void RequestBrowser(const char* link)
+	{
+		ShellExecuteA(NULL, "open", link, NULL, NULL, SW_SHOWNORMAL);
+	}
+
 private:
 
 	// Call active modules to perform PreUpdate

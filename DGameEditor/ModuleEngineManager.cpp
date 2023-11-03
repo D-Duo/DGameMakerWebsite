@@ -16,6 +16,9 @@ void ModuleEngineManager::Awake() {
     engine.camera.eye = vec3(5, 1.75, 5);
     engine.camera.center = vec3(0, 1, 0);
     engine.camera.up = vec3(0, 1, 0);
+
+    engine.grid_xy = true;
+    engine.grid_xy = true;
 }
 
 void ModuleEngineManager::Start() {
@@ -34,8 +37,15 @@ bool ModuleEngineManager::Update(duration<double> dt) {
 }
 
 bool ModuleEngineManager::PostUpdate() {
-    engine.render(GameEngine::RenderModes::DEBUG); //engine render
-    
+    if (app->gui->w_scene->GetWindowState() == States::ENABLED) {
+        app->gui->w_scene->SceneFBO.Bind_FrameBuffer();
+        engine.render(GameEngine::RenderModes::DEBUG); //engine render
+        app->gui->w_scene->SceneFBO.Unbind_FrameBuffer();
+    }
+    else {
+        engine.render(GameEngine::RenderModes::DEBUG); //engine render
+    }
+
     return true;
 }
 

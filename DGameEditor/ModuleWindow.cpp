@@ -14,6 +14,16 @@ void ModuleWindow::Awake() {
     this->window = SDLWindowInit();
     this->gl_context = CreateWindowContext(window);
     OpenGLInit();
+    SDL_GetWindowSize(window, &windowSize.x, &windowSize.y);
+}
+
+bool ModuleWindow::PreUpdate() {
+    SDL_GetWindowSize(window, &windowSize.x, &windowSize.y);
+    glViewport(0, 0, windowSize.x, windowSize.y);
+    glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    return true;
 }
 
 void ModuleWindow::CleanUp() {
@@ -67,6 +77,12 @@ SDL_GLContext ModuleWindow::CreateWindowContext(SDL_Window* window) {
     if (SDL_GL_MakeCurrent(window, gl_context) != 0) throw exception(SDL_GetError());
     if (SDL_GL_SetSwapInterval(1) != 0) throw exception(SDL_GetError());
     return gl_context;
+}
+
+void ModuleWindow::UpdateWindowContext(SDL_Window* window, SDL_GLContext gl_context) {
+    if (!gl_context) throw exception(SDL_GetError());
+    if (SDL_GL_MakeCurrent(window, gl_context) != 0) throw exception(SDL_GetError());
+    if (SDL_GL_SetSwapInterval(1) != 0) throw exception(SDL_GetError());
 }
 
 void ModuleWindow::OpenGLInit() {

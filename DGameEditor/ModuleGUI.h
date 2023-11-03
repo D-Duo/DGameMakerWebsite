@@ -1,9 +1,33 @@
 #pragma once
 
 #include "Module.h"
+#include "GUI_Window.h"
+
+#include "WindowScene.h"
+#include "WindowHierarchy.h"
+#include "WindowInspector.h"
+#include "WindowProject.h"
+#include "WindowConsole.h"
+#include "WindowSettings.h"
+
+// GUI Windows
+class WindowScene;
+class WindowHierarchy;
+class WindowInspector;
+class WindowProject;
+class WindowConsole;
+class WindowSettings;
 
 class ModuleGUI : public Module
 {
+public:
+	WindowScene* w_scene;
+	WindowHierarchy* w_hierarchy;
+	WindowInspector* w_inspector;
+	WindowProject* w_project;
+	WindowConsole* w_console;
+	WindowSettings* w_settings;
+
 public:
 	ModuleGUI(bool startEnabled);
 	~ModuleGUI();
@@ -20,15 +44,17 @@ public:
 
 	void CleanUp();
 
+	void AddWindow(GUI_Window* window);
+
 private:
 	void ImguiInit(SDL_Window* window, SDL_GLContext gl_context);
-
-	void ImguiExample();
+	
+	bool ImguiDockspace();
+	void ImguiSetup();
 
 public:
 	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
 private:
-	bool show_demo_window = true;
-	bool show_another_window = false;
+	list<GUI_Window*> windows;
 };
