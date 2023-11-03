@@ -9,6 +9,16 @@ static bool PopupWindowsUpdate() {
         ImGui::EndPopup();
     }
 
+    if (ImGui::BeginPopupModal("MyPopup", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
+        // Content for your popup window goes here.
+        ImGui::Text("This is a modal popup window.");
+        if (ImGui::Button("Close")) {
+            ImGui::CloseCurrentPopup(); // Close the popup when the "Close" button is clicked.
+        }
+
+        ImGui::EndPopup(); // Close the popup window.
+    }
+
     /*if (ImGui::BeginPopupModal("About this engine...", &App->editor->show_about_window, ImGuiWindowFlags_AlwaysAutoResize))
     {
         ImGui::Text("%s\nA simple engine for 3D game development.\nBy %s, %s", App->GetTitle(), App->GetAuthors(), App->GetOrganization());

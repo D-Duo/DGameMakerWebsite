@@ -55,6 +55,11 @@ private:
 public:
 	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
+	ImFont* font1_body_12;
+	ImFont* font1_body_14;
+	ImFont* font1_title_18;
+	ImFont* font_awesome_title;
+
 private:
 	list<GUI_Window*> windows;
 };

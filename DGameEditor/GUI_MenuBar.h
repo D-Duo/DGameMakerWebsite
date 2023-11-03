@@ -93,7 +93,7 @@ static bool MenuBarUpdate() {
             ImGui::Separator();
 
             if (ImGui::MenuItem("Settings...")) {
-                ImGui::OpenPopup("Settings Window");
+                ImGui::OpenPopup("MyPopup"); // Open the modal popup when the button is clicked.
             }
 
             ImGui::EndMenu();
