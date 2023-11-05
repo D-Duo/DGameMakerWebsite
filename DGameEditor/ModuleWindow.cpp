@@ -1,5 +1,6 @@
 #include "EditorGlobals.h"
 #include "ModuleWindow.h"
+#include "EngineGlobals.h"
 
 ModuleWindow::ModuleWindow(bool startEnabled) : Module(startEnabled)
 {
@@ -14,6 +15,11 @@ void ModuleWindow::Awake() {
     this->window = SDLWindowInit();
     this->gl_context = CreateWindowContext(window);
     OpenGLInit();
+
+    // Stream log messages to Debug window
+    struct aiLogStream stream;
+    stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
+    aiAttachLogStream(&stream);
 }
 
 void ModuleWindow::CleanUp() {
@@ -22,6 +28,9 @@ void ModuleWindow::CleanUp() {
 
     if (window != NULL) { SDL_DestroyWindow(window); }
     if (gl_context != NULL) { SDL_GL_DeleteContext(gl_context); }
+
+    // detach log stream
+    aiDetachAllLogStreams();
 
     SDL_Quit();
 }
