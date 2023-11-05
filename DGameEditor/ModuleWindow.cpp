@@ -1,5 +1,6 @@
 #include "EditorGlobals.h"
 #include "ModuleWindow.h"
+#include "App.h"
 
 ModuleWindow::ModuleWindow(bool startEnabled) : Module(startEnabled)
 {
@@ -14,6 +15,16 @@ void ModuleWindow::Awake() {
     this->window = SDLWindowInit();
     this->gl_context = CreateWindowContext(window);
     OpenGLInit();
+    SDL_GetWindowSize(window, &windowSize.x, &windowSize.y);
+}
+
+bool ModuleWindow::PreUpdate() {
+    SDL_GetWindowSize(window, &windowSize.x, &windowSize.y);
+    glViewport(0, 0, windowSize.x, windowSize.y);
+    glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    return true;
 }
 
 void ModuleWindow::CleanUp() {
@@ -55,7 +66,8 @@ SDL_Window* ModuleWindow::SDLWindowInit() {
     if (WIN_FULLSCREEN_DESKTOP == true) flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
     if (OPENGL == true) flags |= SDL_WINDOW_OPENGL;
 
-    auto window = SDL_CreateWindow("SDL+OpenGL Window", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIN_WIDTH, WIN_HEIGHT, flags);
+    string windowTitle = app->GetAppDetails().name + " - product of " + app->GetAppDetails().org.name;
+    auto window = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIN_WIDTH, WIN_HEIGHT, flags);
     if (!window) throw exception(SDL_GetError());
 
      return window;
@@ -67,6 +79,12 @@ SDL_GLContext ModuleWindow::CreateWindowContext(SDL_Window* window) {
     if (SDL_GL_MakeCurrent(window, gl_context) != 0) throw exception(SDL_GetError());
     if (SDL_GL_SetSwapInterval(1) != 0) throw exception(SDL_GetError());
     return gl_context;
+}
+
+void ModuleWindow::UpdateWindowContext(SDL_Window* window, SDL_GLContext gl_context) {
+    if (!gl_context) throw exception(SDL_GetError());
+    if (SDL_GL_MakeCurrent(window, gl_context) != 0) throw exception(SDL_GetError());
+    if (SDL_GL_SetSwapInterval(1) != 0) throw exception(SDL_GetError());
 }
 
 void ModuleWindow::OpenGLInit() {

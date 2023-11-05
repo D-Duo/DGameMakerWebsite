@@ -10,11 +10,20 @@
     <Filter Include="Sources\Core">
       <UniqueIdentifier>{05e89fe1-2d35-4304-9354-55a7b785580f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Modules\GUI">
+      <UniqueIdentifier>{3c6c3e91-f324-470b-8185-8aef0e804270}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Modules\GUI\GUI Elements">
+      <UniqueIdentifier>{79dcec48-90b9-47ba-880c-a193313e8eb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Modules\GUI\GUI Elements\GUI Windows">
+      <UniqueIdentifier>{f41508c5-83e8-476a-8b40-3360509f671d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Utils">
+      <UniqueIdentifier>{cbe322ab-3b9c-445b-b4eb-1c378dce628e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ModuleGUI.cpp">
-      <Filter>Sources\Modules</Filter>
-    </ClCompile>
     <ClCompile Include="ModuleEvents.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
@@ -33,12 +42,36 @@
     <ClCompile Include="ModuleEngineManager.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleGUI.cpp">
+      <Filter>Sources\Modules\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowScene.cpp">
+      <Filter>Sources\Modules\GUI\GUI Elements\GUI Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowHierarchy.cpp">
+      <Filter>Sources\Modules\GUI\GUI Elements\GUI Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowInspector.cpp">
+      <Filter>Sources\Modules\GUI\GUI Elements\GUI Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowProject.cpp">
+      <Filter>Sources\Modules\GUI\GUI Elements\GUI Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowConsole.cpp">
+      <Filter>Sources\Modules\GUI\GUI Elements\GUI Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameBuffer.cpp">
+      <Filter>Sources\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowSettings.cpp">
+      <Filter>Sources\Modules\GUI\GUI Elements\GUI Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowAbout.cpp">
+      <Filter>Sources\Modules\GUI\GUI Elements\GUI Windows</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ModuleEvents.h">
-      <Filter>Sources\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleGUI.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
     <ClInclude Include="ModuleWindow.h">
@@ -58,6 +91,42 @@
     </ClInclude>
     <ClInclude Include="ModuleEngineManager.h">
       <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleGUI.h">
+      <Filter>Sources\Modules\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI_Window.h">
+      <Filter>Sources\Modules\GUI\GUI Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowScene.h">
+      <Filter>Sources\Modules\GUI\GUI Elements\GUI Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI_MenuBar.h">
+      <Filter>Sources\Modules\GUI\GUI Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowHierarchy.h">
+      <Filter>Sources\Modules\GUI\GUI Elements\GUI Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowInspector.h">
+      <Filter>Sources\Modules\GUI\GUI Elements\GUI Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowProject.h">
+      <Filter>Sources\Modules\GUI\GUI Elements\GUI Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowConsole.h">
+      <Filter>Sources\Modules\GUI\GUI Elements\GUI Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameBuffer.h">
+      <Filter>Sources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowSettings.h">
+      <Filter>Sources\Modules\GUI\GUI Elements\GUI Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowAbout.h">
+      <Filter>Sources\Modules\GUI\GUI Elements\GUI Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="DualStreamBuffering.h">
+      <Filter>Sources\Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
