@@ -2,7 +2,6 @@
 #include "App.h"
 
 #include "GUI_MenuBar.h"
-#include "GUI_PopupWindows.h"
 
 ModuleGUI::ModuleGUI(bool startEnabled) : Module(startEnabled)
 {
@@ -57,7 +56,6 @@ bool ModuleGUI::PreUpdate() {
 bool ModuleGUI::Update(std::chrono::duration<double> dt) {
 	bool ret = true;
 	this->ImguiSetup();
-	ret = PopupWindowsUpdate();
 
 	return ret;
 }
@@ -103,7 +101,7 @@ void ModuleGUI::ImguiInit(SDL_Window *window, SDL_GLContext gl_context){
 	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;		  // Enable multiple Viewports
 	font1_body_12 = io.Fonts->AddFontFromFileTTF("Assets/Fonts/font_1.ttf", 12);  // Add custom font
 	font1_body_14 = io.Fonts->AddFontFromFileTTF("Assets/Fonts/font_1.ttf", 14);  // Add custom font
-	io.FontDefault = io.Fonts->Fonts.back();											 // Set this font as the default one
+	io.FontDefault = io.Fonts->Fonts.back();									  // Set this font as the default one
 	font1_title_18 = io.Fonts->AddFontFromFileTTF("Assets/Fonts/font_1.ttf", 18);  // Add custom font
 	font_awesome_title = io.Fonts->AddFontFromFileTTF("Assets/Fonts/font_awesome.ttf", 20);  // Add custom font
 
@@ -120,13 +118,7 @@ void ModuleGUI::ImguiInit(SDL_Window *window, SDL_GLContext gl_context){
 	// Set up ImGui style (optional)
 	ImGui::StyleColorsDark();
 
-	ImGuiStyle& style = ImGui::GetStyle();
-
-	// Modify window background color
-	style.Colors[ImGuiCol_Border] = ImVec4(91.0f, 123.0f, 218.0f, 0.72f); // RGBA format
-
-	// Modify text color
-	style.Colors[ImGuiCol_Text] = ImVec4(1.0f, 1.0f, 1.0f, 1.0f); // White text
+	//style.Colors[ImGuiCol_Border] = ImVec4(91.0f, 123.0f, 218.0f, 0.72f); // Set specific color (RGBA) for a specific part of the UI
 }
 
 bool ModuleGUI::ImguiDockspace() {

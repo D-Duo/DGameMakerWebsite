@@ -1,7 +1,11 @@
 #include "App.h"
 
 App::App(int argc, char* args[]) : argc(argc), args(args) {
-    
+    list<string> members = { "Jan Neto Llorens", "Francisco Ferreros" };
+    details.name = "D. Game Engine";
+    details.org.name = "D. Duo";
+    details.org.members = members;
+
     // Create the modules here (module = new Module(true);)
     window = new ModuleWindow(true);
     events = new ModuleEvents(true);

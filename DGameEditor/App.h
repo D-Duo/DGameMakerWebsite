@@ -18,6 +18,18 @@ class ModuleEngineManager;
 class ModuleGUI;
 class ModuleRenderer;
 
+struct Organization
+{
+    std::string name;
+    std::list<std::string> members;
+};
+
+struct AppDetails
+{
+    std::string name;
+    Organization org;
+};
+
 class App
 {
 public:
@@ -110,6 +122,16 @@ private:
 
 		this->previousTime = currentTime;
 	}
+
+
+	// SECTION - Engine details
+public:
+	AppDetails GetAppDetails() {
+		return details;
+	}
+
+private:
+	AppDetails details;
 };
 
 extern App* app;

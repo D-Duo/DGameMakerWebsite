@@ -1,5 +1,6 @@
 #include "EditorGlobals.h"
 #include "ModuleWindow.h"
+#include "App.h"
 
 ModuleWindow::ModuleWindow(bool startEnabled) : Module(startEnabled)
 {
@@ -65,7 +66,8 @@ SDL_Window* ModuleWindow::SDLWindowInit() {
     if (WIN_FULLSCREEN_DESKTOP == true) flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
     if (OPENGL == true) flags |= SDL_WINDOW_OPENGL;
 
-    auto window = SDL_CreateWindow("SDL+OpenGL Window", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIN_WIDTH, WIN_HEIGHT, flags);
+    string windowTitle = app->GetAppDetails().name + " - product of " + app->GetAppDetails().org.name;
+    auto window = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIN_WIDTH, WIN_HEIGHT, flags);
     if (!window) throw exception(SDL_GetError());
 
      return window;

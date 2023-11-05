@@ -119,8 +119,5 @@
     <ClInclude Include="WindowSettings.h">
       <Filter>Sources\Modules\GUI\GUI Elements\GUI Windows</Filter>
     </ClInclude>
-    <ClInclude Include="GUI_PopupWindows.h">
-      <Filter>Sources\Modules\GUI\GUI Elements</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

@@ -60,6 +60,9 @@ public:
 	ImFont* font1_title_18;
 	ImFont* font_awesome_title;
 
+	bool settingsState = false;
+	bool aboutState = false;
+
 private:
 	list<GUI_Window*> windows;
 };

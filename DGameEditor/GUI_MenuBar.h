@@ -3,6 +3,9 @@
 #include "EditorGlobals.h"
 
 static bool MenuBarUpdate() {
+
+    ImGui::StyleColorsLight();
+
     if (ImGui::BeginMenuBar()) {
         GameEngine* engine_p = app->engineManager->GetEngine();
         if (ImGui::BeginMenu("File")) {
@@ -92,8 +95,17 @@ static bool MenuBarUpdate() {
 
             ImGui::Separator();
 
-            if (ImGui::MenuItem("Settings...")) {
-                ImGui::OpenPopup("MyPopup"); // Open the modal popup when the button is clicked.
+            if (ImGui::Button("Settings...")) {
+                app->gui->settingsState = true;
+                ImGui::OpenPopup("Settings Window");
+            }
+
+            if (ImGui::BeginPopupModal("Settings Window", &app->gui->settingsState, ImGuiWindowFlags_AlwaysAutoResize))
+            {
+                ImGui::Text("a");
+                
+
+                ImGui::EndPopup();
             }
 
             ImGui::EndMenu();
@@ -215,7 +227,83 @@ static bool MenuBarUpdate() {
 
         if (ImGui::BeginMenu("Help")) {
             if (ImGui::Button("About D. Game Engine")) {
+                app->gui->aboutState = true;
                 ImGui::OpenPopup("About this engine...");
+            }
+
+            if (ImGui::BeginPopupModal("About this engine...", &app->gui->aboutState, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_AlwaysVerticalScrollbar | ImGuiWindowFlags_NoSavedSettings))
+            {
+                ImGui::SetNextWindowSize(ImVec2(50, 50));
+                ImGui::SetNextWindowPos(ImVec2(0, 0));
+
+                ImGui::Text("%s\nCustom Game engine for 3D games, currently in development, created by students for the sillabus Game Engines of the degree Game Design & Development of the UPC in Barcelona.\nCreated by:\n", app->GetAppDetails().name.c_str());
+                
+                for (const std::string& member : app->GetAppDetails().org.members) {
+                    ImGui::Text("%s\n", member.c_str());
+                }
+                ImGui::Separator();
+
+                ImGui::Text("3rd Party Libraries used:\n");
+                ImGui::Bullet();
+                if (ImGui::SmallButton("STL (C++11)")) {
+                    app->RequestBrowser("https://www.geeksforgeeks.org/the-c-standard-template-library-stl/");
+                }
+                ImGui::Bullet();
+                if (ImGui::SmallButton("SDL (v2.0.10)")) {
+                    app->RequestBrowser("https://www.libsdl.org/");
+                }
+                ImGui::Bullet();
+                if (ImGui::SmallButton("OpenGL (v3.1.0)")) {
+                    app->RequestBrowser("https://www.opengl.org/");
+                }
+                ImGui::Bullet();
+                if (ImGui::SmallButton("DevIL (v1.8.0)")) {
+                    app->RequestBrowser("http://openil.sourceforge.net/");
+                }
+                ImGui::Bullet();
+                if (ImGui::SmallButton("Assimp (v5.0.0)")) {
+                    app->RequestBrowser("http://assimp.org/");
+                }
+                ImGui::Bullet();
+                if (ImGui::SmallButton("Dear ImGui (v1.73, Base Code)")) {
+                    app->RequestBrowser("https://github.com/ocornut/imgui");
+                }
+                ImGui::Text("  "); ImGui::SameLine();
+                if (ImGui::SmallButton("Docking Test Branch (Commit 18/10/19)")) {
+                    app->RequestBrowser("https://github.com/ocornut/imgui/tree/7feccf9ab2fad261aa873dfa067e64ad9fab8a03");
+                }
+                ImGui::Bullet();
+                if (ImGui::SmallButton("glew (v2.0)")) {
+                    app->RequestBrowser("http://glew.sourceforge.net/");
+                }
+                ImGui::Bullet();
+                if (ImGui::SmallButton("MathGeoLib (v1.5)")) {
+                    app->RequestBrowser("https://github.com/juj/MathGeoLib");
+                }
+                ImGui::Bullet();
+                if (ImGui::SmallButton("Par (vN/A)")) {
+                    app->RequestBrowser("https://github.com/prideout/par");
+                }
+                ImGui::Bullet();
+                if (ImGui::SmallButton("JSON for Modern C++ (v3.7.0)")) {
+                    app->RequestBrowser("https://github.com/nlohmann/json");
+                }
+                ImGui::Bullet();
+                if (ImGui::SmallButton("Brofiler (v1.1.2)")) {
+                    app->RequestBrowser("http://www.brofiler.com/");
+                }
+                ImGui::Bullet();
+                if (ImGui::SmallButton("mmgr (vN/A)")) {
+                    app->RequestBrowser("http://www.flipcode.com/archives/Presenting_A_Memory_Manager.shtml");
+                }
+
+                ImGui::Separator();
+
+                if (ImGui::CollapsingHeader("License")) {
+
+                }
+
+                ImGui::EndPopup();
             }
 
             ImGui::Separator();
@@ -241,6 +329,10 @@ static bool MenuBarUpdate() {
 
         ImGui::EndMenuBar();
     }
+
+    ImGui::StyleColorsDark();
+    ImGuiStyle& style = ImGui::GetStyle();
+    style.Colors[ImGuiCol_MenuBarBg] = ImVec4(1.0f, 1.0f, 1.0f, 1.0f); // Text color
 
     return true;
 }
