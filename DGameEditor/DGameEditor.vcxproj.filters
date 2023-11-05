@@ -66,6 +66,9 @@
     <ClCompile Include="WindowSettings.cpp">
       <Filter>Sources\Modules\GUI\GUI Elements\GUI Windows</Filter>
     </ClCompile>
+    <ClCompile Include="WindowAbout.cpp">
+      <Filter>Sources\Modules\GUI\GUI Elements\GUI Windows</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ModuleEvents.h">
@@ -118,6 +121,12 @@
     </ClInclude>
     <ClInclude Include="WindowSettings.h">
       <Filter>Sources\Modules\GUI\GUI Elements\GUI Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowAbout.h">
+      <Filter>Sources\Modules\GUI\GUI Elements\GUI Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="DualStreamBuffering.h">
+      <Filter>Sources\Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

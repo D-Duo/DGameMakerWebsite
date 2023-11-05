@@ -9,6 +9,7 @@
 #include "WindowProject.h"
 #include "WindowConsole.h"
 #include "WindowSettings.h"
+#include "WindowAbout.h"
 
 // GUI Windows
 class WindowScene;
@@ -17,6 +18,7 @@ class WindowInspector;
 class WindowProject;
 class WindowConsole;
 class WindowSettings;
+class WindowAbout;
 
 class ModuleGUI : public Module
 {
@@ -27,6 +29,7 @@ public:
 	WindowProject* w_project;
 	WindowConsole* w_console;
 	WindowSettings* w_settings;
+	WindowAbout* w_about;
 
 public:
 	ModuleGUI(bool startEnabled);

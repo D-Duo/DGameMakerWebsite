@@ -157,6 +157,7 @@ $(SolutionDir)\vcpkg\vcpkg.exe install opengl glew sdl2 imgui[opengl3-binding,sd
     <ClCompile Include="ModuleGUI.cpp" />
     <ClCompile Include="ModuleRenderer.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
+    <ClCompile Include="WindowAbout.cpp" />
     <ClCompile Include="WindowConsole.cpp" />
     <ClCompile Include="WindowHierarchy.cpp" />
     <ClCompile Include="WindowInspector.cpp" />
@@ -171,6 +172,7 @@ $(SolutionDir)\vcpkg\vcpkg.exe install opengl glew sdl2 imgui[opengl3-binding,sd
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
+    <ClInclude Include="DualStreamBuffering.h" />
     <ClInclude Include="FrameBuffer.h" />
     <ClInclude Include="GUI_MenuBar.h" />
     <ClInclude Include="GUI_Window.h" />
@@ -181,6 +183,7 @@ $(SolutionDir)\vcpkg\vcpkg.exe install opengl glew sdl2 imgui[opengl3-binding,sd
     <ClInclude Include="ModuleEvents.h" />
     <ClInclude Include="ModuleRenderer.h" />
     <ClInclude Include="ModuleWindow.h" />
+    <ClInclude Include="WindowAbout.h" />
     <ClInclude Include="WindowConsole.h" />
     <ClInclude Include="WindowHierarchy.h" />
     <ClInclude Include="WindowInspector.h" />

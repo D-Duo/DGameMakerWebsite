@@ -20,6 +20,10 @@ App::App(int argc, char* args[]) : argc(argc), args(args) {
 
     AddModule(gui);
     AddModule(renderer);
+
+    dualStreamBuffer = new DualStreamBuffer(std::cout.rdbuf(), logStream);
+
+    std::cout.rdbuf(dualStreamBuffer);
 }
 
 App::~App()
@@ -60,7 +64,7 @@ bool App::DoUpdate() {
 
     // Update the delta time for this frame execution
     bool ret = true;
-
+        
     this->UpdateDeltaTime();
 
 	// Update the active modules
@@ -70,7 +74,16 @@ bool App::DoUpdate() {
 
     if (ret) { ret = this->PostUpdate(); }
 
-    cout << "==============================================================" << endl;
+    if (!this->gui->w_console->showUpdateLogs) {
+        std::cout.rdbuf(dualStreamBuffer->GetOriginalStream());
+        cout << "==============================================================" << endl;
+        cout << endl;
+        std::cout.rdbuf(dualStreamBuffer);
+    }
+    else{
+        cout << "==============================================================" << endl;
+        cout << endl;
+    }
 
     // Calculate the elapsed time for the frame
     auto frameEndTime = std::chrono::high_resolution_clock::now();
@@ -82,7 +95,7 @@ bool App::DoUpdate() {
     if (sleepTime > 0) {
         std::this_thread::sleep_for(std::chrono::duration<double>(sleepTime));
     }
-
+    
     return ret;
 }
 
@@ -94,14 +107,25 @@ bool App::PreUpdate() {
             continue;
 
         ret = item->PreUpdate();
-        cout << "Performed PreUpdate of Module " << item->name << endl;
+
+        if (!this->gui->w_console->showUpdateLogs) {
+            std::cout.rdbuf(dualStreamBuffer->GetOriginalStream());
+            cout << "Performed PreUpdate of Module " << item->name << endl;
+            std::cout.rdbuf(dualStreamBuffer);
+        }
+        else { cout << "Performed PreUpdate of Module " << item->name << endl; }
 
         if (!ret) {
             cout << "Stopped execution on the PreUpdate of Module " << item->name << endl;
             break;
         }
     }
-    cout << endl;
+    if (!this->gui->w_console->showUpdateLogs) {
+        std::cout.rdbuf(dualStreamBuffer->GetOriginalStream());
+        cout << endl;
+        std::cout.rdbuf(dualStreamBuffer);
+    }
+    else { cout << endl; }
 
     return ret;
 }
@@ -114,14 +138,25 @@ bool App::Update() {
             continue;
 
         ret = item->Update(this->dt);
-        cout << "Performed Update of Module " << item->name << endl;
+
+        if (!this->gui->w_console->showUpdateLogs) {
+            std::cout.rdbuf(dualStreamBuffer->GetOriginalStream());
+            cout << "Performed Update of Module " << item->name << endl;
+            std::cout.rdbuf(dualStreamBuffer);
+        }
+        else { cout << "Performed Update of Module " << item->name << endl; }
 
         if (!ret) {
             cout << "Stopped execution on the Update of Module " << item->name << endl;
             break;
         }
     }
-    cout << endl;
+    if (!this->gui->w_console->showUpdateLogs) {
+        std::cout.rdbuf(dualStreamBuffer->GetOriginalStream());
+        cout << endl;
+        std::cout.rdbuf(dualStreamBuffer);
+    }
+    else { cout << endl; }
 
     return ret;
 }
@@ -134,14 +169,25 @@ bool App::PostUpdate() {
             continue;
 
         ret = item->PostUpdate();
-        cout << "Performed PostUpdate of Module " << item->name << endl;
+
+        if (!this->gui->w_console->showUpdateLogs) {
+            std::cout.rdbuf(dualStreamBuffer->GetOriginalStream());
+            cout << "Performed PostUpdate of Module " << item->name << endl;
+            std::cout.rdbuf(dualStreamBuffer);
+        }
+        else { cout << "Performed PostUpdate of Module " << item->name << endl; }
 
         if (!ret) {
             cout << "Stopped execution on the PostUpdate of Module " << item->name << endl;
             break;
         }
     }
-    cout << endl;
+    if (!this->gui->w_console->showUpdateLogs) {
+        std::cout.rdbuf(dualStreamBuffer->GetOriginalStream());
+        cout << endl;
+        std::cout.rdbuf(dualStreamBuffer);
+    }
+    else { cout << endl; }
 
     return ret;
 }
@@ -152,5 +198,10 @@ void App::CleanUp() {
     {
         item->CleanUp();
         cout << "Performed CleanUp of Module " << item->name << endl;
+    }
+
+    if (dualStreamBuffer != nullptr) {
+        std::cout.rdbuf(dualStreamBuffer->GetOriginalStream()); // Restore original stdout
+        delete dualStreamBuffer;
     }
 }

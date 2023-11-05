@@ -2,6 +2,7 @@
 
 #include "EditorGlobals.h"
 #include "Module.h"
+#include "DualStreamBuffering.h"
 
 #include "ModuleWindow.h"
 #include "ModuleEvents.h"
@@ -123,6 +124,10 @@ private:
 		this->previousTime = currentTime;
 	}
 
+public:
+	std::stringstream logStream;
+private:
+	DualStreamBuffer* dualStreamBuffer;
 
 	// SECTION - Engine details
 public:

@@ -95,17 +95,11 @@ static bool MenuBarUpdate() {
 
             ImGui::Separator();
 
-            if (ImGui::Button("Settings...")) {
-                app->gui->settingsState = true;
-                ImGui::OpenPopup("Settings Window");
-            }
-
-            if (ImGui::BeginPopupModal("Settings Window", &app->gui->settingsState, ImGuiWindowFlags_AlwaysAutoResize))
-            {
-                ImGui::Text("a");
-                
-
-                ImGui::EndPopup();
+            bool settingsState = true;
+            if (app->gui->w_settings->GetWindowState() == States::DISABLED) { settingsState = false; }
+            if (ImGui::MenuItem("Settings...", NULL, settingsState)) {
+                if (app->gui->w_settings->GetWindowState() == States::DISABLED) { app->gui->w_settings->WindowChangeState(States::ENABLED); }
+                else if (app->gui->w_settings->GetWindowState() == States::ENABLED) { app->gui->w_settings->WindowChangeState(States::DISABLED); }
             }
 
             ImGui::EndMenu();
@@ -189,138 +183,74 @@ static bool MenuBarUpdate() {
             bool sceneState = true;
             if (app->gui->w_scene->GetWindowState() == States::DISABLED) { sceneState = false; }
             if (ImGui::MenuItem("Scene", NULL, sceneState)) {
-                if (app->gui->w_scene->GetWindowState() != States::ENABLED) { app->gui->w_scene->WindowChangeState(States::ENABLED); }
+                if (app->gui->w_scene->GetWindowState() == States::DISABLED) { app->gui->w_scene->WindowChangeState(States::ENABLED); }
+                else if (app->gui->w_scene->GetWindowState() == States::ENABLED) { app->gui->w_scene->WindowChangeState(States::DISABLED); }
             }
 
             bool gameState = false;     // Change to true whwn enabled
             //if (app->gui->w_game->GetWindowState() == States::DISABLED) { gameState = false; }
             if (ImGui::MenuItem("Game", NULL, gameState, false)) {          // Temporarly disabled because not implemented (..., false, false)
-                //if (app->gui->w_game->GetWindowState() != States::ENABLED) { app->gui->w_game->WindowChangeState(States::ENABLED); }
+                //if (app->gui->w_game->GetWindowState() == States::DISABLED) { app->gui->w_game->WindowChangeState(States::ENABLED); }
+                //else if (app->gui->w_game->GetWindowState() == States::ENABLED) { app->gui->w_game->WindowChangeState(States::DISABLED); }
             }
 
             bool hierarchyState = true;
             if (app->gui->w_hierarchy->GetWindowState() == States::DISABLED) { hierarchyState = false; }
             if (ImGui::MenuItem("Hierarchy", NULL, hierarchyState)) {
-                if (app->gui->w_hierarchy->GetWindowState() != States::ENABLED) { app->gui->w_hierarchy->WindowChangeState(States::ENABLED); }
+                if (app->gui->w_hierarchy->GetWindowState() == States::DISABLED) { app->gui->w_hierarchy->WindowChangeState(States::ENABLED); }
+                else if (app->gui->w_hierarchy->GetWindowState() == States::ENABLED) { app->gui->w_hierarchy->WindowChangeState(States::DISABLED); }
             }
 
             bool inspectorState = true;
             if (app->gui->w_inspector->GetWindowState() == States::DISABLED) { inspectorState = false; }
             if (ImGui::MenuItem("Inspector", NULL, inspectorState)) {
-                if (app->gui->w_inspector->GetWindowState() != States::ENABLED) { app->gui->w_inspector->WindowChangeState(States::ENABLED); }
+                if (app->gui->w_inspector->GetWindowState() == States::DISABLED) { app->gui->w_inspector->WindowChangeState(States::ENABLED); }
+                else if (app->gui->w_inspector->GetWindowState() == States::ENABLED) { app->gui->w_inspector->WindowChangeState(States::DISABLED); }
             }
 
             bool projectState = true;
             if (app->gui->w_project->GetWindowState() == States::DISABLED) { projectState = false; }
             if (ImGui::MenuItem("Project", NULL, projectState)) {
-                if (app->gui->w_project->GetWindowState() != States::ENABLED) { app->gui->w_project->WindowChangeState(States::ENABLED); }
+                if (app->gui->w_project->GetWindowState() == States::DISABLED) { app->gui->w_project->WindowChangeState(States::ENABLED); }
+                else if (app->gui->w_project->GetWindowState() == States::ENABLED) { app->gui->w_project->WindowChangeState(States::DISABLED); }
             }
 
             bool consoleState = true;
             if (app->gui->w_console->GetWindowState() == States::DISABLED) { consoleState = false; }
             if (ImGui::MenuItem("Console", NULL, consoleState)) {
-                if (app->gui->w_console->GetWindowState() != States::ENABLED) { app->gui->w_console->WindowChangeState(States::ENABLED); }
+                if (app->gui->w_console->GetWindowState() == States::DISABLED) { app->gui->w_console->WindowChangeState(States::ENABLED); }
+                else if (app->gui->w_console->GetWindowState() == States::ENABLED) { app->gui->w_console->WindowChangeState(States::DISABLED); }
             }            
 
             ImGui::EndMenu();
         }
 
         if (ImGui::BeginMenu("Help")) {
-            if (ImGui::Button("About D. Game Engine")) {
-                app->gui->aboutState = true;
-                ImGui::OpenPopup("About this engine...");
+            bool aboutState = true;
+            if (app->gui->w_about->GetWindowState() == States::DISABLED) { aboutState = false; }
+            if (ImGui::MenuItem("Abot D. Game Engine...", NULL, aboutState)) {
+                if (app->gui->w_about->GetWindowState() == States::DISABLED) { app->gui->w_about->WindowChangeState(States::ENABLED); }
+                else if (app->gui->w_about->GetWindowState() == States::ENABLED) { app->gui->w_about->WindowChangeState(States::DISABLED); }
             }
+                        
+            ImGui::Separator();
 
-            if (ImGui::BeginPopupModal("About this engine...", &app->gui->aboutState, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_AlwaysVerticalScrollbar | ImGuiWindowFlags_NoSavedSettings))
-            {
-                ImGui::SetNextWindowSize(ImVec2(50, 50));
-                ImGui::SetNextWindowPos(ImVec2(0, 0));
+            if (ImGui::MenuItem("Download Latest Version"))
+                app->RequestBrowser("https://github.com/CITM-UPC/DGameMaker/releases");
 
-                ImGui::Text("%s\nCustom Game engine for 3D games, currently in development, created by students for the sillabus Game Engines of the degree Game Design & Development of the UPC in Barcelona.\nCreated by:\n", app->GetAppDetails().name.c_str());
-                
-                for (const std::string& member : app->GetAppDetails().org.members) {
-                    ImGui::Text("%s\n", member.c_str());
-                }
-                ImGui::Separator();
-
-                ImGui::Text("3rd Party Libraries used:\n");
-                ImGui::Bullet();
-                if (ImGui::SmallButton("STL (C++11)")) {
-                    app->RequestBrowser("https://www.geeksforgeeks.org/the-c-standard-template-library-stl/");
-                }
-                ImGui::Bullet();
-                if (ImGui::SmallButton("SDL (v2.0.10)")) {
-                    app->RequestBrowser("https://www.libsdl.org/");
-                }
-                ImGui::Bullet();
-                if (ImGui::SmallButton("OpenGL (v3.1.0)")) {
-                    app->RequestBrowser("https://www.opengl.org/");
-                }
-                ImGui::Bullet();
-                if (ImGui::SmallButton("DevIL (v1.8.0)")) {
-                    app->RequestBrowser("http://openil.sourceforge.net/");
-                }
-                ImGui::Bullet();
-                if (ImGui::SmallButton("Assimp (v5.0.0)")) {
-                    app->RequestBrowser("http://assimp.org/");
-                }
-                ImGui::Bullet();
-                if (ImGui::SmallButton("Dear ImGui (v1.73, Base Code)")) {
-                    app->RequestBrowser("https://github.com/ocornut/imgui");
-                }
-                ImGui::Text("  "); ImGui::SameLine();
-                if (ImGui::SmallButton("Docking Test Branch (Commit 18/10/19)")) {
-                    app->RequestBrowser("https://github.com/ocornut/imgui/tree/7feccf9ab2fad261aa873dfa067e64ad9fab8a03");
-                }
-                ImGui::Bullet();
-                if (ImGui::SmallButton("glew (v2.0)")) {
-                    app->RequestBrowser("http://glew.sourceforge.net/");
-                }
-                ImGui::Bullet();
-                if (ImGui::SmallButton("MathGeoLib (v1.5)")) {
-                    app->RequestBrowser("https://github.com/juj/MathGeoLib");
-                }
-                ImGui::Bullet();
-                if (ImGui::SmallButton("Par (vN/A)")) {
-                    app->RequestBrowser("https://github.com/prideout/par");
-                }
-                ImGui::Bullet();
-                if (ImGui::SmallButton("JSON for Modern C++ (v3.7.0)")) {
-                    app->RequestBrowser("https://github.com/nlohmann/json");
-                }
-                ImGui::Bullet();
-                if (ImGui::SmallButton("Brofiler (v1.1.2)")) {
-                    app->RequestBrowser("http://www.brofiler.com/");
-                }
-                ImGui::Bullet();
-                if (ImGui::SmallButton("mmgr (vN/A)")) {
-                    app->RequestBrowser("http://www.flipcode.com/archives/Presenting_A_Memory_Manager.shtml");
-                }
-
-                ImGui::Separator();
-
-                if (ImGui::CollapsingHeader("License")) {
-
-                }
-
-                ImGui::EndPopup();
-            }
+            if (ImGui::MenuItem("Report Bug || Suggest Feature"))
+                app->RequestBrowser("https://github.com/CITM-UPC/DGameMaker/issues");
 
             ImGui::Separator();
 
             if (ImGui::MenuItem("Development Webpage", NULL, false, false))          // Temporarly disabled because not implemented (..., false, false)
                 app->RequestBrowser("https://github.com/CITM-UPC/DGameMaker/wiki");
 
-            if (ImGui::MenuItem("Download Latest Version", NULL, false, false))          // Temporarly disabled because not implemented (..., false, false)
-                app->RequestBrowser("https://github.com/CITM-UPC/DGameMaker/releases");
-
-            ImGui::Separator();
-
-            if (ImGui::MenuItem("Report Bug || Suggest Feature"))
-                app->RequestBrowser("https://github.com/CITM-UPC/DGameMaker/issues");
-
             if (ImGui::MenuItem("This Engine's GITHUB repository"))
                 app->RequestBrowser("https://github.com/CITM-UPC/DGameMaker");
+
+            if (ImGui::MenuItem("Contact Us"))
+                app->RequestBrowser("https://github.com/D-Duo");
 
 
 

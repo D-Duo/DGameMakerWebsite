@@ -13,7 +13,8 @@ ModuleGUI::ModuleGUI(bool startEnabled) : Module(startEnabled)
 	w_inspector = new WindowInspector("Inspector", true);
 	w_project = new WindowProject("Project", true);
 	w_console = new WindowConsole("Console", true);
-	w_settings = new WindowSettings("Settings", false);
+	w_settings = new WindowSettings("Settings", false, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_AlwaysVerticalScrollbar);
+	w_about = new WindowAbout("About this engine...", false, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_AlwaysVerticalScrollbar);
 
 	// Add the windows to the queue
 	AddWindow(w_scene);
@@ -22,6 +23,7 @@ ModuleGUI::ModuleGUI(bool startEnabled) : Module(startEnabled)
 	AddWindow(w_project);
 	AddWindow(w_console);
 	AddWindow(w_settings);
+	AddWindow(w_about);
 }
 
 ModuleGUI::~ModuleGUI() {

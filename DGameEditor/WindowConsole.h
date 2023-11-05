@@ -6,4 +6,10 @@ public:
 	WindowConsole(string name, bool startEnabled = false, ImGuiWindowFlags flags = ImGuiWindowFlags_None);
 
 	void Update();
+
+public:
+	bool showUpdateLogs;
+	bool autoScroll;
+
+	ImGuiTextFilter textFilter;
 };
