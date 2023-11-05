@@ -10,6 +10,7 @@
 #include <thread>
 #include <sstream>
 #include <list>
+#include <Windows.h>
 
 //    External Librarys
 #include "GL/glew.h"
@@ -18,6 +19,7 @@
 #include "imgui.h"
 #include "imgui_impl_sdl2.h"
 #include "imgui_impl_opengl3.h"
+#include "imgui_internal.h"
 
 #pragma comment(lib, "shell32.lib")
 
@@ -26,11 +28,10 @@ using namespace std;
 
 
 // GLOBAL ENUM
-enum class Update_Status
+enum States
 {
-	UPDATE_CONTINUE = 1,
-	UPDATE_STOP,
-	UPDATE_ERROR
+	DISABLED,
+	ENABLED,
 };
 
 // DEFINES
@@ -45,3 +46,7 @@ enum class Update_Status
 	  x = NULL;			  \
 		}					  \
 	}
+
+struct I_Point {
+	int x, y;
+};

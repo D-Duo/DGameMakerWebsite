@@ -2,12 +2,6 @@
 
 #include "EditorGlobals.h"
 
-enum States
-{
-	DISABLED,
-	ENABLED,
-};
-
 class Module
 {
 public:

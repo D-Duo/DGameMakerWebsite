@@ -17,5 +17,8 @@ public:
 
 	void step(std::chrono::duration<double> dt);
 	void render(RenderModes renderMode);
+
+	bool grid_xy;
+	bool grid_xz;
 };
 
