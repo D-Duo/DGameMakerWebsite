@@ -17,8 +17,8 @@ void ModuleEngineManager::Awake() {
     engine.camera.center = vec3(0, 1, 0);
     engine.camera.up = vec3(0, 1, 0);
 
-    engine.grid_xy = true;
-    engine.grid_xy = true;
+    engine.grid_xy = false;
+    engine.grid_xz = true;
 }
 
 void ModuleEngineManager::Start() {

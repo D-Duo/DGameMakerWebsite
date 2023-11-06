@@ -18,5 +18,40 @@ void WindowSettings::PreUpdate() {
 }
 
 void WindowSettings::Update() {
+	if (ImGui::BeginTabBar("Setting Menus"))
+	{
+		if (ImGui::BeginTabItem("Video Settings"))
+		{
 
+			// Resolution (1920x1080...)
+			// Window type (Resizable, borderles, etc)
+			// Brightness ?? SDL_SetWindowBrightness
+			// FPS Control
+			// VSync
+			// framerate display
+			// miliseconds display
+
+			ImGui::EndTabItem();
+		}
+
+		if (ImGui::BeginTabItem("Controls"))
+		{
+
+
+			ImGui::EndTabItem();
+		}
+
+		if (ImGui::BeginTabItem("Renderer")) {
+
+		}
+
+		if (ImGui::BeginTabItem("System Details"))
+		{
+
+
+			ImGui::EndTabItem();
+		}
+
+		ImGui::EndTabBar();
+	}
 }
