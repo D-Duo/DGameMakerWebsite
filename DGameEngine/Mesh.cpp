@@ -23,7 +23,7 @@ vector<Mesh::Ptr> Mesh::loadFromFile(const string& path) {
     for (const auto& material : scene.materials()) {
         aiString aiPath;
         material->GetTexture(aiTextureType_DIFFUSE, 0, &aiPath);
-        fs::path texPath = fs::path(path).parent_path() / fs::path(aiPath.C_Str()).filename();
+        fs::path texPath = fs::path(path).parent_path().parent_path().append("Textures") / fs::path(aiPath.C_Str()).filename();
         auto texture_ptr = make_shared<Texture2D>(texPath.string());
         texture_ptrs.push_back(texture_ptr);
     }
@@ -33,6 +33,12 @@ vector<Mesh::Ptr> Mesh::loadFromFile(const string& path) {
     for (const auto& mesh_ptr : scene.meshes()) {
 
         const auto& mesh = *mesh_ptr;
+
+        /*vector<V3> vertex_data;
+        for (size_t i = 0; i < mesh.verts().size(); ++i) {
+            V3 v = { mesh.verts()[i] };
+            vertex_data.push_back(v);
+        }*/
 
         vector<V3T2> vertex_data;
         for (size_t i = 0; i < mesh.verts().size(); ++i) {
@@ -60,7 +66,7 @@ vector<Mesh::Ptr> Mesh::loadFromFile(const string& path) {
 Mesh::Mesh(Formats format, const void* vertex_data, unsigned int numVerts, const unsigned int* index_data, unsigned int numIndexs) :
     _format(format),
     _numVerts(numVerts),
-    _numIndexs(numIndexs)
+    _numIndexs(numIndexs), Components(type)
 {
     glGenBuffers(1, &_vertex_buffer_id);
     glBindBuffer(GL_ARRAY_BUFFER, _vertex_buffer_id);
@@ -89,6 +95,18 @@ Mesh::Mesh(Formats format, const void* vertex_data, unsigned int numVerts, const
     }
 }
 
+Mesh::Mesh(const string path) : _format(Formats::F_V3), _numVerts(0), _numIndexs(0), Components(type) {
+
+    stringstream ss;
+    ss << "../DGameEditor/Assets/Meshes/" << path;
+    ifstream file(ss.str());
+    if (file.good()) {
+        mMeshes = loadFromFile(ss.str());
+    }
+    else {
+        cout << "FILE NOT FOUND :: MESH COMPONENT CONSTRUCTOR" << endl;
+    }
+}
 
 Mesh::Mesh(Mesh&& b) noexcept :
     _format(b._format),
@@ -96,7 +114,8 @@ Mesh::Mesh(Mesh&& b) noexcept :
     _numVerts(b._numVerts),
     _indexs_buffer_id(b._indexs_buffer_id),
     _numIndexs(b._numIndexs),
-    texture(b.texture)
+    texture(b.texture),
+    Components(type)
 {
     b._vertex_buffer_id = 0;
     b._indexs_buffer_id = 0;
@@ -148,4 +167,19 @@ void Mesh::draw() {
 Mesh::~Mesh() {
     if (_vertex_buffer_id) glDeleteBuffers(1, &_vertex_buffer_id);
     if (_indexs_buffer_id) glDeleteBuffers(1, &_indexs_buffer_id);
+}
+
+void Mesh::Enable() {
+    isActive = true;
+}
+
+void Mesh::Disable() {
+    isActive = false;
+}
+
+void Mesh::update() {
+    for (auto meshes : mMeshes)
+    {
+        meshes->draw();
+    }
 }

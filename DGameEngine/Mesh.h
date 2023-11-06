@@ -3,10 +3,12 @@
 #include "EngineGlobals.h"
 #include "Graphic.h"
 #include "Texture2D.h"
+#include "Scene.h"
+#include "Components.h"
 
 
 
-class Mesh : public Graphic
+class Mesh : public Graphic, public Components
 {
 public:
 	enum Formats { F_V3, F_V3C4, F_V3T2 };
@@ -14,7 +16,7 @@ public:
 	struct V3C4 { vec3f v; vec4f c; };
 	struct V3T2 { vec3f v; vec2f t; };
 
-private:
+//private:
 	const enum Formats _format;
 
 	unsigned int _vertex_buffer_id;
@@ -25,15 +27,24 @@ private:
 
 public:
 	using Ptr = shared_ptr<Mesh>;
+	vector<Mesh::Ptr> mMeshes;
+	Ctype type = COMPONENT_MESTH;
+
+	const Ctype component_type = COMPONENT_MESTH;
 
 	static vector<Ptr> loadFromFile(const string& path);
 
 	Texture2D::Ptr texture;
 
 	Mesh(Formats format, const void* vertex_data, unsigned int numVerts, const unsigned int* indexs_data = nullptr, unsigned int numIndexs = 0);
+	Mesh(const string path);
 	Mesh(Mesh&& b) noexcept;
-	void draw();
 	~Mesh();
+	void draw() override;
+
+	void Enable() override;
+	void Disable() override;
+	void update() override;
 
 private:
 	Mesh(const Mesh& cpy);
