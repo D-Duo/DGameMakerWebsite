@@ -14,6 +14,8 @@
 #include <span>
 #include <array>
 #include <filesystem>
+#include <fstream>
+#include <regex>
 
 //    External Librarys
 #include "GL/glew.h"

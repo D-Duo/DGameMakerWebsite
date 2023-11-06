@@ -3,6 +3,7 @@
 #include "EngineGlobals.h"
 #include "Camera.h"
 #include "CubeImmediateMode.h"
+#include "Scene.h"
 
 class GameEngine
 {
@@ -13,7 +14,12 @@ public:
 	Camera camera;
 
 	GameEngine();
+
+	bool initB = true;
+
+	Scene myScene;
 	CubeImmediateMode* myCube;
+	GameObject gameObj;
 
 	void step(std::chrono::duration<double> dt);
 	void render(RenderModes renderMode);
