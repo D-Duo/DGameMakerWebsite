@@ -1,19 +1,25 @@
-#include "GameObject.h"
-#include "Mesh.h"
 #include <memory>
+#include "GameObject.h"
+#include "ComponentMesh.h"
+#include "ComponentMaterial.h"
 
 GameObject::GameObject(const string meshPath = "", const string texturePath = "", mat4 transform = glm::identity<mat4>()) {
 	shared_ptr<Components> newComp;
-	//for transform
+	//transform component
+
+	//mesh component
 	newComp = CreateComponent(COMPONENT_MESTH, meshPath);
 	AddComponent(newComp);
-	//for texture
+
+	//texture component
+	newComp = CreateComponent(COMPONENT_MATERIAL, texturePath);
+	AddComponent(newComp);
 
 }
 
 shared_ptr<Components> GameObject::CreateComponent(Ctype type, const string path) {
 
-	shared_ptr<Components> newComp;
+	shared_ptr<Components> newComp = nullptr;
 
 	switch (type)
 	{
@@ -23,9 +29,10 @@ shared_ptr<Components> GameObject::CreateComponent(Ctype type, const string path
 		
 		break;
 	case Ctype::COMPONENT_MESTH:
-		newComp = make_shared<Mesh>(path);
+		newComp = make_shared<ComponentMesh>(path);
 		break;
 	case Ctype::COMPONENT_MATERIAL:
+		newComp = make_shared<ComponentMaterial>(path);
 		break;
 	default:
 		break;

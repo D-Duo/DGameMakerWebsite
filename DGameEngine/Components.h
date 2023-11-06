@@ -12,9 +12,8 @@ enum Ctype {
 class Components {
 
 public:
-	Components(Ctype type) : component_type(type), active(true) {}
+	Components(Ctype type) : component_type(type), isActive(true) {}
 
-	bool isActive;
 	//unique_ptr<GraphicObject> graphicObject;
 
 public:
@@ -22,7 +21,10 @@ public:
 	virtual void update() = 0;
 	virtual void Disable() = 0;
 
+	void SetActive() { isActive = true; }
+	void SetDisable() { isActive = false; }
+
 private:
 	Ctype component_type = NONE;
-	bool active;
+	bool isActive;
 };

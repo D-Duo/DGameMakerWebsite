@@ -14,7 +14,7 @@ public:
 	shared_ptr<Components> CreateComponent(Ctype type, const string path);
 
 	bool isActive;
-	string name;
+	string textPath;
 	vector<shared_ptr<Components>> gObj_components;
 
 public:
@@ -22,5 +22,13 @@ public:
 	void RemoveComponent(shared_ptr<Components> comp);
 	void UpdateGameObj();
 
+	void SetActive() { isActive = true; }
+	void SetUnactive() { isActive = false; }
+	string GetTextPath() { return textPath; }
+
+private:
+	/*bool isActive;
+	string name;
+	vector<shared_ptr<Components>> gObj_components;*/
 };
 

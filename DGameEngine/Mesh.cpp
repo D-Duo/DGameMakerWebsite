@@ -66,7 +66,7 @@ vector<Mesh::Ptr> Mesh::loadFromFile(const string& path) {
 Mesh::Mesh(Formats format, const void* vertex_data, unsigned int numVerts, const unsigned int* index_data, unsigned int numIndexs) :
     _format(format),
     _numVerts(numVerts),
-    _numIndexs(numIndexs), Components(type)
+    _numIndexs(numIndexs)
 {
     glGenBuffers(1, &_vertex_buffer_id);
     glBindBuffer(GL_ARRAY_BUFFER, _vertex_buffer_id);
@@ -95,27 +95,13 @@ Mesh::Mesh(Formats format, const void* vertex_data, unsigned int numVerts, const
     }
 }
 
-Mesh::Mesh(const string path) : _format(Formats::F_V3), _numVerts(0), _numIndexs(0), Components(type) {
-
-    stringstream ss;
-    ss << "../DGameEditor/Assets/Meshes/" << path;
-    ifstream file(ss.str());
-    if (file.good()) {
-        mMeshes = loadFromFile(ss.str());
-    }
-    else {
-        cout << "FILE NOT FOUND :: MESH COMPONENT CONSTRUCTOR" << endl;
-    }
-}
-
 Mesh::Mesh(Mesh&& b) noexcept :
     _format(b._format),
     _vertex_buffer_id(b._vertex_buffer_id),
     _numVerts(b._numVerts),
     _indexs_buffer_id(b._indexs_buffer_id),
     _numIndexs(b._numIndexs),
-    texture(b.texture),
-    Components(type)
+    texture(b.texture)
 {
     b._vertex_buffer_id = 0;
     b._indexs_buffer_id = 0;
@@ -167,19 +153,4 @@ void Mesh::draw() {
 Mesh::~Mesh() {
     if (_vertex_buffer_id) glDeleteBuffers(1, &_vertex_buffer_id);
     if (_indexs_buffer_id) glDeleteBuffers(1, &_indexs_buffer_id);
-}
-
-void Mesh::Enable() {
-    isActive = true;
-}
-
-void Mesh::Disable() {
-    isActive = false;
-}
-
-void Mesh::update() {
-    for (auto meshes : mMeshes)
-    {
-        meshes->draw();
-    }
 }

@@ -8,7 +8,7 @@
 
 
 
-class Mesh : public Graphic, public Components
+class Mesh : public Graphic
 {
 public:
 	enum Formats { F_V3, F_V3C4, F_V3T2 };
@@ -16,35 +16,27 @@ public:
 	struct V3C4 { vec3f v; vec4f c; };
 	struct V3T2 { vec3f v; vec2f t; };
 
-//private:
-	const enum Formats _format;
+private:
+	enum Formats _format;
 
 	unsigned int _vertex_buffer_id;
-	const unsigned int _numVerts;
+	unsigned int _numVerts;
 
 	unsigned int _indexs_buffer_id;
-	const unsigned int _numIndexs;
+	unsigned int _numIndexs;
 
 public:
 	using Ptr = shared_ptr<Mesh>;
-	vector<Mesh::Ptr> mMeshes;
 	Ctype type = COMPONENT_MESTH;
-
-	const Ctype component_type = COMPONENT_MESTH;
 
 	static vector<Ptr> loadFromFile(const string& path);
 
 	Texture2D::Ptr texture;
 
 	Mesh(Formats format, const void* vertex_data, unsigned int numVerts, const unsigned int* indexs_data = nullptr, unsigned int numIndexs = 0);
-	Mesh(const string path);
 	Mesh(Mesh&& b) noexcept;
 	~Mesh();
 	void draw() override;
-
-	void Enable() override;
-	void Disable() override;
-	void update() override;
 
 private:
 	Mesh(const Mesh& cpy);
