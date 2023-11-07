@@ -1,5 +1,6 @@
 #include "EngineGlobals.h"
 #include "DGameEngine.h"
+#include "Scene.h"
 #include "Texture2D.h"
 #include "Mesh.h"
 #include "GraphicObject.h"
@@ -9,6 +10,7 @@ static double angle = 0.0;
 GameEngine::GameEngine() {
     ilInit();
     myCube = new CubeImmediateMode();
+    const string mp = "Baker_house.fbx";
 }
 
 void GameEngine::step(std::chrono::duration<double> dt) {
@@ -71,9 +73,15 @@ void GameEngine::render(RenderModes renderMode) {
         drawGrid(100, 1, grid_xy, grid_xz);
         drawAxis();
     }
+    if (initB)
+    {
+        myScene.init();
+        initB = false;
+    }
+    myScene.postUpdate();
     
 #pragma region Draw Sandbox
-    static auto mesh_ptrs = Mesh::loadFromFile("Assets/Meshes/BakerHouse.fbx");
+    /*static auto mesh_ptrs = Mesh::loadFromFile("Assets/Meshes/BakerHouse.fbx");
   
     GraphicObject mesh1(mesh_ptrs.front());
     GraphicObject mesh2(mesh_ptrs.back());
@@ -86,16 +94,12 @@ void GameEngine::render(RenderModes renderMode) {
     GraphicObject root;
     root.addChild(std::move(house));
   
-    root.paint();
+    root.paint();*/
   
 #pragma endregion
   
 #pragma region direct draw test
-    /*glRotated(angle, 0.5, 0.5, 0.5);
-    glPushMatrix();
-    glTranslatef(3, 0, 3);
-    myCube->draw();
-    glPopMatrix();*/
+
   
 #pragma endregion
 

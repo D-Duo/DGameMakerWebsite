@@ -23,7 +23,7 @@ vector<Mesh::Ptr> Mesh::loadFromFile(const string& path) {
     for (const auto& material : scene.materials()) {
         aiString aiPath;
         material->GetTexture(aiTextureType_DIFFUSE, 0, &aiPath);
-        fs::path texPath = fs::path(path).parent_path() / fs::path(aiPath.C_Str()).filename();
+        fs::path texPath = fs::path(path).parent_path().parent_path().append("Textures") / fs::path(aiPath.C_Str()).filename();
         auto texture_ptr = make_shared<Texture2D>(texPath.string());
         texture_ptrs.push_back(texture_ptr);
     }
@@ -33,6 +33,12 @@ vector<Mesh::Ptr> Mesh::loadFromFile(const string& path) {
     for (const auto& mesh_ptr : scene.meshes()) {
 
         const auto& mesh = *mesh_ptr;
+
+        /*vector<V3> vertex_data;
+        for (size_t i = 0; i < mesh.verts().size(); ++i) {
+            V3 v = { mesh.verts()[i] };
+            vertex_data.push_back(v);
+        }*/
 
         vector<V3T2> vertex_data;
         for (size_t i = 0; i < mesh.verts().size(); ++i) {
@@ -88,7 +94,6 @@ Mesh::Mesh(Formats format, const void* vertex_data, unsigned int numVerts, const
         _indexs_buffer_id = 0;
     }
 }
-
 
 Mesh::Mesh(Mesh&& b) noexcept :
     _format(b._format),

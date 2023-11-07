@@ -3,6 +3,8 @@
 #include "EngineGlobals.h"
 #include "Graphic.h"
 #include "Texture2D.h"
+#include "Scene.h"
+#include "Components.h"
 
 
 
@@ -15,16 +17,17 @@ public:
 	struct V3T2 { vec3f v; vec2f t; };
 
 private:
-	const enum Formats _format;
+	enum Formats _format;
 
 	unsigned int _vertex_buffer_id;
-	const unsigned int _numVerts;
+	unsigned int _numVerts;
 
 	unsigned int _indexs_buffer_id;
-	const unsigned int _numIndexs;
+	unsigned int _numIndexs;
 
 public:
 	using Ptr = shared_ptr<Mesh>;
+	Ctype type = COMPONENT_MESTH;
 
 	static vector<Ptr> loadFromFile(const string& path);
 
@@ -32,8 +35,8 @@ public:
 
 	Mesh(Formats format, const void* vertex_data, unsigned int numVerts, const unsigned int* indexs_data = nullptr, unsigned int numIndexs = 0);
 	Mesh(Mesh&& b) noexcept;
-	void draw();
 	~Mesh();
+	void draw() override;
 
 private:
 	Mesh(const Mesh& cpy);
