@@ -53,6 +53,12 @@ private:
 	double frameRate = 60.0; // 60 frames per second
 
 public:
+	bool framerateUnlimited = false;
+	float updateTime = 0.0f;
+	float frameTime = 0.0f;
+	float currentFPS = 0.0f;
+
+public:
 	// Constructor
 	App(int argc, char* args[]);
 
@@ -90,6 +96,7 @@ public:
 
 	void SetFrameRate(double newFrameRate) {
 		frameRate = newFrameRate;
+		this->ChangeFramerate(newFrameRate);
 	}
 
 	void RequestBrowser(const char* link)

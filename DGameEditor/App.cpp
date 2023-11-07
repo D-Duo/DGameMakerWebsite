@@ -84,17 +84,25 @@ bool App::DoUpdate() {
         cout << "==============================================================" << endl;
         cout << endl;
     }
-
+    
     // Calculate the elapsed time for the frame
     auto frameEndTime = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> frameDuration = frameEndTime - frameStartTime;
+    auto frameDuration = std::chrono::duration_cast<std::chrono::duration<double>>(frameEndTime - frameStartTime);
 
     // Calculate the sleep time based on the current target frame rate
     double sleepTime = targetFrameTime - frameDuration.count();
 
-    if (sleepTime > 0) {
+    if ((sleepTime > 0) && (!framerateUnlimited)) {
         std::this_thread::sleep_for(std::chrono::duration<double>(sleepTime));
+        frameTime = (frameDuration.count() + sleepTime);
+        currentFPS = 1.0 / (frameDuration.count() + sleepTime);
     }
+    else {
+        frameTime = frameDuration.count();
+        currentFPS = 1.0 / frameDuration.count();
+    }
+
+    updateTime = frameDuration.count();
     
     return ret;
 }

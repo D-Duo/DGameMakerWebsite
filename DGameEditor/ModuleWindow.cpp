@@ -93,7 +93,6 @@ SDL_GLContext ModuleWindow::CreateWindowContext(SDL_Window* window) {
 void ModuleWindow::UpdateWindowContext(SDL_Window* window, SDL_GLContext gl_context) {
     if (!gl_context) throw exception(SDL_GetError());
     if (SDL_GL_MakeCurrent(window, gl_context) != 0) throw exception(SDL_GetError());
-    if (SDL_GL_SetSwapInterval(1) != 0) throw exception(SDL_GetError());
 }
 
 void ModuleWindow::OpenGLInit() {

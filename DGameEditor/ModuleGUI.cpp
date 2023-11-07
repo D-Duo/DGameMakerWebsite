@@ -40,7 +40,7 @@ void ModuleGUI::Awake() {
 }
 
 void ModuleGUI::Start() {
-
+	this->w_settings->framerate = app->GetFrameRate();
 }
 
 bool ModuleGUI::PreUpdate() {
