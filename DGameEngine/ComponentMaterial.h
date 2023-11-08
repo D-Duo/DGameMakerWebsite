@@ -1,18 +1,20 @@
 #pragma once
 #include "Components.h"
 #include "Texture2D.h"
+#include "GameObject.h"
 
-class ComponentMaterial : public Components
+class ComponentMaterial : public Component
 {
 public:
-	ComponentMaterial(const string path);
+	ComponentMaterial(GameObject& owner, shared_ptr<Texture2D> texture = nullptr);
 
-	void Enable() override;
-	void Disable() override;
 	void update() override;
 
-	const Ctype type = COMPONENT_MATERIAL;
-	vector<shared_ptr<Texture2D>> mTextures;
+	shared_ptr<Texture2D> texture;
+
+	Type getType() const override {
+		return Type::MATERIAL;
+	}
 
 private:
 	ComponentMaterial(const ComponentMaterial& cpy);

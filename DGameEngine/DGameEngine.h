@@ -4,6 +4,7 @@
 #include "Camera.h"
 #include "CubeImmediateMode.h"
 #include "Scene.h"
+#include "Loaders.h"
 
 class GameEngine
 {
@@ -14,6 +15,8 @@ public:
 
 	Camera mainCamera;
 	vector<shared_ptr<Scene>> scenes;
+
+	FileLoader loader;
 
 	void CreateScene(const string name) {
 		shared_ptr<Scene> scene = make_shared<Scene>(name);

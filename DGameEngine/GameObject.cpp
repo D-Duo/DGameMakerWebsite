@@ -3,53 +3,52 @@
 #include "ComponentMesh.h"
 #include "ComponentMaterial.h"
 
-GameObject::GameObject(const string meshPath = "", const string texturePath = "", mat4 transform = glm::identity<mat4>()) {
-	shared_ptr<Components> newComp;
-	//transform component
-
-	//mesh component
-	newComp = CreateComponent(COMPONENT_MESTH, meshPath);
-	AddComponent(newComp);
-
-	//texture component
-	newComp = CreateComponent(COMPONENT_MATERIAL, texturePath);
-	AddComponent(newComp);
-
+GameObject::GameObject() {
+	name = "";
+	//components.push_back(make_shared<ComponentTransform>(*this));
 }
 
-shared_ptr<Components> GameObject::CreateComponent(Ctype type, const string path) {
+void GameObject::AddComponent(Component::Type component) {
+	std::shared_ptr<Component> ptr;
 
-	shared_ptr<Components> newComp = nullptr;
-
-	switch (type)
+	switch (component)
 	{
-	case Ctype::NONE:
+	case Component::Type::TRANSFORM:
+		//ptr = std::make_shared<Transform>(*this);
 		break;
-	case Ctype::COMPONENT_TRANSFORM:
-		
+	case Component::Type::MESH:
+		ptr = std::make_shared<ComponentMesh>(*this);
 		break;
-	case Ctype::COMPONENT_MESTH:
-		newComp = make_shared<ComponentMesh>(path);
+	case Component::Type::MATERIAL:
+		ptr = std::make_shared<ComponentMaterial>(*this);
 		break;
-	case Ctype::COMPONENT_MATERIAL:
-		newComp = make_shared<ComponentMaterial>(path);
+	case Component::Type::CAMERA:
+		//ptr = std::make_shared<Camera>(*this);
 		break;
 	default:
+		cout << "Can't assign wrong component type" << endl;
 		break;
 	}
-	return newComp;
+
+	components.push_back(ptr);
 }
 
-void GameObject::AddComponent(shared_ptr<Components> comp) {
-	gObj_components.push_back(comp);
+void GameObject::MaterialAddComponent(std::shared_ptr<ComponentMaterial> component) {
+	component->owner = *this;
+	components.push_back(component);
 }
 
-void GameObject::RemoveComponent(shared_ptr<Components> comp) {
+void GameObject::MeshAddComponent(std::shared_ptr<ComponentMesh> component) {
+	component->owner = *this;
+	components.push_back(component);
+}
+
+void GameObject::RemoveComponent(shared_ptr<Component> comp) {
 
 }
 
 void GameObject::UpdateGameObj() {
-	for (auto components : gObj_components)
+	for (auto components : components)
 	{
 		components->update();
 	}

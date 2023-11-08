@@ -14,6 +14,7 @@ public:
 	Texture2D(Texture2D&& tex) noexcept;
 	void bind() const;
 	~Texture2D();
+	string name;
 
 private:
 	Texture2D(const Texture2D&) = default;

@@ -4,6 +4,9 @@
 #include "Texture2D.h"
 #include "Mesh.h"
 #include "GraphicObject.h"
+#include "ComponentMesh.h"
+#include "ComponentMaterial.h"
+
 
 GameEngine::GameEngine() {
     ilInit();

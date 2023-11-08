@@ -2,17 +2,20 @@
 #include "Components.h"
 #include "Mesh.h"
 
-class ComponentMesh : public Components
+class Mesh;
+
+class ComponentMesh : public Component
 {
 public:
-	ComponentMesh(const string path);
+	ComponentMesh(GameObject& owner, shared_ptr<Mesh> mesh = nullptr);
 
-	void Enable() override;
-	void Disable() override;
 	void update() override;
 
-	const Ctype type = COMPONENT_MESTH;
-	vector<Mesh::Ptr> mMeshes;
+	shared_ptr<Mesh> mesh;
+
+	Type getType() const override {
+		return Type::MESH;
+	}
 
 private:
 	ComponentMesh(const ComponentMesh& cpy);

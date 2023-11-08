@@ -19,6 +19,9 @@
     <Filter Include="Source Files\Components">
       <UniqueIdentifier>{e6218658-987a-48dc-b82f-e7e44125a269}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Utils">
+      <UniqueIdentifier>{3b92d9b1-43ff-4282-ae84-0eaf45084b70}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp">
@@ -97,6 +100,9 @@
     </ClInclude>
     <ClInclude Include="Components.h">
       <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Loaders.h">
+      <Filter>Source Files\Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

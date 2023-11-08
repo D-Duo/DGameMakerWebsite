@@ -15,13 +15,13 @@ public:
 	void init();
 	void GameObjectsUpdate();
 
-	void CreateGameObject(const string meshPath, const string texturePath, mat4 transform = glm::identity<mat4>());
-
-	vector<shared_ptr<GameObject>> gameObjects;
-
+	vector<GameObject> gameObjects;
 	string name;
 
-	void AddGameObj(shared_ptr<GameObject> gameObj);
+	void loadFromFile(const string& path, shared_ptr<Scene> myScene);
+	void EmptyGameObj();
 	//void RemoveGameObj(shared_ptr<GameObject>);
+
+	int NameAvailability(std::string name);
 };
 

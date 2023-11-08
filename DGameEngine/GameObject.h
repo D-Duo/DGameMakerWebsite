@@ -4,31 +4,44 @@
 #include "EngineGlobals.h"
 #include "Graphic.h"
 
+#include "ComponentMaterial.h"
+#include "ComponentMesh.h"
+
+class ComponentMesh;
+class ComponentMaterial;
+
 class GameObject
 {
 public:
-	GameObject() = default;
-	GameObject(const string, const string texturePath, mat4 transform);
-	//GameObject(std::shared_ptr<Graphic> graphic);
+	GameObject();
 
-	shared_ptr<Components> CreateComponent(Ctype type, const string path);
-
-	bool isActive;
-	string textPath;
-	vector<shared_ptr<Components>> gObj_components;
+	string name;
 
 public:
-	void AddComponent(shared_ptr<Components> comp);
-	void RemoveComponent(shared_ptr<Components> comp);
+	template <typename T> T* GetComponent();
+
+	void AddComponent(Component::Type component);
+	void MaterialAddComponent(std::shared_ptr<ComponentMaterial> component);
+	void MeshAddComponent(std::shared_ptr<ComponentMesh> component);
+	void RemoveComponent(shared_ptr<Component> comp);
 	void UpdateGameObj();
 
 	void SetActive() { isActive = true; }
 	void SetUnactive() { isActive = false; }
-	string GetTextPath() { return textPath; }
 
 private:
-	/*bool isActive;
-	string name;
-	vector<shared_ptr<Components>> gObj_components;*/
+	bool isActive;
+	vector<shared_ptr<Component>> components;
 };
 
+template<typename T>
+inline T* GameObject::GetComponent()
+{
+	for (auto component : components) {
+		T* returnComponent = dynamic_cast<T*>(component.get());
+		if (returnComponent) {
+			return returnComponent;
+		}
+	}
+	return nullptr;
+}

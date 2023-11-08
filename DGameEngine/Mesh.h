@@ -27,11 +27,9 @@ private:
 
 public:
 	using Ptr = shared_ptr<Mesh>;
-	Ctype type = COMPONENT_MESTH;
 
-	static vector<Ptr> loadFromFile(const string& path);
-
-	Texture2D::Ptr texture;
+	string name;
+	Texture2D* texture;
 
 	Mesh(Formats format, const void* vertex_data, unsigned int numVerts, const unsigned int* indexs_data = nullptr, unsigned int numIndexs = 0);
 	Mesh(Mesh&& b) noexcept;

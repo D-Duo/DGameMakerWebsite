@@ -1,5 +1,6 @@
 #include "Scene.h"
 #include "Mesh.h"
+#include "Loaders.h"
 
 Scene::Scene(string name) : name(name) {
 
@@ -10,37 +11,81 @@ Scene::~Scene() {
 }
 
 void Scene::init() {
-	CreateGameObject("BakerHouse.fbx", "Baker_house.png");
+	
 }
 
 void Scene::GameObjectsUpdate() {
 	for (auto gObj : gameObjects)
 	{
-		gObj->UpdateGameObj();
+		gObj.UpdateGameObj();
 	}
 
 }
 
-void Scene::CreateGameObject(const string meshPath, const string texturePath, mat4 transform) {
+void Scene::EmptyGameObj() {
 
-	shared_ptr<GameObject> newGameObj = make_shared<GameObject>(meshPath, texturePath, transform);
+    GameObject gameObj;
 
-	newGameObj->isActive = true;
-
-	//eliminate .fbx for naming the gObj
-	string _name = meshPath;
-	size_t dotPos = _name.rfind('.');
-	if (dotPos != string::npos && dotPos != 0) {
-		newGameObj->textPath = _name.substr(0, dotPos);
+	string meshName = "GameObject";
+	int currentCopies = NameAvailability(meshName);
+	if (currentCopies > 0) {
+		meshName.append("(");
+		std::string copiesToString = std::to_string(currentCopies);
+		meshName.append(copiesToString);
+		meshName.append(")");
 	}
-	else {
-		newGameObj->textPath = _name;//no extension found
-	}
-
-	AddGameObj(newGameObj);
-}
-
-void Scene::AddGameObj(shared_ptr<GameObject> gameObj) {
 
 	gameObjects.push_back(gameObj);
+}
+
+void Scene::loadFromFile(const string& path, shared_ptr<Scene> myScene) {
+
+    auto meshes_vec = FileLoader::MeshloadFromFile(path);
+    auto textures_vec = FileLoader::TextureloadFromFile(path);
+
+    int i = 0;
+    for (const auto& mesh : meshes_vec)
+    {
+        GameObject object;
+
+        auto meshComp = make_shared<ComponentMesh>(object, mesh);
+        auto textComp = make_shared<ComponentMaterial>(object, textures_vec.at(i));
+
+        object.MeshAddComponent(meshComp);
+        object.MaterialAddComponent(textComp);
+
+        mesh->texture = object.GetComponent<Texture2D>();
+
+        std::string meshName = path;
+        mesh.get()->name = meshName;
+        size_t pos = meshName.find(".fbx");
+
+        while (pos != std::string::npos) {
+            meshName.erase(pos, 4);
+            pos = meshName.find(".fbx", pos);
+        }
+        int currentCopies = NameAvailability(meshName);
+        if (currentCopies > 0) {
+            meshName.append("(");
+            std::string copiesToString = std::to_string(currentCopies);
+            meshName.append(copiesToString);
+            meshName.append(")");
+        }
+
+        object.name = meshName;
+        myScene.get()->gameObjects.push_back(object);
+        i++;
+    }
+}
+
+int Scene::NameAvailability(std::string name) {
+    int count = 0;
+
+    for (const auto& vector : gameObjects) {
+        if (vector.name.find(name) != std::string::npos) {
+            count++;
+        }
+    }
+
+    return count;
 }

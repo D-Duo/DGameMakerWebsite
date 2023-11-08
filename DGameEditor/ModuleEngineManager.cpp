@@ -24,6 +24,8 @@ void ModuleEngineManager::Awake() {
     engine.CreateScene("Scene1");
     sel_Scene.index = 0;
     sel_Scene.scene = engine.GetSceneAtIndex(sel_Scene.index);
+
+    sel_Scene.scene.get()->loadFromFile("BakerHouse.fbx", sel_Scene.scene);
 }
 
 void ModuleEngineManager::Start() {
