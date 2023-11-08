@@ -20,6 +20,9 @@ Move around the scene using the following controls:
 
 ## Windows
 
+- Docking of any of the following windows available
+- Windows can be hiden
+
 ### Hierarchy
 
 - Where you see the gameObjects loaded in your scene
@@ -70,6 +73,13 @@ Move around the scene using the following controls:
 - Check library versions (SDL, DevIl, ImGui, GLEW, Graphical controllers Version/Vendor)
 - Your PC specifications (CPU cores, GPU, RAM, VRAM budget/used/available)
 
+#### Help
+
+- Menu with info about the engine (description, members, resources, license)
+- Download last version of the engine
+- Report bugs
+- GitHub repository link
+- Contact us, link to our organization
 
 
 
