@@ -2,6 +2,8 @@
 
 ComponentMesh::ComponentMesh(shared_ptr<Mesh>&& m) : Components(type) {
     mesh = move(m);
+
+    mMeshes = mesh->loadFromFile("Assets/Meshes/" + mesh->path);
 }
 
 void ComponentMesh::Enable() {
@@ -14,4 +16,9 @@ void ComponentMesh::Disable() {
 
 void ComponentMesh::update() {
     mesh->draw();
+
+   for (auto meshes : mMeshes)
+   {
+        meshes->draw();
+   }
 }

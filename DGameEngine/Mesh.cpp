@@ -98,7 +98,8 @@ Mesh::Mesh(Mesh&& b) noexcept :
     _numVerts(b._numVerts),
     _indexs_buffer_id(b._indexs_buffer_id),
     _numIndexs(b._numIndexs),
-    texture(b.texture)
+    texture(b.texture),
+    path(b.path)
 {
     b._vertex_buffer_id = 0;
     b._indexs_buffer_id = 0;

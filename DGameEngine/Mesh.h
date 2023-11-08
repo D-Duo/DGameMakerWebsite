@@ -32,6 +32,7 @@ public:
 	static vector<Ptr> loadFromFile(const string& path);
 
 	Texture2D::Ptr texture;
+	string path;
 
 	Mesh(Formats format, const void* vertex_data, unsigned int numVerts, const unsigned int* indexs_data = nullptr, unsigned int numIndexs = 0);
 	Mesh() = default;

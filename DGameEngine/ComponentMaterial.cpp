@@ -2,7 +2,7 @@
 
 ComponentMaterial::ComponentMaterial(shared_ptr<Texture2D>&& t) : Components(type) {
 
-    texture = t;
+    texture = move(t);
 }
 
 void ComponentMaterial::Enable() {

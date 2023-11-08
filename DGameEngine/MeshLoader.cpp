@@ -12,19 +12,18 @@ void MeshLoader::loadFromFile(const string& path, Scene& myScene) {
     //const aiSceneExt& scene = *(aiSceneExt*)scene_ptr;
 
     //load textures
-   /* vector<Texture2D::Ptr> texture_ptrs;
-    for (const auto& material : scene.materials()) {
-
+    vector<Texture2D::Ptr> texture_ptrs;
+    for (size_t t = 0; t < scene->mNumMaterials; ++t) {
         aiString aiPath;
-        material->GetTexture(aiTextureType_DIFFUSE, 0, &aiPath);
+        scene->mMaterials[t]->GetTexture(aiTextureType_DIFFUSE, 0, &aiPath);
         fs::path texPath = fs::path(path).parent_path().parent_path().append("Textures") / fs::path(aiPath.C_Str()).filename();
         auto texture_ptr = make_shared<Texture2D>(texPath.string());
         texture_ptrs.push_back(texture_ptr);
-    }*/
+    }
 
     //load meshes
     vector<Mesh::Ptr> mesh_ptrs;
-    for (size_t m = 0; m < scene->mNumMeshes; ++m) {
+    for (size_t m = 0; m <= 0; ++m) {
 
         const auto mesh = scene->mMeshes[m];
         const auto faces = mesh->mFaces;
@@ -47,14 +46,16 @@ void MeshLoader::loadFromFile(const string& path, Scene& myScene) {
         auto loadedMesh = make_shared<Mesh>(Mesh::Formats::F_V3T2, vertex_data.data(), vertex_data.size(), index_data.data(), index_data.size());
 
         //load Texture
-        aiString aiPath;
+        /*aiString aiPath;
         aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
         material->GetTexture(aiTextureType_DIFFUSE, 0, &aiPath);
-        fs::path texPath = fs::path(path).parent_path().parent_path().append("Textures") / fs::path(aiPath.C_Str()).filename();
+        fs::path texPath = fs::path(filepath).parent_path().parent_path().append("Textures") / fs::path(aiPath.C_Str()).filename();
         auto text_ptr = make_shared<Texture2D>(texPath.string());
-        Mesh pep;
+        loadedMesh->texture = text_ptr;*/
+        loadedMesh->texture = texture_ptrs[mesh->mMaterialIndex];
+        loadedMesh->path = path;
         //Create GameObject
-        myScene.CreateGameObject(path, move(loadedMesh), move(text_ptr));
+        myScene.CreateGameObject(path, move(loadedMesh), move(texture_ptrs[mesh->mMaterialIndex]));
     }
 
     aiReleaseImport(scene);

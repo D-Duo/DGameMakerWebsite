@@ -62,12 +62,12 @@ void Scene::CreateGameObject(const string path, shared_ptr<Mesh>&& mesh, shared_
 
 	size_t dotPos = _name.rfind('.');
 	if (dotPos != string::npos && dotPos != 0) {
-		_name.substr(4, dotPos);
+		_name = _name.substr(0, dotPos);
 	}
 
 	size_t lastBackslashPos = _name.find_last_of('\\');
 	if (lastBackslashPos != string::npos) {
-		_name.erase(0, lastBackslashPos + 1);
+		_name = _name.substr(0, lastBackslashPos + 1);
 	}
 
 	newGameObj->SetTag(numGobj);
