@@ -5,7 +5,7 @@
 enum Ctype {
 	NONE,
 	COMPONENT_TRANSFORM,
-	COMPONENT_MESTH,
+	COMPONENT_MESH,
 	COMPONENT_MATERIAL
 };
 
@@ -30,8 +30,6 @@ public:
 
 public:
 	Ctype component_type = NONE;
-
-private:
 	bool isActive;
 	string name;
 };

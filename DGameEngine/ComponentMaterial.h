@@ -14,8 +14,10 @@ public:
 	const Ctype type = COMPONENT_MATERIAL;
 	vector<shared_ptr<Texture2D>> mTextures;
 	Texture2D::Ptr texture;
+	string filepath;
+	//bool isActive;
 
 private:
-	ComponentMaterial(const ComponentMaterial& cpy);
-	ComponentMaterial& operator=(const ComponentMaterial&);
+	ComponentMaterial(const ComponentMaterial& cpy) = delete;
+	ComponentMaterial& operator=(const ComponentMaterial&) = delete;
 };

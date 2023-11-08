@@ -28,11 +28,13 @@ shared_ptr<Components> GameObject::CreateComponent(Ctype type, shared_ptr<Mesh>&
 	case Ctype::COMPONENT_TRANSFORM:
 		
 		break;
-	case Ctype::COMPONENT_MESTH:
+	case Ctype::COMPONENT_MESH:
 		newComp = make_shared<ComponentMesh>(move(mesh));
+		newComp->component_type = COMPONENT_MESH;
 		break;
 	case Ctype::COMPONENT_MATERIAL:
 		newComp = make_shared<ComponentMaterial>(move(texture));
+		newComp->component_type = COMPONENT_MATERIAL;
 		break;
 	default:
 		break;

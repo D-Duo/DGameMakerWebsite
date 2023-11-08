@@ -23,15 +23,15 @@ public:
 	void RemoveComponent(shared_ptr<Components> comp);
 	void UpdateGameObj();
 
-private:
+public:
 	bool isActive;
 	string name;
 	int tag;
 
 public:
-	void SetActive() { isActive = true; }
+	void SetActive() { isActive != isActive; }
 	void SetUnactive() { isActive = false; }
-	bool GetActive() { return isActive; }
+	bool& GetActive() { return isActive; }
 
 	void SetName(string n) { name = n; }
 	string GetName() { return name; }

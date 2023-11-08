@@ -16,14 +16,20 @@ void MeshLoader::loadFromFile(const string& path, Scene& myScene) {
     for (size_t t = 0; t < scene->mNumMaterials; ++t) {
         aiString aiPath;
         scene->mMaterials[t]->GetTexture(aiTextureType_DIFFUSE, 0, &aiPath);
-        fs::path texPath = fs::path(path).parent_path().parent_path().append("Textures") / fs::path(aiPath.C_Str()).filename();
+        fs::path texPath = fs::path(filepath).parent_path().parent_path().append("Textures") / fs::path(aiPath.C_Str()).filename();
         auto texture_ptr = make_shared<Texture2D>(texPath.string());
+
+        texture_ptr->path = texPath.string().c_str();
+        size_t lastBackslashPos = texture_ptr->path.find_last_of('\\');
+        if (lastBackslashPos != string::npos) {
+            texture_ptr->path = texture_ptr->path.erase(0, lastBackslashPos + 1);
+        }
         texture_ptrs.push_back(texture_ptr);
     }
 
     //load meshes
     vector<Mesh::Ptr> mesh_ptrs;
-    for (size_t m = 0; m <= 0; ++m) {
+    for (size_t m = 0; m < scene->mNumMeshes; ++m) {
 
         const auto mesh = scene->mMeshes[m];
         const auto faces = mesh->mFaces;
@@ -52,10 +58,11 @@ void MeshLoader::loadFromFile(const string& path, Scene& myScene) {
         fs::path texPath = fs::path(filepath).parent_path().parent_path().append("Textures") / fs::path(aiPath.C_Str()).filename();
         auto text_ptr = make_shared<Texture2D>(texPath.string());
         loadedMesh->texture = text_ptr;*/
+        auto passText = texture_ptrs[mesh->mMaterialIndex];
         loadedMesh->texture = texture_ptrs[mesh->mMaterialIndex];
         loadedMesh->path = path;
         //Create GameObject
-        myScene.CreateGameObject(path, move(loadedMesh), move(texture_ptrs[mesh->mMaterialIndex]));
+        myScene.CreateGameObject(path, move(loadedMesh), move(passText));
     }
 
     aiReleaseImport(scene);

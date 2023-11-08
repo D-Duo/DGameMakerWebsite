@@ -27,7 +27,7 @@ private:
 
 public:
 	using Ptr = shared_ptr<Mesh>;
-	Ctype type = COMPONENT_MESTH;
+	Ctype type = COMPONENT_MESH;
 
 	static vector<Ptr> loadFromFile(const string& path);
 
@@ -39,6 +39,13 @@ public:
 	Mesh(Mesh&& b) noexcept;
 	~Mesh();
 	void draw() override;
+
+	Formats GetFormat() { return _format; }
+	unsigned int GetVertexBufferId() { return _vertex_buffer_id; }
+	unsigned int GetNumVerts() { return _numVerts; }
+	unsigned int GetIndexBufferId() { return _indexs_buffer_id; }
+	unsigned int GetNumIndex() { return _numIndexs; }
+
 
 private:
 	Mesh(const Mesh& cpy) = delete;

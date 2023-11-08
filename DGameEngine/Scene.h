@@ -23,10 +23,11 @@ public:
 	void CreateGameObject(const string path, shared_ptr<Mesh>&& mesh, shared_ptr<Texture2D>&& t);
 
 	vector<shared_ptr<GameObject>> mGameObjects;
+	shared_ptr<GameObject> selectedGobj;
 
 	int numGobj = 0;
 
 	void AddGameObj(shared_ptr<GameObject> gameObj);
-	//void RemoveGameObj(shared_ptr<GameObject>);
+	void RemoveGameObj(shared_ptr<GameObject> gObj);
 };
 

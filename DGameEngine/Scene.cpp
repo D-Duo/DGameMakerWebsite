@@ -2,6 +2,7 @@
 #include "Mesh.h"
 #include "ComponentMesh.h"
 #include "ComponentMaterial.h"
+#include "vector"
 
 Scene::Scene() {
 
@@ -72,10 +73,10 @@ void Scene::CreateGameObject(const string path, shared_ptr<Mesh>&& mesh, shared_
 
 	newGameObj->SetTag(numGobj);
 	newGameObj->SetName(_name + "_" + to_string(newGameObj->GetTag()).c_str());
-	newGameObj->SetActive();
+	newGameObj->isActive = true;
 	numGobj++;
 
-	newComp = newGameObj->CreateComponent(COMPONENT_MESTH, move(mesh), move(texture));
+	newComp = newGameObj->CreateComponent(COMPONENT_MESH, move(mesh), move(texture));
 	newGameObj->AddComponent(newComp);
 	newComp = newGameObj->CreateComponent(COMPONENT_MATERIAL, move(mesh), move(texture));
 	newGameObj->AddComponent(newComp);
@@ -86,4 +87,16 @@ void Scene::CreateGameObject(const string path, shared_ptr<Mesh>&& mesh, shared_
 void Scene::AddGameObj(shared_ptr<GameObject> gameObj) {
 
 	mGameObjects.push_back(gameObj);
+}
+
+void Scene::RemoveGameObj(shared_ptr<GameObject> gObj) {
+
+	for (int i = 0; i < mGameObjects.size(); ++i)
+	{
+		if (mGameObjects[i]->GetTag() == gObj->GetTag())
+		{
+			mGameObjects[i].reset();
+		}
+
+	}
 }

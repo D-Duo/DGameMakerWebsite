@@ -7,6 +7,8 @@ class Texture2D
 
 private:
 	unsigned int _id;
+public:
+	string path;
 
 public:
 	using Ptr = shared_ptr<Texture2D>;

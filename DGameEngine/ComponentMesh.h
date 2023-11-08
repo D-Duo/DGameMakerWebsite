@@ -11,12 +11,13 @@ public:
 	void Disable() override;
 	void update() override;
 
-	const Ctype type = COMPONENT_MESTH;
+	const Ctype type = COMPONENT_MESH;
 	vector<Mesh::Ptr> mMeshes;
 	Mesh::Ptr mesh;
+	//bool isActive;
 
 private:
-	//ComponentMesh(const ComponentMesh& cpy) = delete;
-	//ComponentMesh& operator=(const ComponentMesh&) = delete;
+	ComponentMesh(const ComponentMesh& cpy) = delete;
+	ComponentMesh& operator=(const ComponentMesh&) = delete;
 };
 

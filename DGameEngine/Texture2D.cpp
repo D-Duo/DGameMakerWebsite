@@ -29,7 +29,7 @@ Texture2D::Texture2D(const std::string& path) {
     ilDeleteImage(img);
 }
 
-Texture2D::Texture2D(Texture2D&& tex) noexcept : _id(tex._id) {
+Texture2D::Texture2D(Texture2D&& tex) noexcept : _id(tex._id), path(tex.path) {
     tex._id = 0;
 }
 
