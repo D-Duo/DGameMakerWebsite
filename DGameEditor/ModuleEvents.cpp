@@ -50,7 +50,7 @@ bool ModuleEvents::SDLEventsProcess() {
                 if (lastBackslashPos != string::npos) {
                     mPath.erase(0, lastBackslashPos + 1);
                 }
-
+                app->engineManager->GetEngine()->meshLoader.loadFromFile(mPath, app->engineManager->GetEngine()->myScene);
             }
             if (filePath.substr(filePath.find_last_of(".") + 1) == "png") {
                 cout << ".png file detected" << endl;
@@ -60,8 +60,6 @@ bool ModuleEvents::SDLEventsProcess() {
                     tPath.erase(0, lastBackslashPos + 1);
                 }
             }
-            
-            app->engineManager->GetEngine()->meshLoader.loadFromFile(mPath, app->engineManager->GetEngine()->myScene);
 
             SDL_free(event.drop.file);  // Free files memory
 
