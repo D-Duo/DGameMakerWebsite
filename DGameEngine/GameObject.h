@@ -4,31 +4,40 @@
 #include "EngineGlobals.h"
 #include "Graphic.h"
 
+class Mesh;
+class Texture2D;
+
 class GameObject
 {
 public:
 	GameObject() = default;
 	GameObject(const string, const string texturePath, mat4 transform);
-	//GameObject(std::shared_ptr<Graphic> graphic);
 
-	shared_ptr<Components> CreateComponent(Ctype type, const string path);
-
-	bool isActive;
-	string textPath;
 	vector<shared_ptr<Components>> gObj_components;
 
 public:
+	shared_ptr<Components> CreateComponent(Ctype type, shared_ptr<Mesh>&& mesh, shared_ptr<Texture2D>&& texture);
+	shared_ptr<Components> GetComponent(Ctype type);
+
 	void AddComponent(shared_ptr<Components> comp);
 	void RemoveComponent(shared_ptr<Components> comp);
 	void UpdateGameObj();
 
+private:
+	bool isActive;
+	string name;
+	int tag;
+
+public:
 	void SetActive() { isActive = true; }
 	void SetUnactive() { isActive = false; }
-	string GetTextPath() { return textPath; }
+	bool GetActive() { return isActive; }
 
-private:
-	/*bool isActive;
-	string name;
-	vector<shared_ptr<Components>> gObj_components;*/
+	void SetName(string n) { name = n; }
+	string GetName() { return name; }
+
+	void SetTag(int t) { tag = t; }
+	int GetTag() { return tag; }
+
 };
 

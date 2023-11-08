@@ -1,4 +1,6 @@
 #include "Mesh.h"
+#include "DGameEngine.h"
+
 namespace fs = filesystem;
 
 struct aiMeshExt : aiMesh {
@@ -34,12 +36,6 @@ vector<Mesh::Ptr> Mesh::loadFromFile(const string& path) {
 
         const auto& mesh = *mesh_ptr;
 
-        /*vector<V3> vertex_data;
-        for (size_t i = 0; i < mesh.verts().size(); ++i) {
-            V3 v = { mesh.verts()[i] };
-            vertex_data.push_back(v);
-        }*/
-
         vector<V3T2> vertex_data;
         for (size_t i = 0; i < mesh.verts().size(); ++i) {
             V3T2 v = { mesh.verts()[i], vec2f(mesh.texCoords()[i].x, mesh.texCoords()[i].y) };
@@ -54,6 +50,7 @@ vector<Mesh::Ptr> Mesh::loadFromFile(const string& path) {
         }
 
         auto mesh_sptr = make_shared<Mesh>(Formats::F_V3T2, vertex_data.data(), vertex_data.size(), index_data.data(), index_data.size());
+
         mesh_sptr->texture = texture_ptrs[mesh.mMaterialIndex];
         mesh_ptrs.push_back(mesh_sptr);
     }

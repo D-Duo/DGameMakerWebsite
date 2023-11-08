@@ -4,6 +4,9 @@
 #include "Camera.h"
 #include "CubeImmediateMode.h"
 #include "Scene.h"
+#include "MeshLoader.h"
+#include "Mesh.h"
+
 
 class GameEngine
 {
@@ -17,6 +20,8 @@ public:
 
 	bool initB = true;
 
+	Mesh pep;
+	MeshLoader meshLoader;
 	Scene myScene;
 	CubeImmediateMode* myCube;
 	GameObject gameObj;

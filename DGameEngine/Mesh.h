@@ -34,12 +34,13 @@ public:
 	Texture2D::Ptr texture;
 
 	Mesh(Formats format, const void* vertex_data, unsigned int numVerts, const unsigned int* indexs_data = nullptr, unsigned int numIndexs = 0);
+	Mesh() = default;
 	Mesh(Mesh&& b) noexcept;
 	~Mesh();
 	void draw() override;
 
 private:
-	Mesh(const Mesh& cpy);
-	Mesh& operator=(const Mesh&);
+	Mesh(const Mesh& cpy) = delete;
+	Mesh& operator=(const Mesh&) = delete;
 };
 

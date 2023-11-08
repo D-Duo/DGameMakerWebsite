@@ -1,17 +1,8 @@
 #include "ComponentMaterial.h"
 
-ComponentMaterial::ComponentMaterial(const string path) : Components(type) {
+ComponentMaterial::ComponentMaterial(shared_ptr<Texture2D>&& t) : Components(type) {
 
-    stringstream ss;
-    ss << "../DGameEditor/Assets/Textures/" << path;
-    ifstream file(ss.str());
-    if (file.good()) {
-        auto texture = make_shared<Texture2D>(path);
-        mTextures.push_back(texture);
-    }
-    else {
-        cout << "FILE NOT FOUND :: MATERIAL COMPONENT CONSTRUCTOR" << endl;
-    }
+    texture = t;
 }
 
 void ComponentMaterial::Enable() {

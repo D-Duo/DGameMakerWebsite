@@ -5,7 +5,7 @@
 class ComponentMesh : public Components
 {
 public:
-	ComponentMesh(const string path);
+	ComponentMesh(shared_ptr<Mesh>&& m);
 
 	void Enable() override;
 	void Disable() override;
@@ -13,9 +13,10 @@ public:
 
 	const Ctype type = COMPONENT_MESTH;
 	vector<Mesh::Ptr> mMeshes;
+	Mesh::Ptr mesh;
 
 private:
-	ComponentMesh(const ComponentMesh& cpy);
-	ComponentMesh& operator=(const ComponentMesh&);
+	//ComponentMesh(const ComponentMesh& cpy) = delete;
+	//ComponentMesh& operator=(const ComponentMesh&) = delete;
 };
 

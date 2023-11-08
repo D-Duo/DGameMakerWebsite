@@ -23,8 +23,15 @@ public:
 
 	void SetActive() { isActive = true; }
 	void SetDisable() { isActive = false; }
+	bool GetActive() { return isActive; }
+
+	void SetName(string n) { name = n; }
+	string GetName() { return name; }
+
+public:
+	Ctype component_type = NONE;
 
 private:
-	Ctype component_type = NONE;
 	bool isActive;
+	string name;
 };

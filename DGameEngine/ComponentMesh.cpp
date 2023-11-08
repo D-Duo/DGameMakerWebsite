@@ -1,16 +1,7 @@
 #include "ComponentMesh.h"
 
-ComponentMesh::ComponentMesh(const string path) : Components(type) {
-
-    stringstream ss;
-    ss << "../DGameEditor/Assets/Meshes/" << path;
-    ifstream file(ss.str());
-    if (file.good()) {
-        mMeshes = Mesh::loadFromFile(ss.str());
-    }
-    else {
-        cout << "FILE NOT FOUND :: MESH COMPONENT CONSTRUCTOR" << endl;
-    }
+ComponentMesh::ComponentMesh(shared_ptr<Mesh>&& m) : Components(type) {
+    mesh = move(m);
 }
 
 void ComponentMesh::Enable() {
@@ -22,8 +13,5 @@ void ComponentMesh::Disable() {
 }
 
 void ComponentMesh::update() {
-    for (auto meshes : mMeshes)
-    {
-        meshes->draw();
-    }
+    mesh->draw();
 }

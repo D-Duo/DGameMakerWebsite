@@ -5,7 +5,7 @@
 class ComponentMaterial : public Components
 {
 public:
-	ComponentMaterial(const string path);
+	ComponentMaterial(shared_ptr<Texture2D>&& t);
 
 	void Enable() override;
 	void Disable() override;
@@ -13,6 +13,7 @@ public:
 
 	const Ctype type = COMPONENT_MATERIAL;
 	vector<shared_ptr<Texture2D>> mTextures;
+	Texture2D::Ptr texture;
 
 private:
 	ComponentMaterial(const ComponentMaterial& cpy);

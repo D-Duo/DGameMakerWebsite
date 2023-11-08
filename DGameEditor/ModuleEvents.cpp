@@ -61,7 +61,7 @@ bool ModuleEvents::SDLEventsProcess() {
                 }
             }
             
-            app->engineManager->GetEngine()->myScene.CreateGameObject(mPath, tPath);
+            app->engineManager->GetEngine()->meshLoader.loadFromFile(mPath, app->engineManager->GetEngine()->myScene);
 
             SDL_free(event.drop.file);  // Free files memory
 

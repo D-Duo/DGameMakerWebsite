@@ -75,7 +75,9 @@ void GameEngine::render(RenderModes renderMode) {
     }
     if (initB)
     {
+        pep;
         myScene.init();
+        meshLoader.loadFromFile("BakerHouse.fbx", myScene);
         initB = false;
     }
     myScene.postUpdate();
