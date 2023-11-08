@@ -70,6 +70,9 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -138,14 +141,22 @@ $(SolutionDir)\vcpkg\vcpkg.exe install opengl glew sdl2 imgui[opengl3-binding,sd
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)\vcpkg\installed\x64-windows\lib\;$(SolutionDir)\vcpkg\installed\x64-windows\lib\manual-link\</AdditionalLibraryDirectories>
       <AdditionalDependencies>glew32.lib;OpenGL32.lib;SDL2.lib;SDL2main.lib;imgui.lib</AdditionalDependencies>
-      <IgnoreSpecificDefaultLibraries>msvcrt.lib</IgnoreSpecificDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
     </Link>
     <PreBuildEvent>
       <Command>call $(SolutionDir)\vcpkg\bootstrap-vcpkg.bat
-$(SolutionDir)\vcpkg\vcpkg.exe install opengl glew sdl2 imgui[opengl3-binding,sdl2-binding,docking-experimental] --recurse --triplet x64-windows</Command>
+$(SolutionDir)\vcpkg\vcpkg.exe install opengl glew sdl2 imgui[opengl3-binding,sdl2-binding,docking-experimental] --recurse --triplet x64-windows
+copy $(SolutionDir)\vcpkg\installed\x64-windows\bin\*.* $(OutDir)</Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>copy $(SolutionDir)\vcpkg\installed\x64-windows\bin\*.* $(OutDir)</Command>
+      <Command>mkdir ..\x64\Publish
+copy "..\x64\Release\*.*" "..\x64\Publish\"
+mkdir ..\x64\Publish\Assets
+copy ".\Assets\*.*" "..\x64\Publish\Assets"
+mkdir ..\x64\Publish\Fonts
+copy ".\Fonts\*.*" "..\x64\Publish\Fonts"
+copy ".\imgui.ini" "..\x64\Publish\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

@@ -16,7 +16,6 @@ Move around the scene using the following controls:
 - Right Click and WASD to move
 - Shift to move faster
 - Right Click and move the mouse to look around
-- Alt + Left Click and move the mouse to orbit around
 
 ## Windows
 
