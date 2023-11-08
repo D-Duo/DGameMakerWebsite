@@ -1,5 +1,10 @@
 #include "WindowSettings.h"
 #include "App.h"
+#include "assimp/cimport.h"
+#include "assimp/scene.h"
+#include "assimp/postprocess.h"
+
+#pragma comment(lib, "assimp-vc143-mt.lib")
 
 WindowSettings::WindowSettings(string name, bool startEnabled, ImGuiWindowFlags flags) : GUI_Window(name, startEnabled, flags) {
 	if ((WIN_WIDTH == 1920) && (WIN_HEIGHT == 1080)) { selectedResolution = 0; }
@@ -237,6 +242,28 @@ void WindowSettings::Update() {
 			SDL_GetVersion(&SdlVer);
 			ImGui::SameLine();
 			ImGui::Text("%d.%d.%d", SdlVer.major, SdlVer.minor, SdlVer.patch);
+
+			ImGui::BulletText("DevIL Version: ");
+			ILint ilVersion = ilGetInteger(IL_VERSION_NUM);
+			ImGui::SameLine();
+			ImGui::Text("%d.%d.%d", ilVersion / 1000, (ilVersion / 100) % 10, ilVersion % 100);
+
+			ImGui::BulletText("ImGui Version: ");
+			ImGui::SameLine();
+			int major = IMGUI_VERSION_NUM / 10000;
+			int minor = (IMGUI_VERSION_NUM / 100) % 100;
+			ImGui::Text("%d.%d", major, minor);
+
+			ImGui::BulletText("GLEW Version: ");
+			ImGui::SameLine();
+			const char* glewVersion = (const char*)glewGetString(GLEW_VERSION);
+			ImGui::Text("%s", glewVersion);
+
+			//const aiScene* _scene; // Assuming you have a valid aiScene pointer			//
+			//int major = aiGetVersionMajor();												//
+			//int minor = aiGetVersionMinor();												//	ASSIMP
+			//int revision = aiGetVersionRevision();										//
+			//ImGui::BulletText("Assimp Version: %d.%d.%d", major, minor, revision);		//
 
 			ImGui::BulletText("Grafical controllers Version: ");			
 			ImGui::SameLine();

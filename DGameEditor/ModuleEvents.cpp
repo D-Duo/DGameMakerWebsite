@@ -111,8 +111,6 @@ bool ModuleEvents::SDLEventsProcess() {
                 if (lastBackslashPos != string::npos) {
                     mPath.erase(0, lastBackslashPos + 1);
                 }
-                
-
             }
             if (filePath.substr(filePath.find_last_of(".") + 1) == "png") {
                 cout << ".png file detected" << endl;
