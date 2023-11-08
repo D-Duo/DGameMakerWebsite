@@ -6,11 +6,11 @@ struct Camera
 {
 	double fov;
 	double aspect;
-	double zNear;
-	double zFar;
+	double clippingPlaneNear;
+	double clippingPlaneFar;
 
-	vec3 eye;
-	vec3 center;
+	vec3 position;
+	vec3 orientation;
 	vec3 up;
 
 	mat4 computeLookAt() const;

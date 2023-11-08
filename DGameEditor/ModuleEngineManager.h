@@ -4,6 +4,18 @@
 
 #include "..\DGameEngine\DGameEngine.h"
 
+struct EngineScene
+{
+    shared_ptr<Scene> scene;
+    int index;
+};
+
+struct SceneGO
+{
+    shared_ptr<GameObject> gameObject;
+    int index;
+};
+
 class ModuleEngineManager : public Module
 {
 public:
@@ -22,6 +34,12 @@ public:
     GameEngine* GetEngine()  {
         return &engine;
     }
+
+public:
+    bool grid_xz, grid_xy, grid_zy;
+
+    EngineScene sel_Scene;
+    SceneGO sel_GameObject;
 
 private:
     GameEngine engine;

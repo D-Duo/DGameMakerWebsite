@@ -9,15 +9,17 @@ class GameObject;
 class Scene
 {
 public:
-	Scene();
+	Scene(string name);
 	~Scene();
 	
 	void init();
-	void postUpdate();
+	void GameObjectsUpdate();
 
 	void CreateGameObject(const string meshPath, const string texturePath, mat4 transform = glm::identity<mat4>());
 
-	vector<shared_ptr<GameObject>> mGameObjects;
+	vector<shared_ptr<GameObject>> gameObjects;
+
+	string name;
 
 	void AddGameObj(shared_ptr<GameObject> gameObj);
 	//void RemoveGameObj(shared_ptr<GameObject>);

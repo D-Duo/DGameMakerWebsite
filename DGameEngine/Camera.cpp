@@ -1,8 +1,8 @@
 #include "EngineGlobals.h"
 #include "Camera.h"
 
-Camera::Camera() : fov(60), aspect(4.0/3.0), zNear(0.1), zFar(100), eye(10, 2, 10), center(0, 1, 0), up(0, 1, 0) {}
+Camera::Camera() : fov(60), aspect(4.0/3.0), clippingPlaneNear(0.1), clippingPlaneFar(100), position(10, 2, 10), orientation(0, 1, 0), up(0, 1, 0) {}
 
 glm::dmat4 Camera::computeLookAt() const {
-	return glm::lookAt(eye, center, up);
+	return glm::lookAt(position, orientation, up);
 }

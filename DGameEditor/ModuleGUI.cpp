@@ -118,9 +118,74 @@ void ModuleGUI::ImguiInit(SDL_Window *window, SDL_GLContext gl_context){
 	ImGui_ImplOpenGL3_Init("#version 330 core");
 
 	// Set up ImGui style (optional)
-	ImGui::StyleColorsDark();
+	//ImGui::StyleColorsDark();
 
-	//style.Colors[ImGuiCol_Border] = ImVec4(91.0f, 123.0f, 218.0f, 0.72f); // Set specific color (RGBA) for a specific part of the UI
+#pragma region Imgui color pallete
+
+	style.Colors[ImGuiCol_BorderShadow] =			ImVec4(0.0f, 0.0f, 0.0f, 0.0f);
+
+	style.Colors[ImGuiCol_MenuBarBg] =				ImVec4(0.10f, 0.12f, 0.17f, 1.0f);
+
+	style.Colors[ImGuiCol_TabActive] =				ImVec4(0.09f, 0.15f, 0.16f, 1.0f);
+	style.Colors[ImGuiCol_TabHovered] =				ImVec4(0.09f, 0.15f, 0.16f, 1.0f);
+	style.Colors[ImGuiCol_ScrollbarGrab] =			ImVec4(0.09f, 0.15f, 0.16f, 1.0f);
+	style.Colors[ImGuiCol_TabUnfocusedActive] =		ImVec4(0.09f, 0.15f, 0.16f, 1.0f);
+	style.Colors[ImGuiCol_TabUnfocused] =			ImVec4(0.09f, 0.15f, 0.16f, 0.7f);
+	style.Colors[ImGuiCol_Tab] =					ImVec4(0.09f, 0.15f, 0.16f, 0.7f);
+
+	style.Colors[ImGuiCol_ResizeGrip] =				ImVec4(0.47f, 0.77f, 0.83f, 0.04f);
+	style.Colors[ImGuiCol_SliderGrab] =				ImVec4(0.47f, 0.77f, 0.83f, 0.14f);
+	style.Colors[ImGuiCol_Button] =					ImVec4(0.47f, 0.77f, 0.83f, 0.14f);
+
+	
+	style.Colors[ImGuiCol_Header] =					ImVec4(0.1529f, 0.3882f, 0.5490f, 1.0f);	
+	style.Colors[ImGuiCol_TitleBgActive] =			ImVec4(0.1529f, 0.3882f, 0.5490f, 1.0f);
+
+	style.Colors[ImGuiCol_TextSelectedBg] =			ImVec4(0.176f, 0.631f, 0.929f, 0.43f);
+	style.Colors[ImGuiCol_ResizeGripHovered] =		ImVec4(0.176f, 0.631f, 0.929f, 0.78f);
+	style.Colors[ImGuiCol_ScrollbarGrabHovered] =	ImVec4(0.176f, 0.631f, 0.929f, 0.78f);
+	style.Colors[ImGuiCol_SeparatorHovered] =		ImVec4(0.176f, 0.631f, 0.929f, 0.78f);
+	style.Colors[ImGuiCol_FrameBgHovered] =			ImVec4(0.176f, 0.631f, 0.929f, 0.78f);
+	style.Colors[ImGuiCol_ButtonHovered] =			ImVec4(0.176f, 0.631f, 0.929f, 0.86f);
+	style.Colors[ImGuiCol_HeaderHovered] =			ImVec4(0.176f, 0.631f, 0.929f, 0.86f);
+	style.Colors[ImGuiCol_SliderGrabActive] =		ImVec4(0.176f, 0.631f, 0.929f, 0.86f);
+	style.Colors[ImGuiCol_ScrollbarGrabActive] =	ImVec4(0.176f, 0.631f, 0.929f, 0.86f);
+	style.Colors[ImGuiCol_ResizeGripActive] =		ImVec4(0.176f, 0.631f, 0.929f, 0.86f);
+	style.Colors[ImGuiCol_PlotLinesHovered] =		ImVec4(0.176f, 0.631f, 0.929f, 0.86f);
+	style.Colors[ImGuiCol_PlotHistogramHovered] =	ImVec4(0.176f, 0.631f, 0.929f, 0.86f);
+	style.Colors[ImGuiCol_SeparatorActive] =		ImVec4(0.176f, 0.631f, 0.929f, 0.86f);
+	style.Colors[ImGuiCol_FrameBgActive] =			ImVec4(0.176f, 0.631f, 0.929f, 0.86f);
+	style.Colors[ImGuiCol_ButtonActive] =			ImVec4(0.176f, 0.631f, 0.929f, 0.86f);
+	style.Colors[ImGuiCol_HeaderActive] =			ImVec4(0.176f, 0.631f, 0.929f, 0.86f);
+
+	style.Colors[ImGuiCol_WindowBg] =				ImVec4(0.13f, 0.14f, 0.17f, 1.0f);
+
+	style.Colors[ImGuiCol_Border] =					ImVec4(0.2353f, 0.2706f, 0.3451f, 1.0f);
+	style.Colors[ImGuiCol_TitleBg] =				ImVec4(0.2353f, 0.2706f, 0.3451f, 1.0f);
+	style.Colors[ImGuiCol_TitleBgCollapsed] =		ImVec4(0.2353f, 0.2706f, 0.3451f, 1.0f);
+	style.Colors[ImGuiCol_ScrollbarBg] =			ImVec4(0.2353f, 0.2706f, 0.3451f, 1.0f);
+	style.Colors[ImGuiCol_FrameBg] =				ImVec4(0.2353f, 0.2706f, 0.3451f, 1.0f);
+
+	style.Colors[ImGuiCol_Separator] =				ImVec4(0.3922f, 0.3922f, 0.3922f, 1.0f);
+			
+	style.Colors[ImGuiCol_PlotLines] =				ImVec4(0.86f, 0.93f, 0.89f, 0.63f);
+	style.Colors[ImGuiCol_PlotHistogram] =			ImVec4(0.86f, 0.93f, 0.89f, 0.63f);
+
+	style.Colors[ImGuiCol_CheckMark] =				ImVec4(1.0f, 1.0f, 1.0f, 0.78f);
+		
+	style.Colors[ImGuiCol_PopupBg] =				ImVec4(0.20f, 0.22f, 0.27f, 0.9f);
+	
+
+#pragma endregion
+
+	style.WindowMinSize = ImVec2(100, 20);
+	style.GrabMinSize = 8.0f;
+	style.WindowRounding = 1.5f;
+	style.FrameRounding = 1.5f;
+	style.GrabRounding = 1.5f;
+	style.Alpha = 1.0f;
+
+	customStyle1 = SaveImGuiStyle();
 }
 
 bool ModuleGUI::ImguiDockspace() {
@@ -146,6 +211,8 @@ bool ModuleGUI::ImguiDockspace() {
 		window_flags |= ImGuiWindowFlags_NoBackground;
 	}
 
+	ImGuiStyle& style = ImGui::GetStyle();
+	style.Colors[ImGuiCol_MenuBarBg] = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
 	if (!ImGui::Begin("MyDockSpace", NULL, window_flags)) throw exception("ImGui Window Begin returned false (Error on creating the Imgui Window)");
 	ImGui::PopStyleVar(3);
 
@@ -175,6 +242,8 @@ bool ModuleGUI::ImguiDockspace() {
 	ret = MenuBarUpdate();
 
 	ImGui::End();
+
+	RestoreImGuiStyle(customStyle1);
 
 	return ret;
 }
