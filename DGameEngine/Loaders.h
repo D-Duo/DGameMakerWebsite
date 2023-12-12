@@ -19,7 +19,7 @@ public:
             //load meshes           
 
             const auto scene = aiImportFile(filepath.c_str(), aiProcess_Triangulate | aiProcess_FlipUVs);
-            for (size_t m = 0; m <= 0; ++m) {
+            for (size_t m = 0; m < scene->mNumMeshes; ++m) {
 
                 const auto mesh = scene->mMeshes[m];
                 const auto faces = mesh->mFaces;
@@ -28,7 +28,7 @@ public:
 
                 vector<Mesh::V3T2> vertex_data;
                 for (size_t i = 0; i < mesh->mNumVertices; ++i) {
-                    Mesh::V3T2 v = { (vec3f&)mesh->mVertices, vec2f(texCoords[i].x, texCoords[i].y) };
+                    Mesh::V3T2 v = { (vec3f&)mesh->mVertices[i], vec2f(texCoords[i].x, texCoords[i].y)};
                     vertex_data.push_back(v);
                 }
 
@@ -40,7 +40,7 @@ public:
                 }
 
                 auto loadedMesh = make_shared<Mesh>(Mesh::Formats::F_V3T2, vertex_data.data(), vertex_data.size(), index_data.data(), index_data.size());
-
+                loadedMesh.get()->mMaterialIndex = mesh->mMaterialIndex;
                 mesh_ptrs.push_back(loadedMesh);
             }
 
@@ -68,7 +68,7 @@ public:
                 scene->mMaterials[t]->GetTexture(aiTextureType_DIFFUSE, 0, &aiPath);
                 size_t slash_pos = path.rfind('/');
                 if (slash_pos == std::string::npos) slash_pos = path.rfind('\\');
-                std::string folder_path = (slash_pos != std::string::npos) ? path.substr(0, slash_pos + 1) : "./";
+                std::string folder_path = (slash_pos != std::string::npos) ? path.substr(0, slash_pos + 1) : "Assets/Textures/";
                 std::string texPath = folder_path + aiScene::GetShortFilename(aiPath.C_Str());
 
                 auto texture_ptr = make_shared<Texture2D>(texPath);

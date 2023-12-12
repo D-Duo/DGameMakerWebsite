@@ -5,5 +5,5 @@ ComponentMaterial::ComponentMaterial(GameObject& owner, shared_ptr<Texture2D> te
 }
 
 void ComponentMaterial::update() {
-    
+    //owner.GetComponent<ComponentMesh>()->mesh.get()->texture = this->texture;
 }

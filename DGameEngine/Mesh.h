@@ -29,7 +29,9 @@ public:
 	using Ptr = shared_ptr<Mesh>;
 
 	string name;
-	Texture2D* texture;
+	shared_ptr<Texture2D> texture;
+
+	unsigned int mMaterialIndex;
 
 	Mesh(Formats format, const void* vertex_data, unsigned int numVerts, const unsigned int* indexs_data = nullptr, unsigned int numIndexs = 0);
 	Mesh(Mesh&& b) noexcept;

@@ -49,12 +49,12 @@ void Scene::loadFromFile(const string& path, shared_ptr<Scene> myScene) {
         GameObject object;
 
         auto meshComp = make_shared<ComponentMesh>(object, mesh);
-        auto textComp = make_shared<ComponentMaterial>(object, textures_vec.at(i));
+        auto textComp = make_shared<ComponentMaterial>(object, textures_vec[mesh->mMaterialIndex]);
 
         object.MeshAddComponent(meshComp);
         object.MaterialAddComponent(textComp);
 
-        mesh->texture = object.GetComponent<Texture2D>();
+        mesh->texture = object.GetComponent<ComponentMaterial>()->texture;
 
         std::string meshName = path;
         mesh.get()->name = meshName;
