@@ -99,7 +99,6 @@ void ModuleEngineManager::Awake() {
     engine.CreateScene("Scene1");
     sel_Scene.index = 0;
     sel_Scene.scene = engine.GetSceneAtIndex(sel_Scene.index);
-
     sel_Scene.scene.get()->loadFromFile("BakerHouse.fbx", sel_Scene.scene);
 }
 
@@ -123,7 +122,6 @@ bool ModuleEngineManager::PreUpdate() {
 }
 
 bool ModuleEngineManager::Update(duration<double> dt) {
-    
 
     if (app->events->GetMouseButton(SDL_BUTTON_RIGHT)) {
         double sensitivity = 0.01; // Adjust sensitivity as needed

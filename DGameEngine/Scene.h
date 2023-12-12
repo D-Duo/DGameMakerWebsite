@@ -23,6 +23,9 @@ public:
 
 	void loadFromFile(const string& path, shared_ptr<Scene> myScene);
 	void EmptyGameObj();
+	//vector<shared_ptr<GameObject>> gameObjects;
+
+	//void AddGameObj(shared_ptr<GameObject> gameObj);
 	//void RemoveGameObj(shared_ptr<GameObject>);
 
 	int NameAvailability(std::string name);

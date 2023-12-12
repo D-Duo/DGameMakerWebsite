@@ -7,7 +7,6 @@
 #include "ComponentMesh.h"
 #include "ComponentMaterial.h"
 
-
 GameEngine::GameEngine() {
     ilInit();
     const string mp = "Baker_house.fbx";
@@ -22,10 +21,12 @@ void GameEngine::render() {
   
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    gluLookAt( camera.eye.x, camera.eye.y, camera.eye.z,
-        camera.center.x, camera.center.y, camera.center.z,
-        camera.up.x, camera.up.y, camera.up.z);
-      
+    //Update camera look at position
+
+    gluLookAt( mainCamera.position.x, mainCamera.position.y, mainCamera.position.z,
+        mainCamera.orientation.x, mainCamera.orientation.y, mainCamera.orientation.z,
+        mainCamera.up.x, mainCamera.up.y, mainCamera.up.z);
+        
 #pragma region Draw Sandbox
     /*static auto mesh_ptrs = Mesh::loadFromFile("Assets/Meshes/BakerHouse.fbx");
   

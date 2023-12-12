@@ -15,7 +15,6 @@ public:
 
 	Camera mainCamera;
 	vector<shared_ptr<Scene>> scenes;
-
 	FileLoader loader;
 
 	void CreateScene(const string name) {

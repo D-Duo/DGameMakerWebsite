@@ -122,9 +122,8 @@ bool ModuleEvents::SDLEventsProcess() {
                     tPath.erase(0, lastBackslashPos + 1);
                 }
             }
-
             
-            //app->engineManager->sel_Scene.scene.get()->CreateGameObject(mPath, tPath);
+            app->engineManager->sel_Scene.scene.get()->CreateGameObject(mPath, tPath);
 
             SDL_free(event.drop.file);  // Free files memory
 

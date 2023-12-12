@@ -39,7 +39,6 @@ void Scene::EmptyGameObj() {
 }
 
 void Scene::loadFromFile(const string& path, shared_ptr<Scene> myScene) {
-
     auto meshes_vec = FileLoader::MeshloadFromFile(path);
     auto textures_vec = FileLoader::TextureloadFromFile(path);
 
