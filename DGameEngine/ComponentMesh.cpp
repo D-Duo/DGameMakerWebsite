@@ -1,24 +1,9 @@
 #include "ComponentMesh.h"
 
-ComponentMesh::ComponentMesh(shared_ptr<Mesh>&& m) : Components(type) {
-    mesh = move(m);
-
-    mMeshes = mesh->loadFromFile("Assets/Meshes/" + mesh->path);
-}
-
-void ComponentMesh::Enable() {
-    SetActive();
-}
-
-void ComponentMesh::Disable() {
-    SetDisable();
+ComponentMesh::ComponentMesh(GameObject& owner, shared_ptr<Mesh> mesh) : Component(owner) {
+    this->mesh = mesh;
 }
 
 void ComponentMesh::update() {
-    mesh->draw();
-
-   for (auto meshes : mMeshes)
-   {
-        meshes->draw();
-   }
+    mesh.get()->draw();
 }

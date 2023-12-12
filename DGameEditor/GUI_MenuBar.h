@@ -7,7 +7,6 @@ static bool MenuBarUpdate() {
     ImGui::StyleColorsLight();
 
     if (ImGui::BeginMenuBar()) {
-        GameEngine* engine_p = app->engineManager->GetEngine();
         if (ImGui::BeginMenu("File")) {
             if (ImGui::MenuItem("New Scene", "Ctrl+N", false, false)) {          // Temporarly disabled because not implemented (..., false, false)
                 // Code to execute when "New Scene" is selected
@@ -106,9 +105,11 @@ static bool MenuBarUpdate() {
         }
 
         if (ImGui::BeginMenu("View")) {
-            if (ImGui::Checkbox("Grid XY", &engine_p->grid_xy));
+            if (ImGui::Checkbox("Grid XY", &app->engineManager->grid_xy));
 
-            if (ImGui::Checkbox("Grid XZ", &engine_p->grid_xz));
+            if (ImGui::Checkbox("Grid XZ", &app->engineManager->grid_xz));
+
+            if (ImGui::Checkbox("Grid ZY", &app->engineManager->grid_zy));
 
             ImGui::Separator();
 
@@ -259,10 +260,6 @@ static bool MenuBarUpdate() {
 
         ImGui::EndMenuBar();
     }
-
-    ImGui::StyleColorsDark();
-    ImGuiStyle& style = ImGui::GetStyle();
-    style.Colors[ImGuiCol_MenuBarBg] = ImVec4(1.0f, 1.0f, 1.0f, 1.0f); // Text color
 
     return true;
 }

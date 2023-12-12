@@ -20,6 +20,12 @@ class WindowConsole;
 class WindowSettings;
 class WindowAbout;
 
+struct ImGuiStyleBackup
+{
+	ImVec4 colors[ImGuiCol_COUNT];
+	float alpha;
+};
+
 class ModuleGUI : public Module
 {
 public:
@@ -65,6 +71,25 @@ public:
 
 	bool settingsState = false;
 	bool aboutState = false;
+
+	ImGuiStyleBackup customStyle1;
+
+public:
+	// Function to save the current style
+	ImGuiStyleBackup SaveImGuiStyle()
+	{
+		ImGuiStyleBackup backup;
+		memcpy(backup.colors, ImGui::GetStyle().Colors, sizeof(backup.colors));
+		backup.alpha = ImGui::GetStyle().Alpha;
+		return backup;
+	}
+
+	// Function to restore a saved style
+	void RestoreImGuiStyle(const ImGuiStyleBackup& backup)
+	{
+		memcpy(ImGui::GetStyle().Colors, backup.colors, sizeof(backup.colors));
+		ImGui::GetStyle().Alpha = backup.alpha;
+	}
 
 private:
 	list<GUI_Window*> windows;

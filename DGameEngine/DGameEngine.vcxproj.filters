@@ -25,6 +25,9 @@
     <Filter Include="Source Files\Container">
       <UniqueIdentifier>{e1ffb654-22b8-4cd7-a174-88d1f9ef7e49}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Utils">
+      <UniqueIdentifier>{3b92d9b1-43ff-4282-ae84-0eaf45084b70}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp">
@@ -118,5 +121,8 @@
     <ResourceCompile Include="DGameEngine.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
+    <ClInclude Include="Loaders.h">
+      <Filter>Source Files\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

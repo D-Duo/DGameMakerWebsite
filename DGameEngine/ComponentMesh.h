@@ -2,19 +2,20 @@
 #include "Components.h"
 #include "Mesh.h"
 
-class ComponentMesh : public Components
+class Mesh;
+
+class ComponentMesh : public Component
 {
 public:
-	ComponentMesh(shared_ptr<Mesh>&& m);
+	ComponentMesh(GameObject& owner, shared_ptr<Mesh> mesh = nullptr);
 
-	void Enable() override;
-	void Disable() override;
 	void update() override;
 
-	const Ctype type = COMPONENT_MESH;
-	vector<Mesh::Ptr> mMeshes;
-	Mesh::Ptr mesh;
-	//bool isActive;
+	shared_ptr<Mesh> mesh;
+
+	Type getType() const override {
+		return Type::MESH;
+	}
 
 private:
 	ComponentMesh(const ComponentMesh& cpy) = delete;

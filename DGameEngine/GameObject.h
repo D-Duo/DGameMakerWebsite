@@ -4,23 +4,26 @@
 #include "EngineGlobals.h"
 #include "Graphic.h"
 
-class Mesh;
-class Texture2D;
+#include "ComponentMaterial.h"
+#include "ComponentMesh.h"
+
+class ComponentMesh;
+class ComponentMaterial;
 
 class GameObject
 {
 public:
-	GameObject() = default;
-	GameObject(const string, const string texturePath, mat4 transform);
+	GameObject();
 
-	vector<shared_ptr<Components>> gObj_components;
+	string name;
 
 public:
-	shared_ptr<Components> CreateComponent(Ctype type, shared_ptr<Mesh>&& mesh, shared_ptr<Texture2D>&& texture);
-	shared_ptr<Components> GetComponent(Ctype type);
+	template <typename T> T* GetComponent();
 
-	void AddComponent(shared_ptr<Components> comp);
-	void RemoveComponent(shared_ptr<Components> comp);
+	void AddComponent(Component::Type component);
+	void MaterialAddComponent(std::shared_ptr<ComponentMaterial> component);
+	void MeshAddComponent(std::shared_ptr<ComponentMesh> component);
+	void RemoveComponent(shared_ptr<Component> comp);
 	void UpdateGameObj();
 
 public:
@@ -31,13 +34,20 @@ public:
 public:
 	void SetActive() { isActive != isActive; }
 	void SetUnactive() { isActive = false; }
-	bool& GetActive() { return isActive; }
 
-	void SetName(string n) { name = n; }
-	string GetName() { return name; }
-
-	void SetTag(int t) { tag = t; }
-	int GetTag() { return tag; }
-
+private:
+	bool isActive;
+	vector<shared_ptr<Component>> components;
 };
 
+template<typename T>
+inline T* GameObject::GetComponent()
+{
+	for (auto component : components) {
+		T* returnComponent = dynamic_cast<T*>(component.get());
+		if (returnComponent) {
+			return returnComponent;
+		}
+	}
+	return nullptr;
+}

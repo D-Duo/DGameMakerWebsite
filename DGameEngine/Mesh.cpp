@@ -14,52 +14,6 @@ struct aiSceneExt : aiScene {
     auto meshes() const { return span((aiMeshExt**)mMeshes, mNumMeshes); }
 };
 
-
-vector<Mesh::Ptr> Mesh::loadFromFile(const string& path) {
-
-    const auto scene_ptr = aiImportFile(path.c_str(), aiProcess_Triangulate | aiProcess_FlipUVs);
-    const aiSceneExt& scene = *(aiSceneExt*)scene_ptr;
-
-    //load textures
-    vector<Texture2D::Ptr> texture_ptrs;
-    for (const auto& material : scene.materials()) {
-        aiString aiPath;
-        material->GetTexture(aiTextureType_DIFFUSE, 0, &aiPath);
-        fs::path texPath = fs::path(path).parent_path().parent_path().append("Textures") / fs::path(aiPath.C_Str()).filename();
-        auto texture_ptr = make_shared<Texture2D>(texPath.string());
-        texture_ptrs.push_back(texture_ptr);
-    }
-
-    //load meshes
-    vector<Mesh::Ptr> mesh_ptrs;
-    for (const auto& mesh_ptr : scene.meshes()) {
-
-        const auto& mesh = *mesh_ptr;
-
-        vector<V3T2> vertex_data;
-        for (size_t i = 0; i < mesh.verts().size(); ++i) {
-            V3T2 v = { mesh.verts()[i], vec2f(mesh.texCoords()[i].x, mesh.texCoords()[i].y) };
-            vertex_data.push_back(v);
-        }
-
-        vector<unsigned int> index_data;
-        for (const auto& face : mesh.faces()) {
-            index_data.push_back(face.mIndices[0]);
-            index_data.push_back(face.mIndices[1]);
-            index_data.push_back(face.mIndices[2]);
-        }
-
-        auto mesh_sptr = make_shared<Mesh>(Formats::F_V3T2, vertex_data.data(), vertex_data.size(), index_data.data(), index_data.size());
-
-        mesh_sptr->texture = texture_ptrs[mesh.mMaterialIndex];
-        mesh_ptrs.push_back(mesh_sptr);
-    }
-
-    aiReleaseImport(scene_ptr);
-
-    return mesh_ptrs;
-}
-
 Mesh::Mesh(Formats format, const void* vertex_data, unsigned int numVerts, const unsigned int* index_data, unsigned int numIndexs) :
     _format(format),
     _numVerts(numVerts),
@@ -124,7 +78,7 @@ void Mesh::draw() {
         break;
     case Formats::F_V3T2:
         glEnable(GL_TEXTURE_2D);
-        if (texture.get()) texture->bind();
+        if (texture) texture->bind();
         glEnableClientState(GL_TEXTURE_COORD_ARRAY);
         glVertexPointer(3, GL_FLOAT, sizeof(V3T2), nullptr);
         glTexCoordPointer(2, GL_FLOAT, sizeof(V3T2), (void*)sizeof(V3));

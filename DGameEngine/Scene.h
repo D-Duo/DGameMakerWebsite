@@ -12,22 +12,19 @@ class Texture2D;
 class Scene
 {
 public:
-	Scene();
+	Scene(string name);
 	~Scene();
 	
 	void init();
-	void postUpdate();
+	void GameObjectsUpdate();
 
-	void CreateGameObject(const string meshPath, const string texturePath, mat4 transform = glm::identity<mat4>());
+	vector<GameObject> gameObjects;
+	string name;
 
-	void CreateGameObject(const string path, shared_ptr<Mesh>&& mesh, shared_ptr<Texture2D>&& t);
+	void loadFromFile(const string& path, shared_ptr<Scene> myScene);
+	void EmptyGameObj();
+	//void RemoveGameObj(shared_ptr<GameObject>);
 
-	vector<shared_ptr<GameObject>> mGameObjects;
-	shared_ptr<GameObject> selectedGobj;
-
-	int numGobj = 0;
-
-	void AddGameObj(shared_ptr<GameObject> gameObj);
-	void RemoveGameObj(shared_ptr<GameObject> gObj);
+	int NameAvailability(std::string name);
 };
 

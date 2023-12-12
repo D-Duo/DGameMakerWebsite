@@ -101,7 +101,7 @@ bool ModuleEvents::SDLEventsProcess() {
             }
             break;
         case SDL_DROPFILE:
-
+            
             filePath = event.drop.file;
 
             if (filePath.substr(filePath.find_last_of(".") + 1) == "fbx") {
@@ -111,6 +111,8 @@ bool ModuleEvents::SDLEventsProcess() {
                 if (lastBackslashPos != string::npos) {
                     mPath.erase(0, lastBackslashPos + 1);
                 }
+                app->engineManager->sel_Scene.scene.get()->loadFromFile(mPath, app->engineManager->sel_Scene.scene);
+
             }
             if (filePath.substr(filePath.find_last_of(".") + 1) == "png") {
                 cout << ".png file detected" << endl;
@@ -121,14 +123,14 @@ bool ModuleEvents::SDLEventsProcess() {
                 }
             }
 
-            app->engineManager->GetEngine()->meshLoader.loadFromFile(mPath, app->engineManager->GetEngine()->myScene);
+            
             //app->engineManager->sel_Scene.scene.get()->CreateGameObject(mPath, tPath);
 
             SDL_free(event.drop.file);  // Free files memory
 
             break;
         case SDL_WINDOWEVENT:
-
+        
             if (event.window.event == SDL_WINDOWEVENT_RESIZED)
             {
                 auto newWidth = app->window->GetWindowSize().x;
@@ -138,7 +140,7 @@ bool ModuleEvents::SDLEventsProcess() {
                 glm::mat4 projection = glm::perspective(glm::radians(fov), aspectRatio, near, far);*/
             }
 
-            break;
+            break;        
         }
     }
 
