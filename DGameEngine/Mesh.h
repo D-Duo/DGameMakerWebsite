@@ -30,6 +30,7 @@ public:
 
 	string name;
 	shared_ptr<Texture2D> texture;
+	string path;
 
 	unsigned int mMaterialIndex;
 

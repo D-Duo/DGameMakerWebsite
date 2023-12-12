@@ -5,8 +5,6 @@
 #include "ComponentMesh.h"
 #include "ComponentMaterial.h"
 
-#define scene app->engineManager->GetEngine()->myScene
-
 class WindowInspector : public GUI_Window
 {
 public:

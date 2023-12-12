@@ -10,13 +10,13 @@ WindowInspector::WindowInspector(string name, bool startEnabled, ImGuiWindowFlag
 
 void WindowInspector::Update() {
 
-	shared_ptr<GameObject> gObj = scene.selectedGobj;
+	shared_ptr<GameObject> gObj = app->engineManager->sel_GameObject.gameObject;
 
 	if (gObj != nullptr)
 	{
 		AlignTextToFramePadding();
-		if (Checkbox("Active", &scene.selectedGobj->isActive))
-			scene.selectedGobj->SetActive();
+		if (Checkbox("Active", app->engineManager->sel_GameObject.gameObject.get()->isActive))
+			app->engineManager->sel_GameObject.gameObject.get()->SetActive();
 
 		SameLine();
 		

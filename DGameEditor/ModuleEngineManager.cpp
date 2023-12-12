@@ -84,13 +84,13 @@ ModuleEngineManager::ModuleEngineManager(bool startEnabled) : Module(startEnable
 ModuleEngineManager::~ModuleEngineManager() {}
 
 void ModuleEngineManager::Awake() {
-    engine.mainCamera.fov = 60;
-    engine.mainCamera.aspect = static_cast<double>(WIN_WIDTH) / WIN_HEIGHT;
-    engine.mainCamera.clippingPlaneNear = 0.1;
-    engine.mainCamera.clippingPlaneFar = 100;
-    engine.mainCamera.position = vec3(5, 1.75, 5);
-    engine.mainCamera.orientation = vec3(0, 1, 0);
-    engine.mainCamera.up = vec3(0, 1, 0);
+    engine.camera.fov = 60;
+    engine.camera.aspect = static_cast<double>(WIN_WIDTH) / WIN_HEIGHT;
+    engine.camera.zNear = 0.1;
+    engine.camera.zFar = 100;
+    engine.camera.eye = vec3(5, 1.75, 5);
+    engine.camera.center = vec3(0, 1, 0);
+    engine.camera.up = vec3(0, 1, 0);
 
     grid_xz = true;
     grid_xy = false;

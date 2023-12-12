@@ -13,7 +13,7 @@ public:
 	GameEngine();
 	~GameEngine();
 
-	Camera mainCamera;
+	Camera camera;
 	vector<shared_ptr<Scene>> scenes;
 	FileLoader loader;
 

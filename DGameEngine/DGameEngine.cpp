@@ -17,15 +17,15 @@ GameEngine::~GameEngine(){}
 void GameEngine::render() {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(mainCamera.fov, mainCamera.aspect, mainCamera.clippingPlaneNear, mainCamera.clippingPlaneFar);
+    gluPerspective(camera.fov, camera.aspect, camera.zNear, camera.zFar);
   
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     //Update camera look at position
 
-    gluLookAt( mainCamera.position.x, mainCamera.position.y, mainCamera.position.z,
-        mainCamera.orientation.x, mainCamera.orientation.y, mainCamera.orientation.z,
-        mainCamera.up.x, mainCamera.up.y, mainCamera.up.z);
+    gluLookAt(camera.eye.x, camera.eye.y, camera.eye.z,
+        camera.center.x, camera.center.y, camera.center.z,
+        camera.up.x, camera.up.y, camera.up.z);
         
 #pragma region Draw Sandbox
     /*static auto mesh_ptrs = Mesh::loadFromFile("Assets/Meshes/BakerHouse.fbx");

@@ -28,12 +28,10 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GraphicObject.cpp" />
     <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="MeshLoader.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Texture2D.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MeshLoader.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ComponentMaterial.h" />
     <ClInclude Include="ComponentMesh.h" />

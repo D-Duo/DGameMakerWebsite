@@ -27,11 +27,6 @@ public:
 	void UpdateGameObj();
 
 public:
-	bool isActive;
-	string name;
-	int tag;
-
-public:
 	void SetActive() { isActive != isActive; }
 	void SetUnactive() { isActive = false; }
 

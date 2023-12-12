@@ -63,9 +63,6 @@
     <ClCompile Include="Texture2D.cpp">
       <Filter>Source Files\Container</Filter>
     </ClCompile>
-    <ClCompile Include="MeshLoader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -109,9 +106,6 @@
     </ClInclude>
     <ClInclude Include="Texture2D.h">
       <Filter>Header Files\Container</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshLoader.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
