@@ -10,57 +10,57 @@ WindowInspector::WindowInspector(string name, bool startEnabled, ImGuiWindowFlag
 
 void WindowInspector::Update() {
 
-	shared_ptr<GameObject> gObj = app->engineManager->sel_GameObject.gameObject;
+	//shared_ptr<GameObject> gObj = app->engineManager->sel_GameObject.gameObject;
 
-	if (gObj != nullptr)
-	{
+	//if (gObj != nullptr)
+	//{
 
-		AlignTextToFramePadding();
+	//	AlignTextToFramePadding();
 
-		bool ifActive = gObj->GetIsActive();
-		if (Checkbox("Active", &ifActive));
+	//	bool ifActive = gObj->GetIsActive();
+	//	if (Checkbox("Active", &ifActive));
 
-		if (ifActive) {
-			app->engineManager->sel_GameObject.gameObject->SetActive();
-		}
-		else
-		{
-			app->engineManager->sel_GameObject.gameObject->SetUnactive();
-		}
-		
+	//	if (ifActive) {
+	//		app->engineManager->sel_GameObject.gameObject->SetActive();
+	//	}
+	//	else
+	//	{
+	//		app->engineManager->sel_GameObject.gameObject->SetUnactive();
+	//	}
+	//	
 
 
-		SameLine();
-		
-		string name = gObj->GetName().c_str();
-		strcpy(buffer, name.c_str());
-		SetNextItemWidth(GetWindowWidth() / 3.0f);
-		if (InputText("##EditableText", buffer, IM_ARRAYSIZE(buffer)))
-		{
-			string newName(buffer);
-			app->engineManager->sel_GameObject.gameObject->SetName(newName);
-		}
-		
-		SameLine();
+	//	SameLine();
+	//	
+	//	string name = gObj->GetName().c_str();
+	//	strcpy(buffer, name.c_str());
+	//	SetNextItemWidth(GetWindowWidth() / 3.0f);
+	//	if (InputText("##EditableText", buffer, IM_ARRAYSIZE(buffer)))
+	//	{
+	//		string newName(buffer);
+	//		app->engineManager->sel_GameObject.gameObject->SetName(newName);
+	//	}
+	//	
+	//	SameLine();
 
-		bool toDelete = true;
-		Checkbox("Static", &toDelete);
+	//	bool toDelete = true;
+	//	Checkbox("Static", &toDelete);
 
-		Separator();
+	//	Separator();
 
-			//shared_ptr<Component> comp = gObj->GetComponent(COMPONENT_MESH);
-		shared_ptr<ComponentMesh> compMesh = *gObj->GetComponent<shared_ptr<ComponentMesh>>();
-		//shared_ptr<ComponentMesh> compMesh = dynamic_pointer_cast<ComponentMesh>(comp);
+	//		//shared_ptr<Component> comp = gObj->GetComponent(COMPONENT_MESH);
+	//	shared_ptr<ComponentMesh> compMesh = *gObj->GetComponent<shared_ptr<ComponentMesh>>();
+	//	//shared_ptr<ComponentMesh> compMesh = dynamic_pointer_cast<ComponentMesh>(comp);
 
-		DrawComponentTransform();
+	//	DrawComponentTransform();
 
-		DrawComponentMesh(compMesh);
+	//	DrawComponentMesh(compMesh);
 
-		shared_ptr<ComponentMaterial> compMaterial = *gObj->GetComponent<shared_ptr<ComponentMaterial>>();
-		//shared_ptr<ComponentMaterial> compMaterial = dynamic_pointer_cast<ComponentMaterial>(comp);
+	//	shared_ptr<ComponentMaterial> compMaterial = *gObj->GetComponent<shared_ptr<ComponentMaterial>>();
+	//	//shared_ptr<ComponentMaterial> compMaterial = dynamic_pointer_cast<ComponentMaterial>(comp);
 
-		DrawComponentMaterial(compMaterial);
-	}
+	//	DrawComponentMaterial(compMaterial);
+	//}
 }
 
 void WindowInspector::DrawComponentTransform() {

@@ -7,6 +7,9 @@ class ComponentMaterial : public Component
 {
 public:
 	ComponentMaterial(shared_ptr<Texture2D> texture = nullptr);
+	ComponentMaterial(ComponentMaterial&& cm) noexcept :
+		texture(cm.texture)
+	{}
 
 	void update() override;
 

@@ -16,6 +16,12 @@ public:
 	};
 
 	Component() : isActive(true) {}
+	Component(Component&& c) noexcept : 
+		isActive(c.isActive), 
+		name(c.name) 
+	{}
+
+
 
 	virtual void update() = 0;
 	virtual Type getType() const = 0;

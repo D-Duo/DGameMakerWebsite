@@ -9,7 +9,7 @@ GameObject::GameObject() {
 }
 
 void GameObject::AddComponent(Component::Type component) {
-	std::shared_ptr<Component> ptr;
+	std::unique_ptr<Component> ptr;
 
 	switch (component)
 	{
@@ -17,10 +17,10 @@ void GameObject::AddComponent(Component::Type component) {
 		//ptr = std::make_shared<Transform>(*this);
 		break;
 	case Component::Type::MESH:
-		ptr = std::make_shared<ComponentMesh>();
+		ptr = move(std::make_unique<ComponentMesh>());
 		break;
 	case Component::Type::MATERIAL:
-		ptr = std::make_shared<ComponentMaterial>();
+		ptr = move(std::make_unique<ComponentMaterial>());
 		break;
 	case Component::Type::CAMERA:
 		//ptr = std::make_shared<Camera>(*this);
@@ -30,23 +30,23 @@ void GameObject::AddComponent(Component::Type component) {
 		break;
 	}
 
-	components.push_back(ptr);
+	components.push_back(move(ptr));
 }
 
-void GameObject::MaterialAddComponent(std::shared_ptr<ComponentMaterial> component) {
-	components.push_back(component);
+void GameObject::MaterialAddComponent(std::unique_ptr<ComponentMaterial> component) {
+	components.push_back(move(component));
 }
 
-void GameObject::MeshAddComponent(std::shared_ptr<ComponentMesh> component) {
-	components.push_back(component);
+void GameObject::MeshAddComponent(std::unique_ptr<ComponentMesh> component) {
+	components.push_back(move(component));
 }
 
-void GameObject::RemoveComponent(shared_ptr<Component> comp) {
-
+void GameObject::RemoveComponent(unique_ptr<Component> comp) {
+	//comp.get_deleter();
 }
 
 void GameObject::UpdateGameObj() {
-	for (auto components : components)
+	for (const auto& components : components)
 	{
 		components->update();
 	}

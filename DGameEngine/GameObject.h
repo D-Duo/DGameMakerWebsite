@@ -14,14 +14,19 @@ class GameObject
 {
 public:
 	GameObject();
+	GameObject(GameObject&& g) noexcept :
+		isActive(g.isActive),
+		name(g.name),
+		components(move(g.components))
+	{}
 
 public:
 	template <typename T> T* GetComponent();
 
 	void AddComponent(Component::Type component);
-	void MaterialAddComponent(std::shared_ptr<ComponentMaterial> component);
-	void MeshAddComponent(std::shared_ptr<ComponentMesh> component);
-	void RemoveComponent(shared_ptr<Component> comp);
+	void MaterialAddComponent(std::unique_ptr<ComponentMaterial> component);
+	void MeshAddComponent(std::unique_ptr<ComponentMesh> component);
+	void RemoveComponent(unique_ptr<Component> comp);
 	void UpdateGameObj();
 
 public:
@@ -36,13 +41,15 @@ private:
 	string name;
 
 	bool isActive;
-	vector<shared_ptr<Component>> components;
+
+	//vector<shared_ptr<Component>> components;
+	vector<unique_ptr<Component>> components;
 };
 
 template<typename T>
 inline T* GameObject::GetComponent()
 {
-	for (auto component : components) {
+	for (auto& component : components) {
 		T* returnComponent = dynamic_cast<T*>(component.get());
 		if (returnComponent) {
 			return returnComponent;

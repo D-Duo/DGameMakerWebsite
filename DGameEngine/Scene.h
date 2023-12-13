@@ -19,6 +19,8 @@ public:
 	void GameObjectsUpdate();
 
 	vector<shared_ptr<GameObject>> gameObjects;
+	//vector<unique_ptr<GameObject>> gameObjects;
+
 	string name;
 
 	void loadFromFile(const string& path, shared_ptr<Scene> myScene);

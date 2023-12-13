@@ -8,6 +8,9 @@ class ComponentMesh : public Component
 {
 public:
 	ComponentMesh(shared_ptr<Mesh> mesh_ = nullptr);
+	ComponentMesh(ComponentMesh&& cm) noexcept :
+		mesh(cm.mesh)
+	{}
 
 	void update() override;
 

@@ -47,11 +47,11 @@ void Scene::loadFromFile(const string& path, shared_ptr<Scene> myScene) {
     {
         shared_ptr<GameObject> object = make_shared<GameObject>();
 
-        shared_ptr<ComponentMesh> meshComp = make_shared<ComponentMesh>(mesh);
-        shared_ptr<ComponentMaterial> textComp = make_shared<ComponentMaterial>(textures_vec[mesh->mMaterialIndex]);
+        unique_ptr<ComponentMesh> meshComp = make_unique<ComponentMesh>(mesh);
+        unique_ptr<ComponentMaterial> textComp = make_unique<ComponentMaterial>(textures_vec[mesh->mMaterialIndex]);
 
-        object->MeshAddComponent(meshComp);
-        object->MaterialAddComponent(textComp);
+        object->MeshAddComponent(move(meshComp));
+        object->MaterialAddComponent(move(textComp));
 
         mesh->texture = object->GetComponent<ComponentMaterial>()->texture;
 
