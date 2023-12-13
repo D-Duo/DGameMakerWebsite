@@ -1,9 +1,9 @@
 #include "ComponentMesh.h"
 
-ComponentMesh::ComponentMesh(GameObject& owner, shared_ptr<Mesh> mesh) : Component(owner) {
-    this->mesh = mesh;
+ComponentMesh::ComponentMesh(shared_ptr<Mesh> mesh_) {
+    this->mesh = mesh_;
 }
 
 void ComponentMesh::update() {
-    mesh.get()->draw();
+    mesh->draw();
 }

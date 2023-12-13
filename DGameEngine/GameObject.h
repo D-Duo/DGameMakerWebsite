@@ -15,8 +15,6 @@ class GameObject
 public:
 	GameObject();
 
-	string name;
-
 public:
 	template <typename T> T* GetComponent();
 
@@ -29,8 +27,14 @@ public:
 public:
 	void SetActive() { isActive != isActive; }
 	void SetUnactive() { isActive = false; }
+	void SetName(string n) { name = n; }
+
+	string GetName() { return name; }
+	bool GetIsActive() { return isActive; }
 
 private:
+	string name;
+
 	bool isActive;
 	vector<shared_ptr<Component>> components;
 };

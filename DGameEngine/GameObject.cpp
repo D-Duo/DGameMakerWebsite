@@ -17,10 +17,10 @@ void GameObject::AddComponent(Component::Type component) {
 		//ptr = std::make_shared<Transform>(*this);
 		break;
 	case Component::Type::MESH:
-		ptr = std::make_shared<ComponentMesh>(*this);
+		ptr = std::make_shared<ComponentMesh>();
 		break;
 	case Component::Type::MATERIAL:
-		ptr = std::make_shared<ComponentMaterial>(*this);
+		ptr = std::make_shared<ComponentMaterial>();
 		break;
 	case Component::Type::CAMERA:
 		//ptr = std::make_shared<Camera>(*this);
@@ -34,12 +34,10 @@ void GameObject::AddComponent(Component::Type component) {
 }
 
 void GameObject::MaterialAddComponent(std::shared_ptr<ComponentMaterial> component) {
-	component->owner = *this;
 	components.push_back(component);
 }
 
 void GameObject::MeshAddComponent(std::shared_ptr<ComponentMesh> component) {
-	component->owner = *this;
 	components.push_back(component);
 }
 

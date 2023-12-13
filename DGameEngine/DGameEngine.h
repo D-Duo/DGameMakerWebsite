@@ -20,7 +20,7 @@ public:
 	void CreateScene(const string name) {
 		shared_ptr<Scene> scene = make_shared<Scene>(name);
 		AddScene(scene);
-		scene.get()->init();
+		scene->init();
 	}
 
 	void AddScene(shared_ptr<Scene> newScene) {

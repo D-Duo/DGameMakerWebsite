@@ -111,7 +111,7 @@ bool ModuleEvents::SDLEventsProcess() {
                 if (lastBackslashPos != string::npos) {
                     mPath.erase(0, lastBackslashPos + 1);
                 }
-                app->engineManager->sel_Scene.scene.get()->loadFromFile(mPath, app->engineManager->sel_Scene.scene);
+                app->engineManager->sel_Scene.scene->loadFromFile(mPath, app->engineManager->sel_Scene.scene);
 
             }
             if (filePath.substr(filePath.find_last_of(".") + 1) == "png") {
@@ -123,7 +123,7 @@ bool ModuleEvents::SDLEventsProcess() {
                 }
             }
             
-            app->engineManager->sel_Scene.scene.get()->CreateGameObject(mPath, tPath);
+            //app->engineManager->sel_Scene.scene->CreateGameObject(mPath, tPath);
 
             SDL_free(event.drop.file);  // Free files memory
 

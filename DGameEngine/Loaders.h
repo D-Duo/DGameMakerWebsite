@@ -40,8 +40,8 @@ public:
                 }
 
                 auto loadedMesh = make_shared<Mesh>(Mesh::Formats::F_V3T2, vertex_data.data(), vertex_data.size(), index_data.data(), index_data.size());
-                loadedMesh.get()->mMaterialIndex = mesh->mMaterialIndex;
-                loadedMesh.get()->path = filepath;
+                loadedMesh->mMaterialIndex = mesh->mMaterialIndex;
+                loadedMesh->path = filepath;
                 mesh_ptrs.push_back(loadedMesh);
             }
 

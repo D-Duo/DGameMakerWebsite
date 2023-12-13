@@ -6,7 +6,7 @@
 class ComponentMaterial : public Component
 {
 public:
-	ComponentMaterial(GameObject& owner, shared_ptr<Texture2D> texture = nullptr);
+	ComponentMaterial(shared_ptr<Texture2D> texture = nullptr);
 
 	void update() override;
 

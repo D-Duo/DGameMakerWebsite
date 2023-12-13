@@ -14,9 +14,21 @@ void WindowInspector::Update() {
 
 	if (gObj != nullptr)
 	{
+
 		AlignTextToFramePadding();
-		if (Checkbox("Active", app->engineManager->sel_GameObject.gameObject.get()->isActive))
-			app->engineManager->sel_GameObject.gameObject.get()->SetActive();
+
+		bool ifActive = gObj->GetIsActive();
+		if (Checkbox("Active", &ifActive));
+
+		if (ifActive) {
+			app->engineManager->sel_GameObject.gameObject->SetActive();
+		}
+		else
+		{
+			app->engineManager->sel_GameObject.gameObject->SetUnactive();
+		}
+		
+
 
 		SameLine();
 		
@@ -26,7 +38,7 @@ void WindowInspector::Update() {
 		if (InputText("##EditableText", buffer, IM_ARRAYSIZE(buffer)))
 		{
 			string newName(buffer);
-			scene.selectedGobj->SetName(newName);
+			app->engineManager->sel_GameObject.gameObject->SetName(newName);
 		}
 		
 		SameLine();
@@ -36,16 +48,16 @@ void WindowInspector::Update() {
 
 		Separator();
 
-		
-		shared_ptr<Components> comp = gObj->GetComponent(COMPONENT_MESH);
-		shared_ptr<ComponentMesh> compMesh = dynamic_pointer_cast<ComponentMesh>(comp);
+			//shared_ptr<Component> comp = gObj->GetComponent(COMPONENT_MESH);
+		shared_ptr<ComponentMesh> compMesh = *gObj->GetComponent<shared_ptr<ComponentMesh>>();
+		//shared_ptr<ComponentMesh> compMesh = dynamic_pointer_cast<ComponentMesh>(comp);
 
 		DrawComponentTransform();
 
 		DrawComponentMesh(compMesh);
 
-		comp = gObj->GetComponent(COMPONENT_MATERIAL);
-		shared_ptr<ComponentMaterial> compMaterial = dynamic_pointer_cast<ComponentMaterial>(comp);
+		shared_ptr<ComponentMaterial> compMaterial = *gObj->GetComponent<shared_ptr<ComponentMaterial>>();
+		//shared_ptr<ComponentMaterial> compMaterial = dynamic_pointer_cast<ComponentMaterial>(comp);
 
 		DrawComponentMaterial(compMaterial);
 	}

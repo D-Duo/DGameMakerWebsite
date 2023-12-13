@@ -14,7 +14,7 @@ void WindowHierarchy::Update() {
 
 	counter = 0;
 	ImGuiTreeNodeFlags base_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth;
-	for (auto gObj : scene.mGameObjects) {
+	/*for (auto gObj : app->engineManager->sel_Scene.scene->gameObjects) {
 		ImGuiTreeNodeFlags tmp_flags;
 
 		if (selected == counter)
@@ -28,15 +28,15 @@ void WindowHierarchy::Update() {
 
 		if (IsItemClicked())
 		{
-			app->engineManager->GetEngine()->myScene.selectedGobj = gObj;
+			app->engineManager->sel_GameObject.gameObject = gObj;
 			selected = counter;
 		}
 		else if (IsItemClicked(1) && IsWindowHovered()) {
 			deleteWindow = true;
-			scene.selectedGobj = gObj;
+			app->engineManager->sel_GameObject.gameObject = gObj;
 		}
 		counter++;
-	}
+	}*/
 }
 
 void WindowHierarchy::DeleteWindow()

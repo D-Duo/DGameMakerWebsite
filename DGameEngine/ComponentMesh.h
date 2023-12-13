@@ -7,7 +7,7 @@ class Mesh;
 class ComponentMesh : public Component
 {
 public:
-	ComponentMesh(GameObject& owner, shared_ptr<Mesh> mesh = nullptr);
+	ComponentMesh(shared_ptr<Mesh> mesh_ = nullptr);
 
 	void update() override;
 

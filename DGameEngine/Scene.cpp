@@ -17,14 +17,14 @@ void Scene::init() {
 void Scene::GameObjectsUpdate() {
 	for (auto gObj : gameObjects)
 	{
-		gObj.UpdateGameObj();
+        gObj->UpdateGameObj();
 	}
 
 }
 
 void Scene::EmptyGameObj() {
 
-    GameObject gameObj;
+    shared_ptr<GameObject> gameObj;
 
 	string meshName = "GameObject";
 	int currentCopies = NameAvailability(meshName);
@@ -45,18 +45,18 @@ void Scene::loadFromFile(const string& path, shared_ptr<Scene> myScene) {
     int i = 0;
     for (const auto& mesh : meshes_vec)
     {
-        GameObject object;
+        shared_ptr<GameObject> object = make_shared<GameObject>();
 
-        auto meshComp = make_shared<ComponentMesh>(object, mesh);
-        auto textComp = make_shared<ComponentMaterial>(object, textures_vec[mesh->mMaterialIndex]);
+        shared_ptr<ComponentMesh> meshComp = make_shared<ComponentMesh>(mesh);
+        shared_ptr<ComponentMaterial> textComp = make_shared<ComponentMaterial>(textures_vec[mesh->mMaterialIndex]);
 
-        object.MeshAddComponent(meshComp);
-        object.MaterialAddComponent(textComp);
+        object->MeshAddComponent(meshComp);
+        object->MaterialAddComponent(textComp);
 
-        mesh->texture = object.GetComponent<ComponentMaterial>()->texture;
+        mesh->texture = object->GetComponent<ComponentMaterial>()->texture;
 
         std::string meshName = path;
-        mesh.get()->name = meshName;
+        mesh->name = meshName;
         size_t pos = meshName.find(".fbx");
 
         while (pos != std::string::npos) {
@@ -71,8 +71,8 @@ void Scene::loadFromFile(const string& path, shared_ptr<Scene> myScene) {
             meshName.append(")");
         }
 
-        object.name = meshName;
-        myScene.get()->gameObjects.push_back(object);
+        object->GetName() = meshName;
+        myScene->gameObjects.push_back(object);
         i++;
     }
 }
@@ -81,7 +81,7 @@ int Scene::NameAvailability(std::string name) {
     int count = 0;
 
     for (const auto& vector : gameObjects) {
-        if (vector.name.find(name) != std::string::npos) {
+        if (vector->GetName().find(name) != std::string::npos) {
             count++;
         }
     }

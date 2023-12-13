@@ -99,7 +99,7 @@ void ModuleEngineManager::Awake() {
     engine.CreateScene("Scene1");
     sel_Scene.index = 0;
     sel_Scene.scene = engine.GetSceneAtIndex(sel_Scene.index);
-    sel_Scene.scene.get()->loadFromFile("BakerHouse.fbx", sel_Scene.scene);
+    sel_Scene.scene->loadFromFile("BakerHouse.fbx", sel_Scene.scene);
 }
 
 void ModuleEngineManager::Start() {
@@ -172,14 +172,14 @@ bool ModuleEngineManager::PostUpdate() {
 
         engine.drawAxis();
         engine.drawGrid(100, 1, grid_xy, grid_xz, grid_zy);
-        sel_Scene.scene.get()->GameObjectsUpdate();
+        sel_Scene.scene->GameObjectsUpdate();
 
         app->gui->w_scene->SceneFBO.Unbind_FrameBuffer();
     }
     else {
         engine.drawAxis();
         engine.drawGrid(100, 1, grid_xy, grid_xz, grid_zy);
-        sel_Scene.scene.get()->GameObjectsUpdate();
+        sel_Scene.scene->GameObjectsUpdate();
     }    
 
     return true;

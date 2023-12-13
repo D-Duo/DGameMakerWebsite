@@ -2,7 +2,7 @@
 #include "GUI_Window.h"
 #include "App.h"
 
-#define scene app->engineManager->GetEngine()->myScene
+//#define scene app->engineManager->GetEngine()->myScene
 
 class WindowHierarchy : public GUI_Window
 {

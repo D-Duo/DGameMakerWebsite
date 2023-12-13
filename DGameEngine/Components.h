@@ -15,15 +15,13 @@ public:
 		CAMERA
 	};
 
-	Component(GameObject& owner) : owner(owner), isActive(true) {}
+	Component() : isActive(true) {}
 
 	virtual void update() = 0;
 	virtual Type getType() const = 0;
 
 	void SetActive() { isActive = true; }
 	void Disable() { isActive = false; }
-
-	GameObject& owner;
 
 	void SetName(string n) { name = n; }
 	string GetName() { return name; }

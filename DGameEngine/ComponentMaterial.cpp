@@ -1,9 +1,11 @@
 #include "ComponentMaterial.h"
 
-ComponentMaterial::ComponentMaterial(GameObject& owner, shared_ptr<Texture2D> texture) : Component(owner) {
+ComponentMaterial::ComponentMaterial(shared_ptr<Texture2D> texture) {
     this->texture = texture;
 }
 
 void ComponentMaterial::update() {
-    //owner.GetComponent<ComponentMesh>()->mesh.get()->texture = this->texture;
+    //change texture if called
+    //owner->GetComponent<ComponentMesh>()->mesh->texture = this->texture;
+    //owner.GetComponent<ComponentMesh>()->mesh->texture = this->texture;
 }
