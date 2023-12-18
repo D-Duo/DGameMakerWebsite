@@ -10,7 +10,7 @@
 class ComponentMesh;
 class ComponentMaterial;
 
-class GameObject
+class GameObject : public std::enable_shared_from_this<GameObject>
 {
 public:
 	GameObject();
@@ -21,13 +21,18 @@ public:
 	{}
 
 public:
-	template <typename T> T* GetComponent();
 
+	void UpdateGameObj();
+
+	//components
+	template <typename T> T* GetComponent();
 	void AddComponent(Component::Type component);
 	void MaterialAddComponent(std::unique_ptr<ComponentMaterial> component);
 	void MeshAddComponent(std::unique_ptr<ComponentMesh> component);
 	void RemoveComponent(unique_ptr<Component> comp);
-	void UpdateGameObj();
+
+	//tree
+	void addChild(unique_ptr<GameObject> child);
 
 public:
 	void SetActive() { isActive != isActive; }
@@ -41,9 +46,15 @@ private:
 	string name;
 
 	bool isActive;
+	GameObject* parent;
+	vector<unique_ptr<GameObject>> children;
 
 	//vector<shared_ptr<Component>> components;
 	vector<unique_ptr<Component>> components;
+
+private:
+	GameObject(const GameObject& cpy) = delete;
+	GameObject& operator=(const GameObject&) = delete;
 };
 
 template<typename T>

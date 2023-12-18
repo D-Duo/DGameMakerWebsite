@@ -18,7 +18,8 @@ public:
 	void init();
 	void GameObjectsUpdate();
 
-	vector<shared_ptr<GameObject>> gameObjects;
+	
+	vector<unique_ptr<GameObject>> gameObjects;
 	//vector<unique_ptr<GameObject>> gameObjects;
 
 	string name;
@@ -30,5 +31,9 @@ public:
 	//void RemoveGameObj(shared_ptr<GameObject>);
 
 	int NameAvailability(std::string name);
+
+private:
+
+
 };
 

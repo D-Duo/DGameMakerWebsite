@@ -8,6 +8,20 @@ GameObject::GameObject() {
 	//components.push_back(make_shared<ComponentTransform>(*this));
 }
 
+void GameObject::UpdateGameObj() {
+
+	for (const auto& components : components)
+	{
+		if (components) components->update();
+	}
+
+	//update for tree structure
+	for (const auto& child : children)
+	{
+		if (child) child->UpdateGameObj();
+	}
+}
+
 void GameObject::AddComponent(Component::Type component) {
 	std::unique_ptr<Component> ptr;
 
@@ -45,9 +59,7 @@ void GameObject::RemoveComponent(unique_ptr<Component> comp) {
 	//comp.get_deleter();
 }
 
-void GameObject::UpdateGameObj() {
-	for (const auto& components : components)
-	{
-		components->update();
-	}
+void GameObject::addChild(unique_ptr<GameObject> child) {
+	child->parent = this;
+	children.push_back(move(child));
 }
