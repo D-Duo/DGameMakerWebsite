@@ -22,6 +22,9 @@ private:
 	unsigned int _vertex_buffer_id;
 	unsigned int _numVerts;
 
+	unsigned int _normal_buffer_id;
+	unsigned int _numNorms;
+
 	unsigned int _indexs_buffer_id;
 	unsigned int _numIndexs;
 

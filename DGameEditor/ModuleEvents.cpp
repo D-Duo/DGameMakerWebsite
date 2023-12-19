@@ -104,7 +104,7 @@ bool ModuleEvents::SDLEventsProcess() {
             
             filePath = event.drop.file;
 
-            if (filePath.substr(filePath.find_last_of(".") + 1) == "fbx") {
+            if (filePath.substr(filePath.find_last_of(".") + 1) == "fbx" || filePath.substr(filePath.find_last_of(".") + 1) == "FBX") {
                 cout << ".fbx file detected" << endl;
                 mPath = filePath;
                 size_t lastBackslashPos = mPath.find_last_of('\\');

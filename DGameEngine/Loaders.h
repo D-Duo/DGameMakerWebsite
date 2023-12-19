@@ -25,10 +25,21 @@ public:
                 const auto faces = mesh->mFaces;
 
                 vec3f* texCoords = (vec3f*)mesh->mTextureCoords[0];
+                bool isNull = false;
+
+                if (!mesh->HasTextureCoords(0))
+                {
+                    isNull = true;
+                }
 
                 vector<Mesh::V3T2> vertex_data;
                 for (size_t i = 0; i < mesh->mNumVertices; ++i) {
-                    Mesh::V3T2 v = { (vec3f&)mesh->mVertices[i], vec2f(texCoords[i].x, texCoords[i].y)};
+                    Mesh::V3T2  v;
+
+                    if(!isNull)
+                        v = { (vec3f&)mesh->mVertices[i], vec2f(texCoords[i].x, texCoords[i].y) };
+                    else
+                        v = { (vec3f&)mesh->mVertices[i], vec2f(0, 0) };
                     vertex_data.push_back(v);
                 }
 

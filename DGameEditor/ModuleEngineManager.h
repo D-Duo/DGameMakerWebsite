@@ -12,8 +12,7 @@ struct EngineScene
 
 struct SceneGO
 {
-    shared_ptr<GameObject> gameObject;
-    int index;
+    GameObject* gameObject;
 };
 
 class ModuleEngineManager : public Module

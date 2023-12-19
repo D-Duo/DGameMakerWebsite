@@ -38,13 +38,22 @@ public:
 	void SetActive() { isActive != isActive; }
 	void SetUnactive() { isActive = false; }
 	void SetName(string n) { name = n; }
+	void SetIndex(int i) { index = i; }
 
 	string GetName() { return name; }
+	string GetUUID() { return UUID; }
+	int GetIndex() { return index; }
 	bool GetIsActive() { return isActive; }
+	GameObject& GetParent() { return *parent; }
+	vector<unique_ptr<GameObject>>& GetChildren() { return children; }
 
 private:
-	string name;
 
+	//void CreateUUID();
+
+	string name;
+	string UUID;
+	int index;
 	bool isActive;
 	GameObject* parent;
 	vector<unique_ptr<GameObject>> children;

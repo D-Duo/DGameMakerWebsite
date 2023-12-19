@@ -31,6 +31,7 @@ public:
 	//void RemoveGameObj(shared_ptr<GameObject>);
 
 	int NameAvailability(std::string name);
+	int IndexAvailability();
 
 private:
 

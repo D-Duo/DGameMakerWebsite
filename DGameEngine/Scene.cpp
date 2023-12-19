@@ -45,6 +45,10 @@ void Scene::loadFromFile(const string& path, shared_ptr<Scene> myScene) {
 
     unique_ptr<GameObject> parent_ = make_unique<GameObject>();
 
+    int currentIndex = IndexAvailability();
+    parent_->SetIndex(currentIndex);
+    parent_->SetActive();
+
     int i = 0;
     for (const auto& mesh : meshes_vec)
     {
@@ -60,11 +64,11 @@ void Scene::loadFromFile(const string& path, shared_ptr<Scene> myScene) {
 
         std::string meshName = path;
         mesh->name = meshName;
-        size_t pos = meshName.find(".fbx");
+        size_t pos = meshName.find(".FBX");
 
         while (pos != std::string::npos) {
             meshName.erase(pos, 4);
-            pos = meshName.find(".fbx", pos);
+            pos = meshName.find(".FBX", pos);
         }
 
         int currentCopies = NameAvailability(meshName);
@@ -75,13 +79,16 @@ void Scene::loadFromFile(const string& path, shared_ptr<Scene> myScene) {
             meshName.append(")");
         }
 
-        object->GetName() = meshName;
+        object->SetName(meshName);
+
+        i++;
+        object->SetIndex(currentIndex + i);
+        object->SetActive();
 
         //add child to parent
         parent_->addChild(move(object));
 
         //myScene->gameObjects.push_back(move(object));
-        i++;
     }
 
     string parentName = "gameObj";
@@ -96,8 +103,6 @@ void Scene::loadFromFile(const string& path, shared_ptr<Scene> myScene) {
 
     //add parent to scene
     myScene->gameObjects.push_back(move(parent_));
-
-
 }
 
 int Scene::NameAvailability(std::string name) {
@@ -108,6 +113,15 @@ int Scene::NameAvailability(std::string name) {
             count++;
         }
     }
+    return count;
+}
 
+int Scene::IndexAvailability() {
+    int count = 0;
+
+    for (auto& gObj : gameObjects)
+    {
+        if (gObj->GetIndex() == count) { count++; }
+    }
     return count;
 }

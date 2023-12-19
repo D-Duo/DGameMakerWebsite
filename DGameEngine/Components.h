@@ -26,11 +26,12 @@ public:
 
 	void SetActive() { isActive = true; }
 	void Disable() { isActive = false; }
+	bool GetIsActive() { return isActive; }
 
 	void SetName(string n) { name = n; }
 	string GetName() { return name; }
 
-public:
+private:
 	bool isActive;
 	string name;
 };
