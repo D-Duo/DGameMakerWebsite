@@ -28,10 +28,12 @@ public:
 	void EmptyGameObj();
 
 	//void AddGameObj(shared_ptr<GameObject> gameObj);
-	//void RemoveGameObj(shared_ptr<GameObject>);
+	void DeleteGameObj(int index_todelete);
 
 	int NameAvailability(std::string name);
 	int IndexAvailability();
+	int GetObjNum() { return gameObjects.size(); }
+	int GetAvgObjNum() { return GetObjNum() * 0.5; }
 
 private:
 

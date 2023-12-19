@@ -10,10 +10,9 @@ WindowInspector::WindowInspector(string name, bool startEnabled, ImGuiWindowFlag
 
 void WindowInspector::Update() {
 
-	auto gObj = app->engineManager->sel_GameObject.gameObject;
-
-	if (gObj != nullptr)
+	if (app->engineManager->sel_GameObject.gameObject != nullptr)
 	{
+		auto gObj = app->engineManager->sel_GameObject.gameObject;
 
 		AlignTextToFramePadding();
 
