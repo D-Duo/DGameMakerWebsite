@@ -39,7 +39,6 @@ public:
 	void SetUnactive() { isActive = false; }
 	void SetName(string n) { name = n; }
 	void SetIndex(int i) { index = i; }
-	void SetSelected() { isSelected = true; }
 
 	string GetName() { return name; }
 	string GetUUID() { return UUID; }
@@ -47,7 +46,6 @@ public:
 	bool GetIsActive() { return isActive; }
 	GameObject& GetParent() { return *parent; }
 	vector<unique_ptr<GameObject>>& GetChildren() { return children; }
-	bool GetSelected() { return isSelected; }
 
 private:
 
@@ -62,9 +60,6 @@ private:
 
 	//vector<shared_ptr<Component>> components;
 	vector<unique_ptr<Component>> components;
-
-	//hierarchy
-	bool isSelected = false;
 
 private:
 	GameObject(const GameObject& cpy) = delete;
