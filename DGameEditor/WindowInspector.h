@@ -12,9 +12,9 @@ public:
 
 	void Update();
 
-	void DrawComponentMesh(shared_ptr<ComponentMesh> cMesh);
+	void DrawComponentMesh(ComponentMesh* cMesh);
 
-	void DrawComponentMaterial(shared_ptr<ComponentMaterial> cMaterial);
+	void DrawComponentMaterial(ComponentMaterial* cMaterial);
 
 	void DrawComponentTransform();
 

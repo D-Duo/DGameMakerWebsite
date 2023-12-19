@@ -4,39 +4,69 @@
 
 using namespace ImGui;
 
-
 WindowHierarchy::WindowHierarchy(string name, bool startEnabled, ImGuiWindowFlags flags) : GUI_Window(name, startEnabled, flags) {};
 
-void WindowHierarchy::Update() {
-	
-	if (deleteWindow)
-		DeleteWindow();
+void WindowHierarchy::RenderGameObjectTree(const unique_ptr<GameObject>& gObj, int& counter, int& selected, ImGuiTreeNodeFlags bFlags)
+{
+    string name = "	" + gObj->GetName();
 
-	counter = 0;
-	ImGuiTreeNodeFlags base_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth;
-	/*for (auto gObj : app->engineManager->sel_Scene.scene->gameObjects) {
-		ImGuiTreeNodeFlags tmp_flags;
+    ImGuiTreeNodeFlags tmp_flags = bFlags;
+    //ImGuiTreeNodeFlags tmp_flags = (selected == counter) ? ImGuiTreeNodeFlags_Selected : base_flags;
+   
+    //flags setting
+    if (selected == counter)
+    {
+        tmp_flags |= ImGuiTreeNodeFlags_Selected;
+    }
+    if (gObj->GetChildren().empty())
+    {
+        tmp_flags |= ImGuiTreeNodeFlags_Leaf;
+    }
+    if (selected == counter)//gObj->GetSelected())
+    {
+        tmp_flags |= ImGuiTreeNodeFlags_Selected;
+    }
 
-		if (selected == counter)
-			tmp_flags = base_flags | ImGuiTreeNodeFlags_Selected;
-		else
-			tmp_flags = base_flags;
+    //ImGuiTreeNodeFlags_Bullet
+    if (TreeNodeEx(name.c_str(), tmp_flags))
+    {
+        if (IsItemClicked(0))
+        {
+            app->engineManager->sel_GameObject.gameObject = gObj.get();
+            selected = counter;
+            //gObj->SetSelected();
+        }
+        else if (IsItemClicked(1) && IsWindowHovered())
+        {
+            //Handle right-click
+            deleteWindow = true;
+            app->engineManager->sel_GameObject.gameObject = gObj.get();
+        }
 
-		string name = "	" + gObj->GetName();
-		if (TreeNodeEx(name.c_str(), tmp_flags))
-			TreePop();
+        for (const auto& child : gObj->GetChildren())
+        {
+            counter++;
+            // Recursively render child objects
+            RenderGameObjectTree(child, counter, selected, bFlags);
+        }
+        TreePop();
+    }
+}
 
-		if (IsItemClicked())
-		{
-			app->engineManager->sel_GameObject.gameObject = gObj;
-			selected = counter;
-		}
-		else if (IsItemClicked(1) && IsWindowHovered()) {
-			deleteWindow = true;
-			app->engineManager->sel_GameObject.gameObject = gObj;
-		}
-		counter++;
-	}*/
+void WindowHierarchy::Update()
+{
+    if (deleteWindow)
+        DeleteWindow();
+
+    counter = 0;
+
+    ImGuiTreeNodeFlags base_flags =  ImGuiTreeNodeFlags_SpanAvailWidth | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_DefaultOpen;
+
+    for (const auto& gObj : app->engineManager->sel_Scene.scene->gameObjects)
+    {
+        counter++;
+        RenderGameObjectTree(gObj, counter, selected, base_flags);
+    }
 }
 
 void WindowHierarchy::DeleteWindow()
