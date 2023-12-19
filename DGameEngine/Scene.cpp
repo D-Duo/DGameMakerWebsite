@@ -64,11 +64,11 @@ void Scene::loadFromFile(const string& path, shared_ptr<Scene> myScene) {
 
         std::string meshName = path;
         mesh->name = meshName;
-        size_t pos = meshName.find(".fbx");
+        size_t pos = meshName.find(".FBX");
 
         while (pos != std::string::npos) {
             meshName.erase(pos, 4);
-            pos = meshName.find(".fbx", pos);
+            pos = meshName.find(".FBX", pos);
         }
 
         int currentCopies = NameAvailability(meshName);
