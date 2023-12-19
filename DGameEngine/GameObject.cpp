@@ -2,24 +2,37 @@
 #include "GameObject.h"
 #include "ComponentMesh.h"
 #include "ComponentMaterial.h"
+#include "ComponentCamera.h"
+#include "ComponentTransform.h"
 
 GameObject::GameObject() {
 	name = "";
-	//components.push_back(make_shared<ComponentTransform>(*this));
+	AddComponent(Component::TRANSFORM);
 }
 
 void GameObject::UpdateGameObj() {
+
+	//if(!IsVisible()) return;
+
+	// Save current position
+	glPushMatrix();
 
 	for (const auto& components : components)
 	{
 		if (components) components->update();
 	}
 
-	//update for tree structure
+	// Unbind any active shader
+	glUseProgram(0);
+
+	// Update for tree structure
 	for (const auto& child : children)
 	{
 		if (child) child->UpdateGameObj();
 	}
+
+	// Load last position
+	glPopMatrix();
 }
 
 void GameObject::AddComponent(Component::Type component) {
@@ -28,7 +41,7 @@ void GameObject::AddComponent(Component::Type component) {
 	switch (component)
 	{
 	case Component::Type::TRANSFORM:
-		//ptr = std::make_shared<Transform>(*this);
+		ptr = move(std::make_unique<ComponentTransform>());
 		break;
 	case Component::Type::MESH:
 		ptr = move(std::make_unique<ComponentMesh>());
@@ -37,7 +50,7 @@ void GameObject::AddComponent(Component::Type component) {
 		ptr = move(std::make_unique<ComponentMaterial>());
 		break;
 	case Component::Type::CAMERA:
-		//ptr = std::make_shared<Camera>(*this);
+		ptr = move(std::make_unique<ComponentCamera>());
 		break;
 	default:
 		cout << "Can't assign wrong component type" << endl;

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "EngineGlobals.h"
-#include "Camera.h"
 #include "CubeImmediateMode.h"
 #include "Scene.h"
 #include "Loaders.h"
@@ -13,7 +12,7 @@ public:
 	GameEngine();
 	~GameEngine();
 
-	Camera camera;
+	unique_ptr<GameObject> engineCamera = make_unique<GameObject>();
 	vector<shared_ptr<Scene>> scenes;
 	FileLoader loader;
 
