@@ -37,7 +37,8 @@ public:
 	void addChild(unique_ptr<GameObject> child);
 
 	//bounding Boxes
-	//AABBox aabb() const;
+	void drawAABBox(const AABBox& aabb);
+	AABBox aabb() const;
 
 public:
 	void SetActive() { isActive = true; }

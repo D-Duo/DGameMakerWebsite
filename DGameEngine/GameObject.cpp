@@ -26,6 +26,8 @@ void GameObject::UpdateGameObj() {
 	// Unbind any active shader
 	glUseProgram(0);
 
+	drawAABBox(aabb());
+
 	// Update for tree structure
 	for (const auto& child : children)
 	{
@@ -80,7 +82,7 @@ void GameObject::addChild(unique_ptr<GameObject> child) {
 
 static inline void glVec3(const vec3& v) { glVertex3dv(&v.x); }
 
-static void drawAABBox(const AABBox& aabb) {
+void GameObject::drawAABBox(const AABBox& aabb) {
     glLineWidth(2);
     glBegin(GL_LINE_STRIP);
 
@@ -107,19 +109,19 @@ static void drawAABBox(const AABBox& aabb) {
     glEnd();
 }
 
-//AABBox GameObject::aabb() const {
-//	AABBox aabbox;
-//	if (_graphic.get()) aabbox = _graphic->aabb;
-//	else if (children.empty()) {
-//		aabbox.min = vec3(0);
-//		aabbox.max = vec3(0);
-//	}
-//
-//	for (const auto& child : children) {
-//		const auto child_aabb = (child.transform() * child.aabb()).AABB();
-//		aabbox.min = glm::min(aabbox.min, child_aabb.min);
-//		aabbox.max = glm::max(aabbox.max, child_aabb.max);
-//	}
-//
-//	return aabbox;
-//}
+AABBox GameObject::aabb() const {
+	AABBox aabbox;
+	if (_graphic.get()) aabbox = _graphic->aabb;
+	else if (children.empty()) {
+		aabbox.min = vec3(0);
+		aabbox.max = vec3(0);
+	}
+
+	for (const auto& child : children) {
+		const auto child_aabb = (child->GetComponent<ComponentTransform>()->GetTransform() * child->aabb()).AABB();
+		aabbox.min = glm::min(aabbox.min, child_aabb.min);
+		aabbox.max = glm::max(aabbox.max, child_aabb.max);
+	}
+
+	return aabbox;
+}

@@ -29,8 +29,9 @@ void ModuleEngineManager::Awake() {
     engine.CreateScene("Scene1");
     sel_Scene.index = 0;
     sel_Scene.scene = engine.GetSceneAtIndex(sel_Scene.index);
-    sel_Scene.scene->loadFromFile("BakerHouse.fbx", sel_Scene.scene);
-    //sel_GameObject.gameObject = sel_Scene.scene->gameObjects.front().get();
+    sel_Scene.scene->loadFromFile("Street environment_V01.fbx", sel_Scene.scene);
+    sel_GameObject.gameObject = sel_Scene.scene->gameObjects.front().get();
+    sel_GameObject.gameObject->GetComponent<ComponentTransform>()->setRotation(vec3(-90, 0, 0));
 }
 
 void ModuleEngineManager::Start() {
