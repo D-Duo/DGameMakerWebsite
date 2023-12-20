@@ -22,10 +22,6 @@ void WindowHierarchy::RenderGameObjectTree(const unique_ptr<GameObject>& gObj, i
     {
         tmp_flags |= ImGuiTreeNodeFlags_Leaf;
     }
-    if (selected == counter)//gObj->GetSelected())
-    {
-        tmp_flags |= ImGuiTreeNodeFlags_Selected;
-    }
 
     //ImGuiTreeNodeFlags_Bullet
     if (TreeNodeEx(name.c_str(), tmp_flags))
@@ -64,9 +60,13 @@ void WindowHierarchy::Update()
 
     for (const auto& gObj : app->engineManager->sel_Scene.scene->gameObjects)
     {
-        counter++;
-        RenderGameObjectTree(gObj, counter, selected, base_flags);
+        if (gObj)
+        {
+            counter++;
+            RenderGameObjectTree(gObj, counter, selected, base_flags);
+        }
     }
+
 }
 
 void WindowHierarchy::DeleteWindow()
@@ -81,6 +81,9 @@ void WindowHierarchy::DeleteWindow()
 	{
 		if (MenuItem("Delete"))
 		{
+            std::cout << "deleted object with index--> " << app->engineManager->sel_GameObject.gameObject->GetIndex() << endl;
+            app->engineManager->sel_Scene.scene->DeleteGameObj(app->engineManager->sel_GameObject.gameObject->GetIndex());
+            app->engineManager->sel_GameObject.CleanSelected();
 			deleteWindow = false;
 		}
 

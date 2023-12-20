@@ -115,6 +115,8 @@
     </ClInclude>
     <ClInclude Include="ComponentTransform.h">
       <Filter>Header Files\Components</Filter>
+    <ClInclude Include="BBox.hpp">
+      <Filter>Source Files\Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

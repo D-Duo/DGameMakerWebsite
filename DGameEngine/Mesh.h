@@ -43,6 +43,8 @@ public:
 	~Mesh();
 	void draw() override;
 
+	void drawAABBox();
+
 	Formats GetFormat() { return _format; }
 	unsigned int GetVertexBufferId() { return _vertex_buffer_id; }
 	unsigned int GetNumVerts() { return _numVerts; }

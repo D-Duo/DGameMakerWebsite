@@ -109,6 +109,39 @@ void Scene::loadFromFile(const string& path, shared_ptr<Scene> myScene) {
     myScene->gameObjects.push_back(move(parent_));
 }
 
+void Scene::DeleteGameObj(int index_todelete) {
+    
+    //forward
+    for (int i = 0; i < gameObjects.size(); i++)
+    {
+        if (gameObjects[i]->GetIndex() == index_todelete)
+        {
+            gameObjects[i].reset();
+            gameObjects.erase(gameObjects.begin() + i);
+            break;
+        }
+        else
+        {
+            auto& gObj_todelete = gameObjects[i];
+            auto& child_todelete = gObj_todelete->GetChildren();
+            //int childIndex_end = gObj_todelete->GetChildren().size() + i;
+
+            //if (childIndex_end >= index_todelete)
+            //{
+                for (int c = 0; c < gObj_todelete->GetChildren().size(); c++)
+                {
+                    if (child_todelete[c]->GetIndex() == index_todelete)
+                    {
+                        child_todelete[c].reset();
+                        child_todelete.erase(child_todelete.begin() + c);
+                        break;
+                    }
+                }
+            //}
+        }
+    }
+}
+
 int Scene::NameAvailability(std::string name) {
     int count = 0;
 

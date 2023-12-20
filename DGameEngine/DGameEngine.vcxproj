@@ -34,6 +34,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ComponentCamera.h" />
+    <ClInclude Include="BBox.hpp" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="ComponentMaterial.h" />
     <ClInclude Include="ComponentMesh.h" />
     <ClInclude Include="Components.h" />

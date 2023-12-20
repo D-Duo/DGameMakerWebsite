@@ -13,6 +13,9 @@ struct EngineScene
 struct SceneGO
 {
     GameObject* gameObject;
+    void CleanSelected() {
+        gameObject = nullptr;
+    }
 };
 
 class ModuleEngineManager : public Module
