@@ -5,5 +5,7 @@ ComponentMesh::ComponentMesh(shared_ptr<Mesh> mesh_) {
 }
 
 void ComponentMesh::update() {
-    mesh->draw();
+    if (this->GetIsActive()) {
+        mesh->draw();
+    }
 }

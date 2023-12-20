@@ -12,7 +12,7 @@ GameObject::GameObject() {
 
 void GameObject::UpdateGameObj() {
 
-	//if(!IsVisible()) return;
+	if (!this->isActive) { return; }
 
 	// Save current position
 	glPushMatrix();

@@ -3,6 +3,8 @@
 #include "ComponentTransform.h"
 #include "App.h"
 
+#include <glm/gtx/euler_angles.hpp>
+
 ModuleEngineManager::ModuleEngineManager(bool startEnabled) : Module(startEnabled)
 {
     name = "renderer";
@@ -16,7 +18,7 @@ void ModuleEngineManager::Awake() {
     engine.engineCamera.get()->GetComponent<ComponentCamera>()->aspect = static_cast<double>(WIN_WIDTH) / WIN_HEIGHT;
     engine.engineCamera.get()->GetComponent<ComponentCamera>()->zNear = 0.1;
     engine.engineCamera.get()->GetComponent<ComponentCamera>()->zFar = 100;
-    engine.engineCamera.get()->GetComponent<ComponentTransform>()->PositionSetter(vec3(5, 1.75, 5));
+    engine.engineCamera.get()->GetComponent<ComponentTransform>()->translate(vec3(5, 1.75, 5));
     engine.engineCamera.get()->GetComponent<ComponentCamera>()->lookAtPos = vec3(0, 1, 0);
     engine.engineCamera.get()->GetComponent<ComponentTransform>()->UpSetter(vec3(0, 1, 0));
 
@@ -86,13 +88,6 @@ void ModuleEngineManager::MainCameraUpdate() {
     auto cameraTransform = engine.engineCamera.get()->GetComponent<ComponentTransform>();
 
     if (app->events->GetMouseButton(SDL_BUTTON_RIGHT)) {
-        
-
-        //Rotate the camera based on mouse movement
-        //RotateCameraYaw(engine.camera, -deltaX);
-        //RotateCameraPitch(engine.camera, -deltaY); // Implement this function to rotate pitch
-
-
 
         if (app->events->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN) {
             camSpeed = 0.2;
@@ -129,19 +124,56 @@ void ModuleEngineManager::MainCameraUpdate() {
         double sensitivity = 0.1; // Adjust sensitivity as needed
         double deltaX = app->events->GetMouseMotionX();
         double deltaY = app->events->GetMouseMotionY();
-        
-        cameraTransform->setRotation(vec3(0, deltaX * sensitivity, 0), ComponentTransform::Space::GLOBAL);
-        cameraTransform->setRotation(vec3(deltaY * sensitivity, 0, 0), ComponentTransform::Space::LOCAL);
+
+        cameraTransform->Rotate(vec3(0, deltaX * sensitivity, 0), ComponentTransform::Space::GLOBAL);
+        cameraTransform->Rotate(vec3(deltaY * sensitivity, 0, 0), ComponentTransform::Space::LOCAL);
     }
 
-    if (app->events->GetKey(SDL_SCANCODE_LALT)) {
-        if (app->events->GetMouseButton(SDL_BUTTON_LEFT)) {
+    if (app->events->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT) {
+        // IT DOES NOT PERFORM
+        //if (app->events->GetMouseButton(SDL_BUTTON_LEFT)) {
+        //    double sensitivity = 1; // Adjust sensitivity as needed
+        //    double deltaX = app->events->GetMouseMotionX();
+        //    double deltaY = app->events->GetMouseMotionY();
 
-        }
+        //    cameraTransform->PosSetter(vec3(app->engineManager->engine.engineCamera->GetComponent<ComponentCamera>()->lookAtPos));
+
+        //    float angleX = deltaX * sensitivity;
+        //    glm::vec3 eulerAnglesX = glm::eulerAngles(glm::angleAxis(glm::radians(angleX), glm::vec3(0, 1, 0)));
+        //    cameraTransform->Rotate(eulerAnglesX, ComponentTransform::Space::GLOBAL);
+
+        //    float angleY = deltaY * sensitivity;
+        //    glm::vec3 eulerAnglesY = glm::eulerAngles(glm::angleAxis(glm::radians(angleY), glm::vec3(1, 0, 0)));
+        //    cameraTransform->Rotate(eulerAnglesY, ComponentTransform::Space::LOCAL);
+
+        //    vec3 finalPos = cameraTransform->extractTranslation() - (cameraTransform->GetForward() * app->engineManager->engine.engineCamera->GetComponent<ComponentCamera>()->camOffset);
+        //    cameraTransform->PosSetter(finalPos);
+
+        //}
         if (app->events->GetMouseButton(SDL_BUTTON_MIDDLE)) {
+            double deltaX = app->events->GetMouseMotionX();
+            double deltaY = app->events->GetMouseMotionY();
 
+            float panSpeed = 0.01f;
+
+            cameraTransform->setPosition(vec3(deltaX * panSpeed, 0, 0), ComponentTransform::Space::LOCAL);
+            cameraTransform->setPosition(vec3(0, deltaY * panSpeed, 0), ComponentTransform::Space::LOCAL);
         }
     }
 
+    if (app->events->GetKey(SDL_SCANCODE_F) == KEY_DOWN) {
 
+        auto targetTransform = sel_GameObject.gameObject->GetComponent<ComponentTransform>();
+        vec3 targetPos = targetTransform->extractTranslation();
+
+        // Calculate the rotation matrix to align the camera's forward vector with the view direction
+        glm::mat4 rotationMatrix = glm::lookAt(cameraTransform->extractTranslation(), targetPos, vec3(0, 1, 0)); // Use (0, 1, 0) as the up vector
+        vec3 eulerAngles = glm::eulerAngles(glm::quat_cast(rotationMatrix));
+
+        cameraTransform->setRotation(eulerAngles, ComponentTransform::Space::GLOBAL);
+
+        // Set the up vector of the camera's transform to ensure it's aligned with the world's up vector
+        cameraTransform->UpSetter(vec3(0, 1, 0));
+        cameraTransform->PosSetter(targetPos - cameraTransform->GetForward() * app->engineManager->engine.engineCamera->GetComponent<ComponentCamera>()->camOffset);
     }
+}
