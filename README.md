@@ -9,14 +9,6 @@ Check our full project page for more info about DGameEngine [GitHub Link](https:
 - Francisco Ferrerós Puigmartí --> [kikofp02](https://github.com/kikofp02)
 - Jan Neto Llorens --> [JanNetoLlorens](https://github.com/JanNetoLlorens)
 
-## Camera Controls
-
-Move around the scene using the following controls:
-
-- Right Click and WASD to move
-- Shift to move faster
-- Right Click and move the mouse to look around
-
 ## Windows
 
 - Docking of any of the following windows available
@@ -24,22 +16,33 @@ Move around the scene using the following controls:
 
 ### Hierarchy
 
+- Any file droped is put under a gameObject parent which makes easier to keep an organised the hierarchy
 - Where you see the gameObjects loaded in your scene
-- Click on them to display their components and information
+- Click on them to display their components and information in the inspector
 - The Arrow allows to see the children of the parent
+- Right click on any gameObject pops up a delete window which enables deletion for a gameObject and its childs
 
 ### Inspector
 
-- The inspector shows the relative information to the gameObject selected
+- The inspector shows the information relative to the gameObject selected
 
 - Components:
   - Transform: Display the position, rotation and scale
   - Mesh: Display the information relative to the mesh (numVertex, numIndex, filepath, etc)
-  - Texture: Display the information relative to the texture (filepath, isActive, etc)
+  - Texture: Display the information relative to the texture (filepath, isActive, etc
+  - Camera: move around the scene through it
+    
+- Edition:
+  - Tranform: Change the position, rotation and scale of the gameObject selected
+  - Mesh: switch active state
+  - Texture: in progress
+  - Camera: in proguess
+  - GameObject: switch active state
 
 ### Project
 
-- In a future it will display meshes, materials to load and more
+- On the left displays a tree of the files found inside the Assets library, it is possible to navigate through them
+- On the right displays the files inside the selected library
  
 ### Console
 
@@ -61,7 +64,17 @@ Move around the scene using the following controls:
 
 #### Controls
 
-- Nothing yet
+- Camera:
+  - W --> forward
+  - A --> left
+  - S --> backward
+  - D --> right
+    
+  - Space --> up
+  - CTRL --> down
+  - Alt + Rightclick --> panning
+  - Rightclick --> rotate the gamera 
+  - F center to the selected gameObject
 
 #### Renderer
 
