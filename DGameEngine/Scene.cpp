@@ -1,6 +1,7 @@
 #include "Scene.h"
 #include "Mesh.h"
 #include "Loaders.h"
+#include "ComponentTransform.h"
 
 Scene::Scene(string name) : name(name) {
 
@@ -42,6 +43,7 @@ void Scene::EmptyGameObj() {
 void Scene::loadFromFile(const string& path, shared_ptr<Scene> myScene) {
     auto meshes_vec = FileLoader::MeshloadFromFile(path);
     auto textures_vec = FileLoader::TextureloadFromFile(path);
+    auto transforms_vec = FileLoader::TransformloadFromFile(path, meshes_vec);
 
     unique_ptr<GameObject> parent_ = make_unique<GameObject>();
 
@@ -53,6 +55,8 @@ void Scene::loadFromFile(const string& path, shared_ptr<Scene> myScene) {
     for (const auto& mesh : meshes_vec)
     {
         unique_ptr<GameObject> object = make_unique<GameObject>();
+
+        object->GetComponent<ComponentTransform>()->TransformSetter(transforms_vec[i]);
 
         unique_ptr<ComponentMesh> meshComp = make_unique<ComponentMesh>(mesh);
         unique_ptr<ComponentMaterial> textComp = make_unique<ComponentMaterial>(textures_vec[mesh->mMaterialIndex]);

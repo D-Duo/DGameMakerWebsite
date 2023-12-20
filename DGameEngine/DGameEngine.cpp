@@ -11,7 +11,6 @@
 
 GameEngine::GameEngine() {
     ilInit();
-    const string mp = "Baker_house.fbx";
 }
 
 GameEngine::~GameEngine(){}
