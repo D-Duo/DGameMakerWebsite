@@ -19,9 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="ComponentCamera.cpp" />
     <ClCompile Include="ComponentMaterial.cpp" />
     <ClCompile Include="ComponentMesh.cpp" />
+    <ClCompile Include="ComponentTransform.cpp" />
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="CubeImmediateMode.cpp" />
     <ClCompile Include="DGameEngine.cpp" />
@@ -32,11 +33,13 @@
     <ClCompile Include="Texture2D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ComponentCamera.h" />
     <ClInclude Include="BBox.hpp" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ComponentMaterial.h" />
     <ClInclude Include="ComponentMesh.h" />
     <ClInclude Include="Components.h" />
+    <ClInclude Include="ComponentTransform.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="CubeImmediateMode.h" />
     <ClInclude Include="DGameEngine.h" />

@@ -33,6 +33,8 @@ public:
 
     void CleanUp();
 
+    void MainCameraUpdate();
+
     GameEngine* GetEngine()  {
         return &engine;
     }
@@ -45,5 +47,6 @@ public:
 
 private:
     GameEngine engine;
+    float camSpeed = 0.1;
 };
 

@@ -40,7 +40,7 @@ public:
 	//AABBox aabb() const;
 
 public:
-	void SetActive() { isActive != isActive; }
+	void SetActive() { isActive = true; }
 	void SetUnactive() { isActive = false; }
 	void SetName(string n) { name = n; }
 	void SetIndex(int i) { index = i; }

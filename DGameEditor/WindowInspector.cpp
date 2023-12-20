@@ -1,6 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include "WindowInspector.h"
+#include "ComponentTransform.h"
 #include <cstring>
 
 
@@ -15,20 +16,18 @@ void WindowInspector::Update() {
 		auto gObj = app->engineManager->sel_GameObject.gameObject;
 
 		AlignTextToFramePadding();
-
-		bool ifActive = gObj->GetIsActive();
-		if (Checkbox("Active", &ifActive));
-
-		if (ifActive) {
-			gObj->SetActive();
-		}
-		else
-		{
+			
+		bool active = gObj->GetIsActive();
+		Checkbox("Active", &active);
+		if (!active) {
 			gObj->SetUnactive();
+		}
+		else {
+			gObj->SetActive();
 		}
 
 		SameLine();
-		
+
 		string name = gObj->GetName().c_str();
 		strcpy(buffer, name.c_str());
 		SetNextItemWidth(GetWindowWidth() / 3.0f);
@@ -37,10 +36,10 @@ void WindowInspector::Update() {
 			string newName(buffer);
 			app->engineManager->sel_GameObject.gameObject->SetName(newName);
 		}
-		
+
 		SameLine();
 
-		bool toDelete = true;
+		bool toDelete = false;
 		Checkbox("Static", &toDelete);
 
 		Separator();
@@ -68,30 +67,98 @@ void WindowInspector::DrawComponentTransform() {
 	{
 		Columns(4);
 		Separator();
-		
-		bool toDelete = true;	//will be deleted 
-		Checkbox("Active", &toDelete); NextColumn(); Text("X"); NextColumn(); Text("Y"); NextColumn(); Text("Z"); Separator();
+
+		NextColumn(); Text("X"); NextColumn(); Text("Y"); NextColumn(); Text("Z"); Separator();
 
 		NextColumn();
 
-		float tempValue = 0.000f; //will be deleted
-		AlignTextToFramePadding();
-		Text("Position"); NextColumn(); 
-		DragFloat("##PX", &tempValue, 0.005f); NextColumn(); 
-		DragFloat("##PY", &tempValue, 0.005f);  NextColumn(); 
-		DragFloat("##PZ", &tempValue, 0.005f); NextColumn();
+		bool need_refresh_pos = false;
+		bool need_refresh_rot = false;
+		bool need_refresh_scale = false;
 
+		auto pos = app->engineManager->sel_GameObject.gameObject->GetComponent<ComponentTransform>()->extractTranslation();
 		AlignTextToFramePadding();
-		Text("Rotation"); NextColumn(); 
-		DragFloat("##RX", &tempValue, 0.005f); NextColumn();
-		DragFloat("##RY", &tempValue, 0.005f);  NextColumn();
-		DragFloat("##RZ", &tempValue, 0.005f); NextColumn();
+		Text("Position"); NextColumn();
+		float temp = pos.x;
+		if (DragFloat("##PX", &temp, 0.5F, 0, 0, "%.3f")) {
+			need_refresh_pos = true;
+			pos.x = temp;
+		}
+		NextColumn();
+		
+		temp = pos.y;
+		if (DragFloat("##PY", &temp, 0.5F, 0, 0, "%.3f")) {
+			need_refresh_pos = true;
+			pos.y = temp;
+		}
+		NextColumn();
+		
+		temp = pos.z;
+		if (DragFloat("##PZ", &temp, 0.5F, 0, 0, "%.3f")) {
+			need_refresh_pos = true;
+			pos.z = temp;
+		}
+		NextColumn();		
 
+		if (need_refresh_pos) {
+			app->engineManager->sel_GameObject.gameObject->GetComponent<ComponentTransform>()->setPosition(pos);
+		}
+
+		auto rot = app->engineManager->sel_GameObject.gameObject->GetComponent<ComponentTransform>()->extractRotationEuler();
+		AlignTextToFramePadding();
+		Text("Rotation"); NextColumn();
+		temp = rot.x;
+		if (DragFloat("##RX", &temp, 0.5F, 0, 0, "%.3f")) {
+			need_refresh_rot = true;
+			rot.x = temp;
+		}
+		NextColumn();
+		
+		temp = rot.y;
+		if (DragFloat("##RY", &temp, 0.5F, 0, 0, "%.3f")) {
+			need_refresh_rot = true;
+			rot.y = temp;
+		}
+		NextColumn();
+		
+		temp = rot.z;
+		if (DragFloat("##RZ", &temp, 0.5F, 0, 0, "%.3f")) {
+			need_refresh_rot = true;
+			rot.z = temp;
+		}
+		NextColumn();		
+
+		if (need_refresh_rot) {
+			app->engineManager->sel_GameObject.gameObject->GetComponent<ComponentTransform>()->setRotation(rot, ComponentTransform::Space::GLOBAL);
+		}
+
+		auto sc = app->engineManager->sel_GameObject.gameObject->GetComponent<ComponentTransform>()->extractScale();
 		AlignTextToFramePadding();
 		Text("Scale"); NextColumn();
-		DragFloat("##SX", &tempValue, 0.005f); NextColumn();
-		DragFloat("##SY", &tempValue, 0.005f);  NextColumn();
-		DragFloat("##SZ", &tempValue, 0.005f); NextColumn();
+		temp = sc.x;
+		if(DragFloat("##SX", &temp, 0.5F, 0, 0, "%.3f")){
+			need_refresh_scale = true;
+			sc.x = temp;
+		}
+		NextColumn();
+		
+		temp = sc.y;
+		if(DragFloat("##SY", &temp, 0.5F, 0, 0, "%.3f")){
+			need_refresh_scale = true;
+			sc.y = temp;
+		}
+		NextColumn();
+		
+		temp = sc.z;
+		if(DragFloat("##SZ", &temp, 0.5F, 0, 0, "%.3f")){
+			need_refresh_scale = true;
+			sc.z = temp;
+		}
+		NextColumn();		
+		
+		if (need_refresh_scale) {
+			app->engineManager->sel_GameObject.gameObject->GetComponent<ComponentTransform>()->setScale(sc);
+		}
 
 	}
 	Columns(1);
@@ -99,8 +166,6 @@ void WindowInspector::DrawComponentTransform() {
 }
 
 void WindowInspector::DrawComponentMesh(ComponentMesh* cMesh) {
-
-	//auto cMesh = app->engineManager->sel_Scene.scene->gameObjects[currentIndex]->GetComponent<ComponentMesh>();
 
 	if (cMesh)
 	{
@@ -116,8 +181,13 @@ void WindowInspector::DrawComponentMesh(ComponentMesh* cMesh) {
 			AlignTextToFramePadding();
 
 			bool active = cMesh->GetIsActive();
-			//Checkbox("Active", &cMesh->isActive);
 			Checkbox("Active", &active);
+			if (!active) {
+				cMesh->Disable();
+			}
+			else {
+				cMesh->SetActive();
+			}
 
 			NextColumn();
 
@@ -127,7 +197,7 @@ void WindowInspector::DrawComponentMesh(ComponentMesh* cMesh) {
 			NextColumn();
 
 			Text("Draw:");
-			bool toDelete = true; //will be deleted 
+			bool toDelete = false; //will be deleted 
 			Checkbox("Vertex Normals", &toDelete);
 			Checkbox("Face Normals", &toDelete); //SameLine(200);
 

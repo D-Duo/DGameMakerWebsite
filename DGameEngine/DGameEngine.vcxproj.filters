@@ -30,9 +30,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="DGameEngine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -63,11 +60,14 @@
     <ClCompile Include="Texture2D.cpp">
       <Filter>Source Files\Container</Filter>
     </ClCompile>
+    <ClCompile Include="ComponentCamera.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentTransform.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="DGameEngine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -110,6 +110,11 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ComponentCamera.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentTransform.h">
+      <Filter>Header Files\Components</Filter>
     <ClInclude Include="BBox.hpp">
       <Filter>Source Files\Utils</Filter>
     </ClInclude>
