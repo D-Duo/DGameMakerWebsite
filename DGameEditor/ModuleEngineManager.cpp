@@ -18,9 +18,10 @@ void ModuleEngineManager::Awake() {
     engine.engineCamera.get()->GetComponent<ComponentCamera>()->aspect = static_cast<double>(WIN_WIDTH) / WIN_HEIGHT;
     engine.engineCamera.get()->GetComponent<ComponentCamera>()->zNear = 0.1;
     engine.engineCamera.get()->GetComponent<ComponentCamera>()->zFar = 100;
-    engine.engineCamera.get()->GetComponent<ComponentTransform>()->translate(vec3(5, 1.75, 5));
+    engine.engineCamera.get()->GetComponent<ComponentTransform>()->translate(vec3(0, 50, -50));
     engine.engineCamera.get()->GetComponent<ComponentCamera>()->lookAtPos = vec3(0, 1, 0);
     engine.engineCamera.get()->GetComponent<ComponentTransform>()->UpSetter(vec3(0, 1, 0));
+    engine.engineCamera.get()->GetComponent<ComponentTransform>()->Rotate(vec3(-25, 0, 0));
 
     grid_xz = true;
     grid_xy = false;

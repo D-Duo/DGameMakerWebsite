@@ -13,7 +13,7 @@ public:
 	static vector<shared_ptr<Mesh>> MeshloadFromFile(const string& path) {
         vector<shared_ptr<Mesh>> mesh_ptrs;
 
-        string filepath = "../DGameEditor/Assets/Meshes/" + path;
+        string filepath = "Assets/Meshes/" + path;
         ifstream file(filepath.c_str());
         if (file.good()) {
             //load meshes           
@@ -71,7 +71,7 @@ public:
         //load textures
         vector<shared_ptr<Texture2D>> texture_ptrs;
 
-        string filepath = "../DGameEditor/Assets/Meshes/" + path;
+        string filepath = "Assets/Meshes/" + path;
         ifstream file(filepath.c_str());
         if (file.good()) {
 
@@ -101,7 +101,7 @@ public:
 
         vector<glm::mat4> transforms;
 
-        string filepath = "../DGameEditor/Assets/Meshes/" + path;
+        string filepath = "Assets/Meshes/" + path;
         ifstream file(filepath.c_str());
         if (file.good()) {
             //load meshes           

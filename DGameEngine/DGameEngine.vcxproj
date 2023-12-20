@@ -27,7 +27,6 @@
     <ClCompile Include="CubeImmediateMode.cpp" />
     <ClCompile Include="DGameEngine.cpp" />
     <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="GraphicObject.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Texture2D.cpp" />
@@ -35,7 +34,6 @@
   <ItemGroup>
     <ClInclude Include="ComponentCamera.h" />
     <ClInclude Include="BBox.hpp" />
-    <ClInclude Include="Camera.h" />
     <ClInclude Include="ComponentMaterial.h" />
     <ClInclude Include="ComponentMesh.h" />
     <ClInclude Include="Components.h" />
@@ -46,7 +44,6 @@
     <ClInclude Include="EngineGlobals.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Graphic.h" />
-    <ClInclude Include="GraphicObject.h" />
     <ClInclude Include="Loaders.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="resource.h" />

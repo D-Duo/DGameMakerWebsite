@@ -1,5 +1,4 @@
 #pragma once
-#include "GraphicObject.h"
 #include "EngineGlobals.h"
 
 class GameObject;
