@@ -7,6 +7,8 @@
 #include "ComponentMaterial.h"
 #include "ComponentMesh.h"
 
+#include "BBox.hpp"
+
 class ComponentMesh;
 class ComponentMaterial;
 
@@ -34,6 +36,9 @@ public:
 	//tree
 	void addChild(unique_ptr<GameObject> child);
 
+	//bounding Boxes
+	//AABBox aabb() const;
+
 public:
 	void SetActive() { isActive != isActive; }
 	void SetUnactive() { isActive = false; }
@@ -47,8 +52,10 @@ public:
 	GameObject& GetParent() { return *parent; }
 	vector<unique_ptr<GameObject>>& GetChildren() { return children; }
 
-private:
+public:
+	std::shared_ptr<Graphic> _graphic;
 
+private:
 	//void CreateUUID();
 
 	string name;

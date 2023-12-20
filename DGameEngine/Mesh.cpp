@@ -25,12 +25,24 @@ Mesh::Mesh(Formats format, const void* vertex_data, unsigned int numVerts, const
     switch (_format) {
     case Formats::F_V3:
         glBufferData(GL_ARRAY_BUFFER, sizeof(V3) * numVerts, vertex_data, GL_STATIC_DRAW);
+        for (const auto& v : span((V3*)vertex_data, numVerts)) {
+            aabb.min = glm::min(aabb.min, vec3(v.v));
+            aabb.max = glm::max(aabb.max, vec3(v.v));
+        }
         break;
     case Formats::F_V3C4:
         glBufferData(GL_ARRAY_BUFFER, sizeof(V3C4) * numVerts, vertex_data, GL_STATIC_DRAW);
+        for (const auto& v : span((V3C4*)vertex_data, numVerts)) {
+            aabb.min = glm::min(aabb.min, vec3(v.v));
+            aabb.max = glm::max(aabb.max, vec3(v.v));
+        }
         break;
     case Formats::F_V3T2:
         glBufferData(GL_ARRAY_BUFFER, sizeof(V3T2) * numVerts, vertex_data, GL_STATIC_DRAW);
+        for (const auto& v : span((V3T2*)vertex_data, numVerts)) {
+            aabb.min = glm::min(aabb.min, vec3(v.v));
+            aabb.max = glm::max(aabb.max, vec3(v.v));
+        }
         break;
     }
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -66,6 +78,8 @@ void Mesh::draw() {
 
     glBindBuffer(GL_ARRAY_BUFFER, _vertex_buffer_id);
     glEnableClientState(GL_VERTEX_ARRAY);
+
+    drawAABBox();
 
     switch (_format) {
     case Formats::F_V3:
@@ -105,4 +119,33 @@ void Mesh::draw() {
 Mesh::~Mesh() {
     if (_vertex_buffer_id) glDeleteBuffers(1, &_vertex_buffer_id);
     if (_indexs_buffer_id) glDeleteBuffers(1, &_indexs_buffer_id);
+}
+
+static inline void glVec3(const vec3& v) { glVertex3dv(&v.x); }
+
+void Mesh::drawAABBox() {
+    glLineWidth(2);
+    glBegin(GL_LINE_STRIP);
+
+    glVec3(aabb.a());
+    glVec3(aabb.b());
+    glVec3(aabb.c());
+    glVec3(aabb.d());
+    glVec3(aabb.a());
+
+    glVec3(aabb.e());
+    glVec3(aabb.f());
+    glVec3(aabb.g());
+    glVec3(aabb.h());
+    glVec3(aabb.e());
+    glEnd();
+
+    glBegin(GL_LINES);
+    glVec3(aabb.h());
+    glVec3(aabb.d());
+    glVec3(aabb.f());
+    glVec3(aabb.b());
+    glVec3(aabb.g());
+    glVec3(aabb.c());
+    glEnd();
 }
