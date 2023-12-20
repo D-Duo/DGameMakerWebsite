@@ -23,7 +23,7 @@ public:
 
 		this->Update();
 
-		ImGui::End();
+ 		ImGui::End();
 	}
 
 	States GetWindowState() {

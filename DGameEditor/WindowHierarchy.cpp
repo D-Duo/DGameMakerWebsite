@@ -22,10 +22,6 @@ void WindowHierarchy::RenderGameObjectTree(const unique_ptr<GameObject>& gObj, i
     {
         tmp_flags |= ImGuiTreeNodeFlags_Leaf;
     }
-    if (selected == counter)//gObj->GetSelected())
-    {
-        tmp_flags |= ImGuiTreeNodeFlags_Selected;
-    }
 
     //ImGuiTreeNodeFlags_Bullet
     if (TreeNodeEx(name.c_str(), tmp_flags))
@@ -61,7 +57,6 @@ void WindowHierarchy::Update()
     counter = 0;
 
     ImGuiTreeNodeFlags base_flags =  ImGuiTreeNodeFlags_SpanAvailWidth | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_DefaultOpen;
-
 
     for (const auto& gObj : app->engineManager->sel_Scene.scene->gameObjects)
     {
